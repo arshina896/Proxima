@@ -1,19 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProximaApi.Models
+namespace ProximaApi.DTOs
 {
-    public class Service
+    public class ServiceDto
     {
-        public int Id { get; set; }
         [Required]
         public string ServiceName { get; set; }
         public decimal Price { get; set; }
         public int ServiceProviderId { get; set; }
-        public ServiceProviders ServiceProviders { get; set; }
         public int ServiceCategoryId { get; set; }
-        public ServiceCategories ServiceCategories { get; set; }
     }
 }
-
-
-
