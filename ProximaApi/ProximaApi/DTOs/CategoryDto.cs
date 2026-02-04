@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProximaApi.Models
+namespace ProximaApi.DTOs
 {
-    public class ServiceCategories
+    public class CategoryDto
     {
-        public int Id { get; set; }
         [Required]
-        [MaxLength(100)]
         public string CategoryName { get; set; }
     }
 }

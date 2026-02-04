@@ -18,20 +18,20 @@ namespace ProximaApi.Controllers
         {
             this._context = context;
         }
-        [HttpPost]
-        public async Task <IActionResult>CreateService(ServiceDto serviceDto)
-        {
-            var service = new Service
-            {
-                ServiceName = serviceDto.ServiceName,
-                Price = serviceDto.Price,
-                ServiceProviderId = serviceDto.ServiceProviderId,
-                ServiceCategoryId = serviceDto.ServiceCategoryId,
-            };
-            _context.Services.Add(service);
-            await _context.SaveChangesAsync();
-            return Ok(service);
+        //[HttpPost]
+        //public async Task <IActionResult>CreateService(ServiceDto serviceDto)
+        //{
+        //    //var service = new Service
+        //    //{
+        //    //    ServiceName = serviceDto.ServiceName,
+        //    //    Price = serviceDto.Price,
+        //    //    ServiceProviderId = serviceDto.ServiceProviderId,
+        //    //    ServiceCategoryId = serviceDto.ServiceCategoryId,
+        //    //};
+        //    //_context.Services.Add(service);
+        //    //await _context.SaveChangesAsync();
+        //    //return Ok(service);
 
-        }
+        //}
     }
 }

@@ -5,8 +5,8 @@ namespace ProximaApi.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
-            : base(options) 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
         { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -14,13 +14,39 @@ namespace ProximaApi.Data
                 .Property(s => s.Price)
                 .HasPrecision(10, 2);
 
+
+            modelBuilder.Entity<Review>()
+             .HasOne(r => r.User)
+             .WithMany()
+             .HasForeignKey(r => r.UserId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.ServiceProviderUser)
+                .WithMany()
+                .HasForeignKey(r => r.ServiceProviderUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+            modelBuilder.Entity<Service>()
+        .HasOne(s => s.ServiceProviders)
+        .WithMany()
+        .HasForeignKey(s => s.ServiceProviderId)
+        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Service>()
+                .HasOne(s => s.ServiceCategories)
+                .WithMany()
+                .HasForeignKey(s => s.ServiceCategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<ServiceProviders> ServiceProviders { get; set; }
         public DbSet<ServiceCategories> ServicesCategories { get; set; }
-        public DbSet<Service> Services {  get; set; }
+        public DbSet<Service> Services { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Review> Reviews { get; set; }
 
