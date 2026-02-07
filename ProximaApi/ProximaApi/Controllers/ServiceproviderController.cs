@@ -20,11 +20,6 @@ namespace ProximaApi.Controllers
         {
             this._context = context;
         }
-
-        [Authorize]
-        [HttpPost("apply")]
-       
-
         [HttpPost]
         public async Task<IActionResult> CreateService(ServiceDto serviceDto)
         {
@@ -72,11 +67,11 @@ namespace ProximaApi.Controllers
         [HttpPut("booking/{bookingid}/status")]
         public async Task<IActionResult> UpdateStatus(int bookingid, BookingSatusDto bookingSatusDto)
         {
-         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             string role = User.FindFirst(ClaimTypes.Role)?.Value;
             if (role == "Admin")
                 return Unauthorized("Admin can not update");
-            
+
             var booking = await _context.Bookings
                .Include(s => s.Service)
                .ThenInclude(s => s.ServiceProvider)
@@ -85,16 +80,40 @@ namespace ProximaApi.Controllers
             if (booking == null)
                 return NotFound("Booking not found");
 
-            
-                if (booking.Service.ServiceProvider.UserId != userId)
-                {
-                    return Unauthorized("Not allowed to update this booking");
-                }
-                booking.Status = bookingSatusDto.Status;
-                await _context.SaveChangesAsync();
-            
+
+            if (booking.Service.ServiceProvider.UserId != userId)
+            {
+                return Unauthorized("Not allowed to update this booking");
+            }
+            booking.Status = bookingSatusDto.Status;
+            await _context.SaveChangesAsync();
+
             return Ok("Booking status updated");
         }
+
+        [HttpGet]
+        public async Task<IActionResult>AllBookings()
+        {
+            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var provider=await _context.ServiceProviders
+                .FirstOrDefaultAsync(s=>s.UserId== userId);
+            if (provider == null)
+                return Unauthorized("Your are not an approved provider");
+            var bookings= await _context.Bookings
+                .Include(s => s.Service)
+                .Include(b=>b.User)
+                .Where(b=>b.Service.ServiceProviderId== provider.Id)
+                .Select(b=>new
+                {
+                    b.Id,
+                    serviceName=b.Service.ServiceName,
+                    CustomerName=b.User.FullName,
+                    b.BookingDate,
+                    b.Status
+                }).ToListAsync();
+            return Ok(bookings);
+        }
+
 
     }
 }
