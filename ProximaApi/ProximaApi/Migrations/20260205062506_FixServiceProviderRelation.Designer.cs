@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProximaApi.Data;
 
@@ -11,9 +12,11 @@ using ProximaApi.Data;
 namespace ProximaApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260205062506_FixServiceProviderRelation")]
+    partial class FixServiceProviderRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +52,7 @@ namespace ProximaApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("ProximaApi.Models.Review", b =>
@@ -79,7 +82,7 @@ namespace ProximaApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("ProximaApi.Models.Service", b =>
@@ -110,7 +113,7 @@ namespace ProximaApi.Migrations
 
                     b.HasIndex("ServiceProviderId");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("ProximaApi.Models.ServiceCategories", b =>
@@ -128,7 +131,7 @@ namespace ProximaApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ServicesCategories", (string)null);
+                    b.ToTable("ServicesCategories");
                 });
 
             modelBuilder.Entity("ProximaApi.Models.ServiceProvider", b =>
@@ -149,7 +152,7 @@ namespace ProximaApi.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("ServiceProviders", (string)null);
+                    b.ToTable("ServiceProviders");
                 });
 
             modelBuilder.Entity("ProximaApi.Models.User", b =>
@@ -187,7 +190,7 @@ namespace ProximaApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("ProximaApi.Models.Booking", b =>

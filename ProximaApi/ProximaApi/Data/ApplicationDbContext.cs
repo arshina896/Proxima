@@ -29,22 +29,23 @@ namespace ProximaApi.Data
 
 
             modelBuilder.Entity<Service>()
-        .HasOne(s => s.ServiceProviders)
-        .WithMany()
-        .HasForeignKey(s => s.ServiceProviderId)
-        .OnDelete(DeleteBehavior.Restrict);
+     .HasOne(s => s.ServiceProvider)
+     .WithMany(p => p.Services)
+     .HasForeignKey(s => s.ServiceProviderId)
+     .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Service>()
-                .HasOne(s => s.ServiceCategories)
-                .WithMany()
+                .HasOne(s => s.ServiceCategory)
+                .WithMany(c => c.Services)
                 .HasForeignKey(s => s.ServiceCategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
+
 
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<ServiceProviders> ServiceProviders { get; set; }
+        public DbSet<Models.ServiceProvider> ServiceProviders { get; set; }
         public DbSet<ServiceCategories> ServicesCategories { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Booking> Bookings { get; set; }

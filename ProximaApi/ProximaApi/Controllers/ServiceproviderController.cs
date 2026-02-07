@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProximaApi.Data;
+using ProximaApi.DTOs;
 using ProximaApi.Models;
 
 namespace ProximaApi.Controllers
@@ -11,7 +13,7 @@ namespace ProximaApi.Controllers
     [ApiController]
     public class ServiceproviderController : ControllerBase
     {
-        
+
         private readonly ApplicationDbContext _context;
 
         public ServiceproviderController(ApplicationDbContext context)
@@ -21,27 +23,77 @@ namespace ProximaApi.Controllers
 
         [Authorize]
         [HttpPost("apply")]
-        public async Task<IActionResult> ApplyProvider()
+       
+
+        [HttpPost]
+        public async Task<IActionResult> CreateService(ServiceDto serviceDto)
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            if (_context.ServiceProviders.Any(x => x.UserId == userId))
-                return BadRequest("Already applied");
-            var provider = new ServiceProviders
+            var provider = await _context.ServiceProviders
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+            if (provider == null)
+                return Unauthorized("Not an approved service provider");
+            var service = new Service
             {
-                UserId = userId,
-                IsApproved = false,
+                ServiceName = serviceDto.ServiceName,
+                Price = serviceDto.Price,
+                ServiceCategoryId = serviceDto.ServiceCategoryId,
+                ServiceProviderId = provider.Id
             };
-            _context.ServiceProviders.Add(provider);
-            _context.SaveChanges();
-            return Ok("Applied for service provider");
+            _context.Services.Add(service);
+            await _context.SaveChangesAsync();
+            return Ok("Service Created Successfully");
         }
+        [Authorize(Roles = "ServiceProvider")]
 
-
-
-        [HttpGet("test")]
-        public IActionResult Test()
+        [HttpGet("Provider-bookings")]
+        public async Task<IActionResult> ProviderBookings()
         {
-            return Ok("API Working");
+            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var provider = await _context.ServiceProviders
+                .FirstOrDefaultAsync(s => s.UserId == userid);
+            if (provider == null) return Unauthorized();
+
+            var bookings = await _context.Bookings
+                .Include(s => s.Service)
+                .Where(s => s.Service.ServiceProviderId == provider.Id)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.BookingDate,
+                    s.Status,
+                    CustomerName = s.User.FullName,
+                    s.Service.ServiceName,
+
+                }).ToListAsync();
+            return Ok(bookings);
+        }
+        //update booking status
+        [HttpPut("booking/{bookingid}/status")]
+        public async Task<IActionResult> UpdateStatus(int bookingid, BookingSatusDto bookingSatusDto)
+        {
+         int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            string role = User.FindFirst(ClaimTypes.Role)?.Value;
+            if (role == "Admin")
+                return Unauthorized("Admin can not update");
+            
+            var booking = await _context.Bookings
+               .Include(s => s.Service)
+               .ThenInclude(s => s.ServiceProvider)
+               .FirstOrDefaultAsync(b => b.Id == bookingid);
+
+            if (booking == null)
+                return NotFound("Booking not found");
+
+            
+                if (booking.Service.ServiceProvider.UserId != userId)
+                {
+                    return Unauthorized("Not allowed to update this booking");
+                }
+                booking.Status = bookingSatusDto.Status;
+                await _context.SaveChangesAsync();
+            
+            return Ok("Booking status updated");
         }
 
     }

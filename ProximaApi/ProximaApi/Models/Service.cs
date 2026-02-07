@@ -9,9 +9,9 @@ namespace ProximaApi.Models
         public string ServiceName { get; set; }
         public decimal Price { get; set; }
         public int ServiceProviderId { get; set; }
-        public User ServiceProviders { get; set; }
+        public ServiceProvider ServiceProvider { get; set; }
         public int ServiceCategoryId { get; set; }
-        public ServiceCategories ServiceCategories { get; set; }
+        public ServiceCategories ServiceCategory { get; set; }
     }
 }
 
