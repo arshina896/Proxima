@@ -20,7 +20,7 @@ namespace ProximaApi.Controllers
         {
             this._context = context;
         }
-   
+
         [HttpPost("apply")]
         public async Task<IActionResult> ApplyProvider()
         {
@@ -60,10 +60,10 @@ namespace ProximaApi.Controllers
         public async Task<IActionResult> CreateBooking(BookingDto bookingDto)
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-               var service= await _context.Services
-                .Include(s=>s.ServiceProvider)
-                .FirstOrDefaultAsync(s=>s.Id==bookingDto.ServiceId);
-            if (service == null) 
+            var service = await _context.Services
+             .Include(s => s.ServiceProvider)
+             .FirstOrDefaultAsync(s => s.Id == bookingDto.ServiceId);
+            if (service == null)
                 return NotFound("Service Not found");
             if (!service.ServiceProvider.IsApproved)
                 return BadRequest("Service provider not approved");
@@ -79,5 +79,31 @@ namespace ProximaApi.Controllers
             return Ok("Booking Created successfully");
         }
 
+
+        //booking details
+        [HttpGet("myBooking")]
+        public async Task <IActionResult> MyBookings()
+        {
+            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var bookings = await _context.Bookings
+                .Include(s => s.Service)
+                .ThenInclude(s => s.ServiceCategory)
+                .Include(b => b.Service)
+                .ThenInclude(b => b.ServiceProvider)
+                .Where(b => b.UserId == userid)
+                .Select(b => new
+                {
+                    b.Id,
+                    ServiceName = b.Service.ServiceName,
+                    Category = b.Service.ServiceCategory.CategoryName,
+                    ProviderName = b.Service.ServiceProvider.User.FullName,
+                    b.BookingDate,
+                    b.Status,
+
+                }).ToListAsync();
+            return Ok(bookings);
+
+        }
     }
+
 }

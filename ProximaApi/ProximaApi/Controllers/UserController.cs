@@ -105,13 +105,7 @@ namespace ProximaApi.Controllers
                 role = user.Role
             });
         }
-
-
-        //public async Task<IActionResult> CreateRole()
-        //{
-        //    await _roleManager.CreateAsync(new IdentityRole("Customer"));
-        //    return Ok("roleCreated");
-        //}
-
     }
 }
+
+

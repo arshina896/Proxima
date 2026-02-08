@@ -90,8 +90,7 @@ namespace ProximaApi.Controllers
 
             return Ok("Booking status updated");
         }
-
-        [HttpGet]
+       [HttpGet]
         public async Task<IActionResult>AllBookings()
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
