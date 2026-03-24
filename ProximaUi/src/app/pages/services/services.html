@@ -1,0 +1,13 @@
+
+
+<h2>Available Services</h2>
+
+<p>{{ services | json }}</p>  
+
+<div *ngFor="let s of services">
+  <h3>{{ s.serviceName }}</h3>
+  <p>Category: {{ s.category }}</p>
+  <p>Provider: {{ s.provider }}</p>
+  <p>Price: ₹{{ s.price }}</p>
+<button (click)="bookingService(s.id)"> Book Now</button>
+</div>

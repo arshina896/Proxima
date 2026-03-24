@@ -6,16 +6,36 @@ import { environments } from '../environments/environments';
   providedIn: 'root',
 })
 export class ApiService {
-  constructor(private http:HttpClient){}
-  test(){
-    return this.http.get(environments.apiUrl+'/test');
+  constructor(private http: HttpClient) { }
+
+  login(data: any) {
+    return this.http.post(environments.apiUrl + '/user/login', data);
   }
-  login(email:string,password:string){
-    return this.http.post(environments.apiUrl+'/user/login',{
-      email:email,
-      password:password
-    });
+
+  register(data: any) {
+    return this.http.post(environments.apiUrl + '/user/register', data);
   }
+
+  getService() {
+    return this.http.get(environments.apiUrl + '/customer');
+  }
+
+  bookingService(serviceId: number) {
+    return this.http.post(environments.apiUrl + '/customer', { serviceId: serviceId }
+
+    );
+  }
+  getMyBookin(){
+    return this.http.get(environments.apiUrl+'/customer/myBooking');
+  }
+
+updateBookingStatus(id:number,status: string){
+  return this.http.put(environments.apiUrl+'/serviceprovider/booking/' + id + '/status',   { status: status } );
+}
+getProviderBookings(){
+  return this.http.get(environments.apiUrl+'/serviceprovider/bookings');
+}
+
 }
 // {
 //   "email": "arshina@gmail.com",

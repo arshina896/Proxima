@@ -76,7 +76,7 @@ namespace ProximaApi.Controllers
             };
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
-            return Ok("Booking Created successfully");
+            return Ok(new { message = "Booking Created successfully" });
         }
 
 
@@ -91,6 +91,7 @@ namespace ProximaApi.Controllers
                 .Include(b => b.Service)
                 .ThenInclude(b => b.ServiceProvider)
                 .Where(b => b.UserId == userid)
+                
                 .Select(b => new
                 {
                     b.Id,

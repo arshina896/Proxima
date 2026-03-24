@@ -40,7 +40,7 @@ namespace ProximaApi.Controllers
 
         }
 
-
+        //user provider aavan ullath
         [HttpGet("pending")]
         public async Task<IActionResult>PendingRequests()
         {
@@ -57,7 +57,7 @@ namespace ProximaApi.Controllers
                 }).ToList();
             return Ok(requests);
         }
-
+        //
         [HttpPost("approve/{id}")]
         public async Task <IActionResult>Approveprovider(int id)
         {

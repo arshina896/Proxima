@@ -87,10 +87,9 @@ namespace ProximaApi.Controllers
             }
             booking.Status = bookingSatusDto.Status;
             await _context.SaveChangesAsync();
-
-            return Ok("Booking status updated");
+            return Ok(new { message = "Booking status updated" });
         }
-       [HttpGet]
+       [HttpGet("bookings")]
         public async Task<IActionResult>AllBookings()
         {
             int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);

@@ -1,0 +1,42 @@
+<!-- <input type="text" placeholder="Full Name" [(ngModel)]="fullname" name="fullname" required>
+
+<input type="email" placeholder="Email" [(ngModel)]="email" required>
+<input type="password" placeholder="password" [(ngModel)]="password" required>
+<input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+
+<button (click)="register()">Register</button>
+<p>Already have account ?<a roterLink="/login">Login</a></p> -->
+
+
+<form (ngSubmit)="register()" #registerForm="ngForm">
+    <input type="text" placeholder="Full Name" [(ngModel)]="fullname" name="fullname" required #fullnameRef="ngModel">
+
+    <div *ngIf="fullnameRef.invalid && fullnameRef.touched">
+        Full Name is required
+    </div>
+
+
+    <input type="email" placeholder="Email" [(ngModel)]="email" name="email" required #emailRef="ngModel">
+
+    <div *ngIf="emailRef.invalid && emailRef.touched">
+        Valid email required
+    </div>
+
+
+    <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required minlength="6"
+        #passRef="ngModel">
+
+    <div *ngIf="passRef.invalid && passRef.touched">
+        Password must be at least 6 characters
+    </div>
+
+
+    <input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+    <button type="submit" [disabled]="registerForm.invalid">
+        Register
+    </button>
+
+
+
+    <p>Already have account? <a routerLink="/login">Login</a></p>
+</form>
