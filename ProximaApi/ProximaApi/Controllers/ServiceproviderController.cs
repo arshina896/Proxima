@@ -111,7 +111,7 @@ namespace ProximaApi.Controllers
                 }).ToListAsync();
             return Ok(bookings);
         }
-
+       
 
     }
 }

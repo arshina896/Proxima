@@ -73,10 +73,13 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+
 app.MapControllers();
-
-
-
+app.MapFallbackToFile("index.html");
 ////
 
 //using (var scope = app.Services.CreateScope())
@@ -98,7 +101,7 @@ app.MapControllers();
 //        context.SaveChanges();
 //    }
 //}
- 
+
 ////
 
 

@@ -36,6 +36,10 @@ getProviderBookings(){
   return this.http.get(environments.apiUrl+'/serviceprovider/bookings');
 }
 
+getProvider(){
+  return this.http.get(environments.apiUrl+'/customer/providerWithService');
+}
+
 }
 // {
 //   "email": "arshina@gmail.com",

@@ -1,5 +1,27 @@
 <p>home works!</p>
 
+
+
+<h2>Service Providers</h2>
+
+<div class="container">
+  <div *ngFor="let p of providers" class="card">
+
+    <h3>{{ p.providerName }}</h3>
+
+    <div *ngFor="let s of p.services" class="service">
+      <p>{{ s.serviceName }}</p>
+      <p>₹{{ s.price }}</p>
+
+      <button (click)="bookingService(s.id)">
+        Book Now
+      </button>
+    </div>
+
+
+</div>
+
+
 <a routerLink="/services">View Services</a>
 <a routerLink="/my-bookings">My Bookings</a>
 <button (click)="logout()">Logout</button>

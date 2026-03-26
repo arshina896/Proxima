@@ -1,4 +1,4 @@
-<h2>Provider Dashboard</h2>
+<!-- <h2>Provider Dashboard</h2>
 
 <div *ngFor="let b of bookings">
   <h3>{{ b.serviceName }}</h3>
@@ -10,4 +10,33 @@
   <button (click)="updateStatus(b.id, 'Rejected')">Reject</button>
 
   <hr>
+</div> -->
+
+
+<div class="dashboard">
+  <h2>Provider Dashboard</h2>
+
+  <div class="booking-container">
+    <div class="booking-card" *ngFor="let booking of bookings">
+      
+      <h3>{{ booking.serviceName }}</h3>
+      <p><strong>User:</strong> {{ booking.userName }}</p>
+      <p><strong>Date:</strong> {{ booking.date | date }}</p>
+
+      <span class="status" [ngClass]="booking.status">
+        {{ booking.status }}
+      </span>
+
+      <div class="actions">
+        <button (click)="updateStatus(booking.id, 'Accepted')" class="accept">
+          Accept
+        </button>
+
+        <button (click)="updateStatus(booking.id, 'Rejected')" class="reject">
+          Reject
+        </button>
+      </div>
+
+    </div>
+  </div>
 </div>

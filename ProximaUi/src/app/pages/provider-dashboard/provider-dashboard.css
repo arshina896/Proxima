@@ -1,0 +1,71 @@
+.dashboard {
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.booking-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.booking-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: 0.3s;
+}
+
+.booking-card:hover {
+  transform: translateY(-5px);
+}
+
+.status {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+/* STATUS COLORS */
+.Pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.Accepted {
+  background: #d4edda;
+  color: #155724;
+}
+
+.Rejected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.actions {
+  margin-top: 15px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.accept {
+  background: #28a745;
+  color: white;
+}
+
+.reject {
+  background: #dc3545;
+  color: white;
+}

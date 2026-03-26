@@ -105,6 +105,28 @@ namespace ProximaApi.Controllers
             return Ok(bookings);
 
         }
+
+
+        [HttpGet("providerWithService")]
+        public async Task<IActionResult> GetProvidersWithServices()
+        {
+            var providers = await _context.ServiceProviders
+                .Include(p => p.Services)
+                .Select(p => new
+                {
+                    p.Id,
+                    ProviderName = p.User.FullName,
+                    Services = p.Services.Select(s => new
+                    {
+                        s.Id,
+                        s.ServiceName,
+                        s.Price
+                    })
+                })
+                .ToListAsync();
+
+            return Ok(providers);
+        }
     }
 
 }
