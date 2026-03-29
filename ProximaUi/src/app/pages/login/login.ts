@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../api-service';
+
 
 import { Router } from '@angular/router';
+import { ApiService } from '../../services/api-service';
 
 
 @Component({

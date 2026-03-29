@@ -1,1 +1,45 @@
-<p>admin-dashboard works!</p>
+<h2>Admin Dashboard</h2>
+
+<div *ngIf="loading">Loading...</div>
+
+<table *ngIf="!loading && pendingProviders.length > 0" border="1">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Action</th>
+  </tr>
+
+  <tr *ngFor="let p of pendingProviders">
+    <td>{{ p.fullName }}</td>
+    <td>{{ p.email }}</td>
+    <td>
+      <button (click)="approve(p.id)">Approve</button>
+    </td>
+  </tr>
+</table>
+
+<div *ngIf="!loading && pendingProviders.length === 0">
+  ❗ No pending requests
+</div>
+
+<h3>Create Category</h3>
+
+<input [(ngModel)]="newCategory" placeholder="Enter category name">
+
+<button *ngIf="!editMode" (click)="createCategory()">Add</button>
+<button *ngIf="editMode" (click)="saveCategory()">Update</button>
+<button *ngIf="editMode" (click)="resetForm()">Cancel</button>
+
+<hr>
+
+
+<h3>All Categories</h3>
+
+<ul>
+  <li *ngFor="let c of categories">
+    {{ c.categoryName || c.CategoryName }}
+    <button (click)="startEdit(c)">Edit</button>
+    <button (click)="deleteCategory(c.id)">Delete</button>
+  </li>
+</ul>
+<button (click)="logout()">Logout</button>

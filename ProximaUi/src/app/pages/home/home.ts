@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component,OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ApiService } from '../../api-service';
+
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api-service';
 
 @Component({
   selector: 'app-home',
@@ -9,15 +10,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit{
+export class Home implements OnInit {
   providers: any[] = [];
-  constructor(private router: Router, private api: ApiService , private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private api: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.api.getProvider().subscribe((res: any) => {
       console.log(res);
-         this.providers = res;
-    this.cdr.detectChanges();   
+      this.providers = res;
+      this.cdr.detectChanges();
     });
   }
 

@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ namespace ProximaApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "ServiceProvider")]
     public class ServiceproviderController : ControllerBase
     {
 
@@ -39,7 +41,27 @@ namespace ProximaApi.Controllers
             await _context.SaveChangesAsync();
             return Ok("Service Created Successfully");
         }
-        [Authorize(Roles = "ServiceProvider")]
+        [HttpGet]
+        public async Task<IActionResult> GetMyservice()
+        {
+            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var provider = await _context.ServiceProviders
+                .FirstOrDefaultAsync(s => s.UserId == userid);
+            if (provider == null) return Unauthorized();
+            var services = await _context.Services
+        .Include(s => s.ServiceCategory)
+        .Where(s => s.ServiceProviderId == provider.Id)
+        .Select(s => new
+        {
+            s.Id,
+            s.ServiceName,
+            s.Price,
+            CategoryName = s.ServiceCategory.CategoryName
+        })
+        .ToListAsync();
+
+            return Ok(services);
+        }
 
         [HttpGet("Provider-bookings")]
         public async Task<IActionResult> ProviderBookings()
@@ -111,7 +133,13 @@ namespace ProximaApi.Controllers
                 }).ToListAsync();
             return Ok(bookings);
         }
-       
+
+        [HttpGet("category")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var categories = await _context.ServicesCategories.ToListAsync();
+            return Ok(categories);
+        }
 
     }
 }

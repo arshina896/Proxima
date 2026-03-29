@@ -19,10 +19,15 @@ namespace ProximaApi.Controllers
         {
             this._context = context;
         }
+        [HttpGet("category")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var categories = await _context.ServicesCategories.ToListAsync();
+            return Ok(categories);
+        }
 
 
-   
-        [HttpPost]
+        [HttpPost("category")]
         public async Task <IActionResult>CategoryCreate(CategoryDto categoryDto)
         {
             if (!ModelState.IsValid)
@@ -71,6 +76,29 @@ namespace ProximaApi.Controllers
             provider.User.Role = "ServiceProvider";
             await _context.SaveChangesAsync();
             return Ok("Service provider approved successfully");
+        }
+        [HttpDelete("category/{id}")]
+        public async Task <IActionResult> DeleteCategory(int id)
+        {
+            var category = await _context.ServicesCategories.FindAsync(id);
+            if (category == null)
+                return NotFound("category not found");
+            _context.ServicesCategories.Remove(category);
+            await _context.SaveChangesAsync();
+            return Ok("Category delete successfully");
+        }
+        [HttpPut("category/{id}")]
+        public async Task<IActionResult> UpdateCategory(int id ,CategoryDto categoryDto)
+        {
+            var category = await _context.ServicesCategories.FindAsync(id);
+            if (category == null)
+                return NotFound("Category not found");
+            bool exists = await _context.ServicesCategories.AnyAsync(c => c.CategoryName.ToLower() == categoryDto.CategoryName.ToLower() && c.Id != id);
+            if (exists)
+                return BadRequest("Category already exists");
+            category.CategoryName=categoryDto.CategoryName;
+            await _context.SaveChangesAsync();
+            return Ok(category);
         }
     }
 }

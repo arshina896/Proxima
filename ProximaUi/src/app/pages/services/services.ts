@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { ApiService } from '../../api-service';
+import { ApiService } from '../../services/api-service';
+
 
 
 @Component({

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
-import { ApiService } from '../../api-service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api-service';
 @Component({
   selector: 'app-register',
   standalone: true,

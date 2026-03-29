@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environments } from '../environments/environments';
-
+import { environments } from '../../environments/environments';
+import { HttpClient } from '@angular/common/http';
+environments
 @Injectable({
   providedIn: 'root',
 })
@@ -29,37 +29,36 @@ export class ApiService {
     return this.http.get(environments.apiUrl+'/customer/myBooking');
   }
 
-updateBookingStatus(id:number,status: string){
-  return this.http.put(environments.apiUrl+'/serviceprovider/booking/' + id + '/status',   { status: status } );
-}
-getProviderBookings(){
-  return this.http.get(environments.apiUrl+'/serviceprovider/bookings');
-}
+// updateBookingStatus(id:number,status: string){
+//   return this.http.put(environments.apiUrl+'/serviceprovider/booking/' + id + '/status',   { status: status } );
+// }
+// getProviderBookings(){
+//   return this.http.get(environments.apiUrl+'/serviceprovider/bookings');
+// }
 
 getProvider(){
   return this.http.get(environments.apiUrl+'/customer/providerWithService');
 }
-
 }
-// {
-//   "email": "arshina@gmail.com",
-//   "password": "arshina@1"
-// }
+
+// //   "email": "arshina@gmail.com",
+// //   "password": "arshina@1"
+// // }
 
 
-// {
-//   "email": "arshina312@gmail.com",
-//   "password": "Admin@1"
-// }
+// // {
+// //   "email": "arshina312@gmail.com",
+// //   "password": "Admin@1"
+// // }
 
 
-// {
-//   "email": "anzila@gmail.com",
-//   "password": "anzila@1"
-// }
+// // {
+// //   "email": "anzila@gmail.com",
+// //   "password": "anzila@1"
+// // }
 
 
-// {
-//   "email": "shafeeq@gmail.com",
-//   "password": "shafeeq@1"
-// }
+// // {
+// //   "email": "shafeeq@gmail.com",
+// //   "password": "shafeeq@1"
+// // }

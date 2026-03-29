@@ -10,7 +10,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "public/api-service.spec.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

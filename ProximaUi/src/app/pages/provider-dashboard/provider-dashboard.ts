@@ -1,26 +1,46 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ApiService } from '../../api-service';
+import { ServiceProviderService } from '../../services/service-provider-service';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-provider-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './provider-dashboard.html',
   styleUrl: './provider-dashboard.css',
 })
 export class ProviderDashboard implements OnInit {
   bookings: any[] = [];
-  constructor(private api: ApiService, private cdr: ChangeDetectorRef) { }
+  categories: any[] = [];
+  categoryId: number | null = null;
+services: any[] = [];
+  serviceName = "";
+  price: number | null = null;
+  constructor(private api: ServiceProviderService, private cdr: ChangeDetectorRef) { }
   ngOnInit() {
     this.loadBooking();
+    this.loadCategories();
+      this.getService(); 
+  }
+  loadCategories() {
+    this.api.getCategories().subscribe((res: any) => {
+      this.categories = res;
+      setTimeout(() => {
+        this.cdr.detectChanges();
+      });
+    });
   }
   loadBooking() {
     this.api.getProviderBookings().subscribe({
       next: (res: any) => {
-        console.log("provider Bookings:", res);
+        console.log("Provider Bookings:", res);
         this.bookings = res;
-       this.cdr.detectChanges(); 
+
+        setTimeout(() => {
+          this.cdr.detectChanges();
+        });
       },
       error: (err) => console.log(err)
     });
@@ -33,5 +53,42 @@ export class ProviderDashboard implements OnInit {
       },
       error: (err) => console.log(err)
     });
+  }
+  // ✅ CREATE SERVICE
+  createService() {
+
+    if (!this.serviceName || !this.price || !this.categoryId) {
+      alert("Fill all fields");
+      return;
+    }
+
+    const data = {
+      serviceName: this.serviceName,
+      price: this.price,
+      serviceCategoryId: this.categoryId
+    };
+
+    this.api.createService(data).subscribe({
+      next: () => {
+        alert("Service Created");
+
+        // reset
+        this.serviceName = "";
+        this.price = null;
+        this.categoryId = null;
+      },
+      error: (err) => console.log(err)
+    });
+  }
+  getService() {
+    this.api.getService().subscribe({
+      next: (res: any) => {
+        console.log("SERVICES:", res);
+            this.services = res;
+        setTimeout(() => {
+          this.cdr.detectChanges();
+        });
+      }
+    })
   }
 }

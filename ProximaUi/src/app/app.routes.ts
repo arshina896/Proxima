@@ -5,8 +5,10 @@ import { authGuard } from './auth-guard';
 import { Register } from './pages/register/register';
 import { ProviderDashboard } from './pages/provider-dashboard/provider-dashboard';
 import { AdminDashboard } from './pages/admin-dashboard/admin-dashboard';
-import { Services } from './pages/services/services';
+
 import { MyBookings } from './pages/my-bookings/my-bookings';
+import { Services } from './pages/services/services';
+
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -17,6 +19,8 @@ export const routes: Routes = [
   {path:'admin',component:AdminDashboard},
   {path:'services',component:Services},
   {path:'my-bookings',component:MyBookings},
+  {path:'admin',component:AdminDashboard},
+
 ];
 
 
