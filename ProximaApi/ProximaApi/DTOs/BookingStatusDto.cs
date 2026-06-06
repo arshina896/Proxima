@@ -2,7 +2,7 @@
 
 namespace ProximaApi.DTOs
 {
-    public class BookingSatusDto
+    public class BookingStatusDto
     {
         [Required]
         public string Status { get; set; }

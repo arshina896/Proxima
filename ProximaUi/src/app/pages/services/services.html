@@ -2,12 +2,34 @@
 
 <h2>Available Services</h2>
 
-<p>{{ services | json }}</p>  
+<!-- 🔍 SEARCH -->
+<input type="text"
+       placeholder="Search services..."
+       [(ngModel)]="searchText"
+       (input)="filterServices()" />
 
-<div *ngFor="let s of services">
+<!-- 📂 CATEGORY FILTER -->
+<select [(ngModel)]="selectedCategory"
+        (change)="filterServices()">
+
+  <option value="">All Categories</option>
+
+  <option *ngFor="let c of categories" [value]="c.id">
+   {{ c.categoryName }}
+  </option>
+
+</select>
+
+<br><br>
+
+<!-- ❌ REMOVE THIS LATER (debug only) -->
+<p>{{ services | json }}</p>
+
+<!-- ✅ USE FILTERED LIST -->
+<div *ngFor="let s of filteredServices">
   <h3>{{ s.serviceName }}</h3>
   <p>Category: {{ s.category }}</p>
   <p>Provider: {{ s.provider }}</p>
   <p>Price: ₹{{ s.price }}</p>
-<button (click)="bookingService(s.id)"> Book Now</button>
+  <button (click)="bookingService(s.id)"> Book Now</button>
 </div>

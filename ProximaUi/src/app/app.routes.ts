@@ -16,7 +16,7 @@ export const routes: Routes = [
   // { path: 'home', component: Home, canActivate: [authGuard] },
   { path: 'home', component: Home},
   {path:'provider',component:ProviderDashboard},
-  {path:'admin',component:AdminDashboard},
+  
   {path:'services',component:Services},
   {path:'my-bookings',component:MyBookings},
   {path:'admin',component:AdminDashboard},

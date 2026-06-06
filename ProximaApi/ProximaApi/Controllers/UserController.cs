@@ -86,7 +86,7 @@ namespace ProximaApi.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email && u.IsActive);
             if (user == null)
             {
-                return Unauthorized("Invalid email or passwo");
+                return Unauthorized("Invalid email or password");
             }
             bool isValidPassword = PasswordHelper.VerifyPassword(
                 loginDto.Password,
@@ -105,6 +105,8 @@ namespace ProximaApi.Controllers
                 role = user.Role
             });
         }
+
+
     }
 }
 

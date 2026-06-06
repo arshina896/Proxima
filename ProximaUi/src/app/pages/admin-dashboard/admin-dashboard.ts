@@ -32,8 +32,6 @@ export class AdminDashboard implements OnInit {
 
   }
 
-
-
   getPendingProviders() {
     this.loading = true;
 
@@ -78,7 +76,7 @@ export class AdminDashboard implements OnInit {
         },
         error: (err) => {
           if (err.status !== 400) {
-            console.error(err); 
+            console.error(err);
           }
         }
       }
@@ -130,23 +128,23 @@ export class AdminDashboard implements OnInit {
   }
 
 
- deleteCategory(id: number) {
-  if (!confirm("Are you sure?")) return;
+  deleteCategory(id: number) {
+    if (!confirm("Are you sure?")) return;
 
-  this.adminService.deleteCategory(id).subscribe({
-    next: () => {
-      alert("Deleted successfully");
-      this.getCategories();
-    },
-    error: (err) => {
-    
-      if (err.status === 200) {
+    this.adminService.deleteCategory(id).subscribe({
+      next: () => {
         alert("Deleted successfully");
         this.getCategories();
+      },
+      error: (err) => {
+
+        if (err.status === 200) {
+          alert("Deleted successfully");
+          this.getCategories();
+        }
       }
-    }
-  });
-}
+    });
+  }
   resetForm() {
     this.newCategory = "";
     this.editMode = false;

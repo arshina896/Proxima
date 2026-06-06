@@ -14,12 +14,11 @@ namespace ProximaApi.Data
                 .Property(s => s.Price)
                 .HasPrecision(10, 2);
 
-
             modelBuilder.Entity<Review>()
-             .HasOne(r => r.User)
-             .WithMany()
-             .HasForeignKey(r => r.UserId)
-             .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(r => r.User)
+                .WithMany()
+                .HasForeignKey(r => r.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Review>()
                 .HasOne(r => r.ServiceProviderUser)
@@ -27,12 +26,11 @@ namespace ProximaApi.Data
                 .HasForeignKey(r => r.ServiceProviderUserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
             modelBuilder.Entity<Service>()
-     .HasOne(s => s.ServiceProvider)
-     .WithMany(p => p.Services)
-     .HasForeignKey(s => s.ServiceProviderId)
-     .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(s => s.ServiceProvider)
+                .WithMany(p => p.Services)
+                .HasForeignKey(s => s.ServiceProviderId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Service>()
                 .HasOne(s => s.ServiceCategory)
@@ -40,6 +38,10 @@ namespace ProximaApi.Data
                 .HasForeignKey(s => s.ServiceCategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // Booking Status Enum <-> String conversion
+            modelBuilder.Entity<Booking>()
+                .Property(b => b.Status)
+                .HasConversion<string>();
 
             base.OnModelCreating(modelBuilder);
         }

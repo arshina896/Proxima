@@ -17,8 +17,10 @@ export class ApiService {
   }
 
   getService() {
+    
     return this.http.get(environments.apiUrl + '/customer');
   }
+
 
   bookingService(serviceId: number) {
     return this.http.post(environments.apiUrl + '/customer', { serviceId: serviceId }
@@ -29,15 +31,15 @@ export class ApiService {
     return this.http.get(environments.apiUrl+'/customer/myBooking');
   }
 
-// updateBookingStatus(id:number,status: string){
-//   return this.http.put(environments.apiUrl+'/serviceprovider/booking/' + id + '/status',   { status: status } );
-// }
-// getProviderBookings(){
-//   return this.http.get(environments.apiUrl+'/serviceprovider/bookings');
-// }
+
 
 getProvider(){
   return this.http.get(environments.apiUrl+'/customer/providerWithService');
+}
+
+
+getCategories() {
+  return this.http.get(environments.apiUrl + '/customer/category');
 }
 }
 
@@ -62,3 +64,5 @@ getProvider(){
 // //   "email": "shafeeq@gmail.com",
 // //   "password": "shafeeq@1"
 // // }
+
+

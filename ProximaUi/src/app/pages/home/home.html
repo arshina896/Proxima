@@ -1,27 +1,43 @@
-<p>home works!</p>
 
 
 
-<h2>Service Providers</h2>
 
-<div class="container">
-  <div *ngFor="let p of providers" class="card">
+<div class="container mt-4">
 
-    <h3>{{ p.providerName }}</h3>
+  <h2 class="mb-3">Service Providers</h2>
 
-    <div *ngFor="let s of p.services" class="service">
-      <p>{{ s.serviceName }}</p>
-      <p>₹{{ s.price }}</p>
+  <div class="row">
+    <div class="col-md-4 mb-3" *ngFor="let p of providers">
+      <div class="card shadow p-3">
 
-      <button (click)="bookingService(s.id)">
-        Book Now
-      </button>
+        <h5>{{ p.providerName }}</h5>
+
+        <div *ngFor="let s of p.services" class="border p-2 mb-2">
+          <p>{{ s.serviceName }}</p>
+          <p>₹{{ s.price }}</p>
+
+          <button class="btn btn-sm btn-primary"
+                  (click)="bookingService(s.id)">
+            Book Now
+          </button>
+        </div>
+
+      </div>
     </div>
+  </div>
 
+  <hr>
+
+  <a routerLink="/services" class="btn btn-outline-primary me-2">
+    View Services
+  </a>
+
+  <a routerLink="/my-bookings" class="btn btn-outline-success me-2">
+    My Bookings
+  </a>
+
+  <button class="btn btn-danger" (click)="logout()">
+    Logout
+  </button>
 
 </div>
-
-
-<a routerLink="/services">View Services</a>
-<a routerLink="/my-bookings">My Bookings</a>
-<button (click)="logout()">Logout</button>

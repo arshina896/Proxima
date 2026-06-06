@@ -1,4 +1,6 @@
-﻿namespace ProximaApi.Models
+﻿using ProximaApi.Enums;
+
+namespace ProximaApi.Models
 {
     public class Booking
     {
@@ -8,6 +10,6 @@
         public int ServiceId { get; set; }
         public Service Service { get; set; }
         public DateTime BookingDate { get; set; }
-        public string Status { get; set; }
+        public BookingStatus Status { get; set; }
     }
 }

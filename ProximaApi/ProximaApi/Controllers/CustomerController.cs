@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProximaApi.Data;
 using ProximaApi.DTOs;
+using ProximaApi.Enums;
 using ProximaApi.Models;
 
 namespace ProximaApi.Controllers
@@ -33,7 +34,7 @@ namespace ProximaApi.Controllers
                 IsApproved = false,
             };
             _context.ServiceProviders.Add(provider);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return Ok("Applied for service provider");
         }
         [HttpGet]
@@ -72,7 +73,7 @@ namespace ProximaApi.Controllers
                 UserId = userId,
                 ServiceId = bookingDto.ServiceId,
                 BookingDate = DateTime.Now,
-                Status = "Pending"
+                Status = BookingStatus.Pending
             };
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
@@ -90,6 +91,7 @@ namespace ProximaApi.Controllers
                 .ThenInclude(s => s.ServiceCategory)
                 .Include(b => b.Service)
                 .ThenInclude(b => b.ServiceProvider)
+                .ThenInclude(p=>p.User)
                 .Where(b => b.UserId == userid)
                 
                 .Select(b => new
@@ -111,6 +113,7 @@ namespace ProximaApi.Controllers
         public async Task<IActionResult> GetProvidersWithServices()
         {
             var providers = await _context.ServiceProviders
+                .Include(p=>p.User)
                 .Include(p => p.Services)
                 .Select(p => new
                 {
@@ -127,6 +130,13 @@ namespace ProximaApi.Controllers
 
             return Ok(providers);
         }
+    
+         [HttpGet("category")]
+        public async Task<IActionResult> GetCategories()
+        {
+            var categories = await _context.ServicesCategories.ToListAsync();
+            return Ok(categories);
+        }
     }
-
-}
+    
+  }

@@ -1,8 +1,8 @@
+
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ServiceProviderService } from '../../services/service-provider-service';
 import { FormsModule } from '@angular/forms';
-
 
 @Component({
   selector: 'app-provider-dashboard',
@@ -12,51 +12,59 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './provider-dashboard.css',
 })
 export class ProviderDashboard implements OnInit {
+
   bookings: any[] = [];
   categories: any[] = [];
+  services: any[] = [];
+
   categoryId: number | null = null;
-services: any[] = [];
   serviceName = "";
   price: number | null = null;
+
+  editMode = false;
+  editServiceId: number | null = null;
+
   constructor(private api: ServiceProviderService, private cdr: ChangeDetectorRef) { }
+
   ngOnInit() {
     this.loadBooking();
     this.loadCategories();
-      this.getService(); 
+    this.getService();
   }
+
+loadBooking() {
+  this.api.getProviderBookings().subscribe({
+    next: (res: any) => {
+
+      console.log("Bookings:", res);
+
+    this.bookings = res;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.log("BOOKING ERROR", err);
+    }
+  });
+}
+  // ✅ Services
+  getService() {
+    this.api.getService().subscribe((res: any) => {
+      console.log("services", res);
+      this.services = res;
+      this.cdr.detectChanges();
+    });
+  }
+  // ✅ Categories
   loadCategories() {
     this.api.getCategories().subscribe((res: any) => {
+      console.log("Categories:", res);
       this.categories = res;
-      setTimeout(() => {
-        this.cdr.detectChanges();
-      });
+      this.cdr.detectChanges();
     });
   }
-  loadBooking() {
-    this.api.getProviderBookings().subscribe({
-      next: (res: any) => {
-        console.log("Provider Bookings:", res);
-        this.bookings = res;
 
-        setTimeout(() => {
-          this.cdr.detectChanges();
-        });
-      },
-      error: (err) => console.log(err)
-    });
-  }
-  updateStatus(id: number, status: string) {
-    this.api.updateBookingStatus(id, status).subscribe({
-      next: () => {
-        alert("Updated");
-        this.loadBooking();
-      },
-      error: (err) => console.log(err)
-    });
-  }
-  // ✅ CREATE SERVICE
+
   createService() {
-
     if (!this.serviceName || !this.price || !this.categoryId) {
       alert("Fill all fields");
       return;
@@ -69,26 +77,109 @@ services: any[] = [];
     };
 
     this.api.createService(data).subscribe({
-      next: () => {
-        alert("Service Created");
+      next: (res: any) => {
 
-        // reset
-        this.serviceName = "";
-        this.price = null;
-        this.categoryId = null;
+        console.log("API RES:", res);
+
+        // Reload latest services from database
+        this.getService();
+
+        // Clear form
+        this.resetForm();
+
+        alert("Service created successfully");
+
       },
-      error: (err) => console.log(err)
+      error: (err) => {
+        console.log(err);
+        alert("Failed to create service");
+      }
     });
   }
-  getService() {
-    this.api.getService().subscribe({
-      next: (res: any) => {
-        console.log("SERVICES:", res);
-            this.services = res;
-        setTimeout(() => {
-          this.cdr.detectChanges();
-        });
+
+  // ✅ EDIT
+  startEdit(service: any) {
+    console.log("Edit service", service);
+    this.serviceName = service.serviceName;
+    this.price = service.price;
+
+    const cat = this.categories.find(c => c.categoryName === service.categoryName);
+    this.categoryId = cat ? cat.id : null;
+
+    this.editMode = true;
+    this.editServiceId = service.id;
+    console.log("EDIT ID =", this.editServiceId);
+  }
+
+  // ✅ UPDATE
+  saveService() {
+    if (!this.serviceName || !this.price || !this.categoryId) {
+      alert("Fill all fields");
+      return;
+    }
+
+    const data = {
+      serviceName: this.serviceName,
+      price: this.price,
+      serviceCategoryId: this.categoryId
+    };
+
+    this.api.updateService(this.editServiceId!, data)
+    .subscribe({
+
+      next: () => {
+
+        this.getService();
+
+        this.resetForm();
+
+        alert("Updated Successfully");
+      },
+      error: (err) => {
+
+        console.log("UPDATE ERROR", err);
+        console.log("SERVER ERROR", err.error);
       }
-    })
+    });
+  }
+
+  // ✅ DELETE
+  deleteService(id: number) {
+    console.log("Delete ID=", id);
+    if (!confirm("Are you sure?")) return;
+
+    this.api.deleteService(id).subscribe({
+      next: (res) => {
+        console.log("Deleted:", id);
+        this.services = this.services.filter(s => Number(s.id) !== Number(id));
+        this.services = [...this.services];
+
+      this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.log("DELETE ERROR", err);
+      }
+    });
+  }
+
+  // ✅ Booking status
+  updateStatus(id: number, status: string) {
+    this.api.updateBookingStatus(id, status.toUpperCase()).subscribe(() => {
+      this.loadBooking();
+    });
+  }
+
+  // ✅ RESET (fixed)
+  resetForm() {
+    this.serviceName = "";
+    this.price = null;
+    this.categoryId = null;
+    this.editMode = false;
+    this.editServiceId = null;
+  }
+
+  // ✅ TRACK BY (important for UI refresh)
+  trackById(index: number, item: any) {
+    return item.id;
   }
 }

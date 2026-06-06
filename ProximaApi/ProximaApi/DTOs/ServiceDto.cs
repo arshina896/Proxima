@@ -6,6 +6,7 @@ namespace ProximaApi.DTOs
     {
         [Required]
         public string ServiceName { get; set; }
+        [Range(typeof(decimal), "1", "999999")]
         public decimal Price { get; set; }
         
         
