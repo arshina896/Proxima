@@ -7,7 +7,7 @@ import { environments } from '../../environments/environments';
 })
 export class ServiceProviderService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   createService(data: any) {
     return this.http.post(environments.providerUrl, data);
@@ -38,6 +38,12 @@ export class ServiceProviderService {
       environments.providerUrl + '/booking/' + id + '/status',
       { status: status }
     );
+  }
+  getProviderStats() {
+    return this.http.get(environments.providerUrl + '/stats');
+  }
+  getReviews() {
+    return this.http.get(environments.apiUrl +'/serviceprovider/reviews');
   }
 }
 

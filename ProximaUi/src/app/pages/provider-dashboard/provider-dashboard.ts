@@ -24,28 +24,54 @@ export class ProviderDashboard implements OnInit {
   editMode = false;
   editServiceId: number | null = null;
 
+  selectedFile: File | null = null;
+  reviewData: any;
+
+  stats: any = {
+    totalServices: 0,
+    totalBookings: 0,
+    pendingBookings: 0,
+    approvedBookings: 0,
+    rejectedBookings: 0
+  };
+
   constructor(private api: ServiceProviderService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.loadBooking();
     this.loadCategories();
     this.getService();
+    this.loadStats();
+    this.getReviews();
   }
 
-loadBooking() {
-  this.api.getProviderBookings().subscribe({
-    next: (res: any) => {
+  loadBooking() {
+    this.api.getProviderBookings().subscribe({
+      next: (res: any) => {
 
-      console.log("Bookings:", res);
+        console.log("Bookings:", res);
 
-    this.bookings = res;
-      this.cdr.detectChanges();
-    },
-    error: (err) => {
-      console.log("BOOKING ERROR", err);
-    }
-  });
-}
+        this.bookings = res;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.log("BOOKING ERROR", err);
+      }
+    });
+  }
+  //status
+  loadStats() {
+    this.api.getProviderStats().subscribe({
+      next: (res: any) => {
+        console.log("provider stats", res);
+        this.stats = res;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
   // ✅ Services
   getService() {
     this.api.getService().subscribe((res: any) => {
@@ -70,21 +96,17 @@ loadBooking() {
       return;
     }
 
-    const data = {
-      serviceName: this.serviceName,
-      price: this.price,
-      serviceCategoryId: this.categoryId
-    };
-
-    this.api.createService(data).subscribe({
+    const formData = new FormData();
+    formData.append("serviceName", this.serviceName);
+    formData.append("price", this.price.toString());
+    formData.append("serviceCategoryId", this.categoryId.toString());
+    if (this.selectedFile) {
+      formData.append("image", this.selectedFile);
+    }
+    this.api.createService(formData).subscribe({
       next: (res: any) => {
-
         console.log("API RES:", res);
-
-        // Reload latest services from database
         this.getService();
-
-        // Clear form
         this.resetForm();
 
         alert("Service created successfully");
@@ -125,22 +147,22 @@ loadBooking() {
     };
 
     this.api.updateService(this.editServiceId!, data)
-    .subscribe({
+      .subscribe({
 
-      next: () => {
+        next: () => {
 
-        this.getService();
+          this.getService();
 
-        this.resetForm();
+          this.resetForm();
 
-        alert("Updated Successfully");
-      },
-      error: (err) => {
+          alert("Updated Successfully");
+        },
+        error: (err) => {
 
-        console.log("UPDATE ERROR", err);
-        console.log("SERVER ERROR", err.error);
-      }
-    });
+          console.log("UPDATE ERROR", err);
+          console.log("SERVER ERROR", err.error);
+        }
+      });
   }
 
   // ✅ DELETE
@@ -154,7 +176,7 @@ loadBooking() {
         this.services = this.services.filter(s => Number(s.id) !== Number(id));
         this.services = [...this.services];
 
-      this.cdr.detectChanges();
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.log("DELETE ERROR", err);
@@ -178,8 +200,43 @@ loadBooking() {
     this.editServiceId = null;
   }
 
+  onFileSelected(event: any) {
+
+    if (event.target.files.length > 0) {
+
+      this.selectedFile = event.target.files[0];
+
+      console.log(this.selectedFile);
+
+    }
+
+  }
   // ✅ TRACK BY (important for UI refresh)
   trackById(index: number, item: any) {
     return item.id;
   }
+  getReviews(){
+
+this.api.getReviews()
+.subscribe({
+
+next:(res)=>{
+
+console.log("REVIEWS=",res);
+
+this.reviewData=res;
+
+this.cdr.detectChanges();
+
+},
+
+error:(err)=>{
+
+console.log("REVIEW ERROR=",err);
+
+}
+
+});
+
+}
 }

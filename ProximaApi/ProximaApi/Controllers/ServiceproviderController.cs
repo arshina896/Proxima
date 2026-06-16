@@ -23,33 +23,22 @@ namespace ProximaApi.Controllers
         {
             this._context = context;
         }
-        //[HttpPost]
-        //public async Task<IActionResult> CreateService(ServiceDto serviceDto)
-        //{
-        //    int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-        //    var provider = await _context.ServiceProviders
-        //        .FirstOrDefaultAsync(x => x.UserId == userId);
-        //    if (provider == null)
-        //        return Unauthorized("Not an approved service provider");
-        //    var service = new Service
-        //    {
-        //        ServiceName = serviceDto.ServiceName,
-        //        Price = serviceDto.Price,
-        //        ServiceCategoryId = serviceDto.ServiceCategoryId,
-        //        ServiceProviderId = provider.Id
-        //    };
-        //    _context.Services.Add(service);
-        //    await _context.SaveChangesAsync();
-        //    return Ok(service);
-        //}
+
 
 
         [HttpPost]
-        public async Task<IActionResult> CreateService(ServiceDto serviceDto)
+        public async Task<IActionResult> CreateService([FromForm] ServiceDto serviceDto)
         {
             try
             {
-                int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                if (serviceDto.Image == null)
+                {
+                    return BadRequest("IMAGE IS NULL");
+                }
+
+                int userId = int.Parse(
+                    User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
                 var provider = await _context.ServiceProviders
                     .FirstOrDefaultAsync(x => x.UserId == userId);
@@ -57,12 +46,40 @@ namespace ProximaApi.Controllers
                 if (provider == null || !provider.IsApproved)
                     return Unauthorized("Not approved");
 
+                string? imagePath = null;
+
+                // 🔥 SAVE IMAGE
+                var fileName =
+                    Guid.NewGuid().ToString()
+                    + Path.GetExtension(serviceDto.Image.FileName);
+
+                var folder = Path.Combine(
+                    Directory.GetCurrentDirectory(),
+                    "wwwroot",
+                    "uploads"
+                );
+
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                var fullPath = Path.Combine(folder, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await serviceDto.Image.CopyToAsync(stream);
+                }
+
+                imagePath = "uploads/" + fileName;
+
                 var service = new Service
                 {
                     ServiceName = serviceDto.ServiceName,
                     Price = serviceDto.Price,
                     ServiceCategoryId = serviceDto.ServiceCategoryId,
-                    ServiceProviderId = provider.Id
+                    ServiceProviderId = provider.Id,
+                    ImageUrl = imagePath
                 };
 
                 _context.Services.Add(service);
@@ -73,15 +90,16 @@ namespace ProximaApi.Controllers
                     service.Id,
                     service.ServiceName,
                     service.Price,
+                    service.ImageUrl,
                     CategoryName = _context.ServicesCategories
-        .Where(c => c.Id == service.ServiceCategoryId)
-        .Select(c => c.CategoryName)
-        .FirstOrDefault()
+                        .Where(c => c.Id == service.ServiceCategoryId)
+                        .Select(c => c.CategoryName)
+                        .FirstOrDefault()
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message); // 🔥 will show exact error
+                return StatusCode(500, ex.Message);
             }
         }
         [HttpGet]
@@ -99,6 +117,7 @@ namespace ProximaApi.Controllers
             s.Id,
             s.ServiceName,
             s.Price,
+            s.ImageUrl,
             CategoryName = s.ServiceCategory.CategoryName
         })
         .ToListAsync();
@@ -129,31 +148,6 @@ namespace ProximaApi.Controllers
             return Ok(new { message = "Service deleted successfully" });
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateService(int id, ServiceDto dto)
-        //{
-        //    int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-        //    var provider = await _context.ServiceProviders
-        //        .FirstOrDefaultAsync(s => s.UserId == userId);
-
-        //    if (provider == null)
-        //        return Unauthorized();
-
-        //    var service = await _context.Services
-        //        .FirstOrDefaultAsync(s => s.Id == id && s.ServiceProviderId == provider.Id);
-
-        //    if (service == null)
-        //        return NotFound("Service not found");
-
-        //    service.ServiceName = dto.ServiceName;
-        //    service.Price = dto.Price;
-        //    service.ServiceCategoryId = dto.ServiceCategoryId;
-
-        //    await _context.SaveChangesAsync();
-
-        //    return Ok(service);
-        //}
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateService(int id, ServiceDto dto)
@@ -294,6 +288,113 @@ namespace ProximaApi.Controllers
         {
             var categories = await _context.ServicesCategories.ToListAsync();
             return Ok(categories);
+        }
+
+        [HttpGet("stats")]
+        public async Task<IActionResult> GetStats()
+        {
+            int userId =
+                int.Parse(
+                    User.FindFirst(ClaimTypes.NameIdentifier).Value
+                );
+
+            var provider =
+                await _context.ServiceProviders
+                .FirstOrDefaultAsync(p => p.UserId == userId);
+
+            if (provider == null)
+                return Unauthorized();
+
+            var serviceIds =
+                await _context.Services
+                .Where(s => s.ServiceProviderId == provider.Id)
+                .Select(s => s.Id)
+                .ToListAsync();
+
+            var bookings =
+                await _context.Bookings
+                .Where(b => serviceIds.Contains(b.ServiceId))
+                .ToListAsync();
+
+            var stats = new ProviderStatsDto
+            {
+                TotalServices = serviceIds.Count,
+
+                TotalBookings = bookings.Count,
+
+                PendingBookings =
+                    bookings.Count(b =>
+                        b.Status == BookingStatus.Pending),
+
+                ApprovedBookings =
+                    bookings.Count(b =>
+                        b.Status == BookingStatus.Approved),
+
+                RejectedBookings =
+                    bookings.Count(b =>
+                        b.Status == BookingStatus.Rejected),
+                CompletedBookings =
+    bookings.Count(b =>
+        b.Status == BookingStatus.Completed),
+            };
+
+            return Ok(stats);
+        }
+        [HttpGet("reviews")]
+        public async Task<IActionResult> GetReviews()
+        {
+            int userId =
+                int.Parse(
+                    User.FindFirst(
+                        ClaimTypes.NameIdentifier
+                    ).Value
+                );
+
+            var provider =
+                await _context.ServiceProviders
+                .FirstOrDefaultAsync(
+                    p => p.UserId == userId
+                );
+
+            if (provider == null)
+                return Unauthorized();
+
+            var reviews =
+                await _context.Reviews
+
+                .Include(r => r.User)
+
+                .Where(r =>
+                    r.ServiceProviderId
+                    == provider.Id
+                )
+
+                .Select(r => new
+                {
+                    Customer =
+                        r.User.FullName,
+
+                    r.Rating,
+
+                    r.Comment
+                })
+
+                .ToListAsync();
+
+            return Ok(new
+            {
+                average =
+                    reviews.Count > 0
+                    ? reviews.Average(
+                        r => r.Rating
+                      )
+                    : 0,
+
+                total =
+                    reviews.Count,
+
+                reviews
+            });
         }
 
     }

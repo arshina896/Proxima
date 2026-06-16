@@ -17,7 +17,7 @@ export class ApiService {
   }
 
   getService() {
-    
+
     return this.http.get(environments.apiUrl + '/customer');
   }
 
@@ -27,20 +27,31 @@ export class ApiService {
 
     );
   }
-  getMyBookin(){
-    return this.http.get(environments.apiUrl+'/customer/myBooking');
+  getMyBookin() {
+    return this.http.get(environments.apiUrl + '/customer/myBooking');
   }
 
 
 
-getProvider(){
-  return this.http.get(environments.apiUrl+'/customer/providerWithService');
-}
+  getProvider() {
+    return this.http.get(environments.apiUrl + '/customer/providerWithService');
+  }
 
+  cancelBooking(id: number) {
+    return this.http.put(environments.apiUrl + '/customer/cancel/' + id, {});
 
-getCategories() {
-  return this.http.get(environments.apiUrl + '/customer/category');
-}
+  }
+  getCategories() {
+    return this.http.get(environments.apiUrl + '/customer/category');
+  }
+  addReview(data: any) {
+    return this.http.post(environments.apiUrl + '/customer/review', data);
+  }
+  searchServices(data: any) {
+
+    return this.http.get(environments.apiUrl +'/customer/search?keyword=' +data.keyword +'&categoryId=' + data.categoryId);
+
+  }
 }
 
 // //   "email": "arshina@gmail.com",

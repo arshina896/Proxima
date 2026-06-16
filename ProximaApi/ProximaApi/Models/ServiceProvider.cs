@@ -7,5 +7,6 @@
         public User User { get; set; }
         public bool IsApproved { get; set; }
         public ICollection<Service> Services { get; set; }
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

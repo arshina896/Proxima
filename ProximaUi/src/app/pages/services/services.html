@@ -27,6 +27,11 @@
 
 <!-- ✅ USE FILTERED LIST -->
 <div *ngFor="let s of filteredServices">
+   <img
+    *ngIf="s.imageUrl"
+    [src]="'https://localhost:7040/' + s.imageUrl"
+    class="img-fluid mb-2"
+    style="height:200px; object-fit:cover;">
   <h3>{{ s.serviceName }}</h3>
   <p>Category: {{ s.category }}</p>
   <p>Provider: {{ s.provider }}</p>

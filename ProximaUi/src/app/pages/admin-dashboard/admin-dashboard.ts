@@ -4,14 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin-dashboard.html',
-  styleUrl: './admin-dashboard.css',
+  styleUrls: ['./admin-dashboard.css'],
 })
 export class AdminDashboard implements OnInit {
   pendingProviders: any[] = [];
@@ -19,13 +17,29 @@ export class AdminDashboard implements OnInit {
   categories: any[] = [];
   newCategory = "";
   editMode = false;
+  searchUser = '';
+  searchService = '';
+  searchBooking = '';
   editCategoryId: number | null = null;
+  stats: any = {
+    totalUsers: 0,
+    totalProviders: 0,
+    totalServices: 0,
+    totalCategories: 0
+  };
+  users: any[] = [];
+  services: any[] = [];
+  bookings: any[] = [];
 
   constructor(private adminService: AdminService, private router: Router, private cdr: ChangeDetectorRef) { }
   ngOnInit(): void {
     this.getPendingProviders();
     this.getCategories();
 
+    this.loadStats();
+    this.loadUsers();
+    this.loadServices();
+    this.loadBookings();
     setTimeout(() => {
       this.cdr.detectChanges();
     });
@@ -151,6 +165,139 @@ export class AdminDashboard implements OnInit {
     this.editCategoryId = null;
   }
 
+  loadStats() {
+    this.adminService.getStats().subscribe({
+      next: (res: any) => {
+        console.log("STATS:", res);
+
+        this.stats = res;
+
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  loadUsers() {
+    this.adminService.getUsers().subscribe({
+      next: (res: any) => {
+        console.log("USERS:", res);
+
+        this.users = [...res];
+
+        this.cdr.detectChanges();
+      }
+    });
+  }
+  get filteredUsers() {
+
+    return this.users.filter(u =>
+
+      u.fullName.toLowerCase().includes(this.searchUser.toLowerCase()) ||
+
+      u.email.toLowerCase().includes(this.searchUser.toLowerCase())
+
+    );
+
+  }
+  loadServices() {
+    this.adminService.getServices().subscribe({
+      next: (res: any) => {
+        console.log("SERVICES:", res);
+
+        this.services = [...res];
+
+        this.cdr.detectChanges();
+      }
+    });
+  }
+  get filteredServices() {
+    return this.services.filter(s =>
+      s.serviceName.toLowerCase().includes(this.searchService.toLowerCase()) ||
+      s.category.toLowerCase().includes(this.searchService.toLowerCase())
+    );
+  }
+  loadBookings() {
+    this.adminService.getBookings().subscribe({
+      next: (res: any) => {
+        console.log("BOOKINGS:", res);
+
+        this.bookings = [...res];
+
+        this.cdr.detectChanges();
+      }
+    });
+  }
+  deleteUser(id: number) {
+    console.log("DELETE CLICKED", id);
+    if (!confirm("Delete this user?"))
+      return;
+    this.adminService.deleteUser(id).subscribe({
+      next: (res) => {
+        console.log("SUCCESS", res);
+        this.users = this.users.filter(u => u.id !== id);
+        this.users = [...this.users];
+        this.loadUsers();
+        this.loadStats();
+      },
+      error: (err) => {
+        console.log("DELETE ERROR", err);
+      }
+    });
+  }
+  deleteService(id: number) {
+    if (!confirm("Delete this service?"))
+      return;
+    this.adminService.deleteService(id).subscribe({
+      next: (res) => {
+        console.log("SUCCESS", res);
+        this.services = this.services.filter(s => s.id !== id);
+        this.services = [...this.services];
+        this.loadStats();
+        this.loadServices();
+      },
+      error: (err) => {
+
+        console.log("DELETE ERROR", err);
+
+        if (err.status === 200) {
+
+          this.services = this.services.filter(s => s.id !== id);
+          this.services = [...this.services];
+
+          this.loadStats();
+
+          alert("Deleted Successfully");
+        }
+      }
+    });
+  }
+  deleteBooking(id: number) {
+
+    if (!confirm("Delete this booking?"))
+      return;
+
+    this.adminService.deleteBooking(id).subscribe({
+      next: () => {
+        alert("Booking deleted");
+        this.loadBookings();
+
+        this.loadStats();
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+
+    });
+
+  }
+  get filteredBookings() {
+    return this.bookings.filter(b =>
+      b.customer.toLowerCase().includes(this.searchBooking.toLowerCase()) ||
+      b.service.toLowerCase().includes(this.searchBooking.toLowerCase()) ||
+      b.provider.toLowerCase().includes(this.searchBooking.toLowerCase())
+    );
+  }
 
 
   logout() {

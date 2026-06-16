@@ -1,8 +1,61 @@
-
 <div class="container mt-4">
 
   <h2 class="text-center mb-4">Service Provider Dashboard</h2>
+  <div class="row mb-4">
+    <div class="col-md-2">
+      <div class="card bg-primary text-white">
+        <div class="card-body">
+          <h5>Completed</h5>
+          <h2>{{stats.completedBookings}}</h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h3>{{stats.totalServices}}</h3>
+          <p>Services</p>
+        </div>
+      </div>
+    </div>
 
+    <div class="col-md-2">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h3>{{stats.totalBookings}}</h3>
+          <p>Bookings</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h3>{{stats.pendingBookings}}</h3>
+          <p>Pending</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h3>{{stats.approvedBookings}}</h3>
+          <p>Approved</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h3>{{stats.rejectedBookings}}</h3>
+          <p>Rejected</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
   <!-- CREATE / EDIT -->
   <div class="card p-4 mb-4 shadow">
     <h4>{{ editMode ? 'Edit Service' : 'Create Service' }}</h4>
@@ -25,12 +78,14 @@
           </option>
         </select>
       </div>
-
+      <div class="col-md-3">
+        <input type="file" class="form-control" (change)="onFileSelected($event)">
+      </div>
       <div class="col-md-2 d-grid">
 
         <!-- CREATE -->
         <button *ngIf="!editMode" class="btn btn-success" (click)="createService()">
-          Create
+          Creat
         </button>
 
         <!-- UPDATE -->
@@ -40,7 +95,7 @@
 
         <!-- CANCEL -->
         <button *ngIf="editMode" class="btn btn-secondary mt-2" (click)="resetForm()">
-          Cancel
+          Cancels
         </button>
 
       </div>
@@ -55,7 +110,7 @@
     <table class="table table-bordered text-center mt-3">
       <thead class="table-dark">
         <tr>
- 
+          <th> Image</th>
           <th>Category</th>
           <th>Service</th>
           <th>Price</th>
@@ -66,7 +121,12 @@
       <tbody>
         <!-- <tr *ngFor="let s of services; trackBy: trackById"> -->
         <tr *ngFor="let s of services">
-
+          <td>
+            <img *ngIf="s.imageUrl" [src]="'https://localhost:7040/' + s.imageUrl" width="80" height="80">
+            <span *ngIf="!s.imageUrl">
+              No Image
+            </span>
+          </td>
           <td>{{ s.categoryName }}</td>
           <td>{{ s.serviceName }}</td>
           <td>₹ {{ s.price }}</td>
@@ -100,7 +160,7 @@
           <th>Action</th>
         </tr>
       </thead>
-<!-- <p>Total Bookings: {{ bookings.length }}</p> -->
+      <!-- <p>Total Bookings: {{ bookings.length }}</p> -->
       <tbody>
         <tr *ngFor="let b of bookings">
 
@@ -112,25 +172,77 @@
             <span class="badge" [ngClass]="{
                 'bg-warning': b.status == 'Pending',
                 'bg-success': b.status == 'Approved',
-                'bg-danger': b.status == 'Rejected'
+                'bg-danger': b.status == 'Rejected',
+                  'bg-primary': b.status == 'Completed'
               }">
               {{ b.status }}
             </span>
           </td>
 
           <td>
-            <button class="btn btn-success btn-sm me-2" (click)="updateStatus(b.id, 'Approved')">
+
+            <button *ngIf="b.status == 'Pending'" class="btn btn-success btn-sm me-2"
+              (click)="updateStatus(b.id, 'Approved')">
+
               Approve
+
             </button>
 
-            <button class="btn btn-danger btn-sm" (click)="updateStatus(b.id, 'Rejected')">
+            <button *ngIf="b.status == 'Pending'" class="btn btn-danger btn-sm me-2"
+              (click)="updateStatus(b.id, 'Rejected')">
+
               Reject
+
             </button>
+
+            <button *ngIf="b.status == 'Approved'" class="btn btn-primary btn-sm"
+              (click)="updateStatus(b.id, 'Completed')">
+
+              Complete
+
+            </button>
+
           </td>
 
         </tr>
       </tbody>
     </table>
   </div>
+  <!-- ⭐ REVIEWS -->
 
+  <div class="card mt-4 p-3 shadow">
+
+    <h4>
+      ⭐ Reviews
+    </h4>
+
+    <h5>
+      Average Rating:
+      {{reviewData?.average}}
+    </h5>
+
+    <p>
+      Total Reviews:
+      {{reviewData?.total}}
+    </p>
+
+    <div *ngFor="let r of reviewData?.reviews">
+
+      <hr>
+
+      <h6>
+        {{r.customer}}
+      </h6>
+
+      <p>
+        ⭐ {{r.rating}} / 5
+      </p>
+
+      <p>
+        {{r.comment}}
+      </p>
+
+    </div>
+
+  </div>
 </div>

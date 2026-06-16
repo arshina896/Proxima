@@ -28,4 +28,30 @@ export class AdminService {
   updateCategory(id: number, data: any) {
     return this.http.put(environments.adminUrl + '/category/' + id, data);
   }
+  getStats() {
+    return this.http.get(environments.adminUrl + '/stats');
+  }
+  getUsers() {
+    return this.http.get(environments.adminUrl + '/users');
+  }
+
+  getServices() {
+    return this.http.get(environments.adminUrl + '/services');
+  }
+
+  getBookings() {
+    return this.http.get(environments.adminUrl + '/bookings');
+  }
+  deleteUser(id: number) {
+    return this.http.delete(environments.adminUrl + '/user/' + id
+    );
+  }
+  deleteService(id: number) {
+    return this.http.delete(environments.adminUrl + '/service/' + id, { responseType: 'text' }
+    );
+  }
+  deleteBooking(id: number) {
+    return this.http.delete(environments.adminUrl + '/booking/' + id
+    );
+  }
 }

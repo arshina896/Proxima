@@ -14,17 +14,28 @@ namespace ProximaApi.Data
                 .Property(s => s.Price)
                 .HasPrecision(10, 2);
 
+            //modelBuilder.Entity<Review>()
+            //    .HasOne(r => r.User)
+            //    .WithMany()
+            //    .HasForeignKey(r => r.UserId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<Review>()
+            //    .HasOne(r => r.ServiceProvider)
+            //    .WithMany()
+            //    .HasForeignKey(r => r.ServiceProviderId)
+            //    .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Review>()
-                .HasOne(r => r.User)
-                .WithMany()
-                .HasForeignKey(r => r.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+.HasOne(r => r.User)
+.WithMany()
+.HasForeignKey(r => r.UserId)
+.OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Review>()
-                .HasOne(r => r.ServiceProviderUser)
-                .WithMany()
-                .HasForeignKey(r => r.ServiceProviderUserId)
-                .OnDelete(DeleteBehavior.Restrict);
+            .HasOne(r => r.ServiceProvider)
+            .WithMany(p => p.Reviews)
+            .HasForeignKey(r => r.ServiceProviderId)
+            .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Service>()
                 .HasOne(s => s.ServiceProvider)

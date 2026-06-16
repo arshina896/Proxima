@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProximaApi.Data;
 
@@ -11,9 +12,11 @@ using ProximaApi.Data;
 namespace ProximaApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260607140852_AddServiceImage")]
+    partial class AddServiceImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,10 +70,7 @@ namespace ProximaApi.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiceProviderId")
+                    b.Property<int>("ServiceProviderUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -78,9 +78,7 @@ namespace ProximaApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ServiceId");
-
-                    b.HasIndex("ServiceProviderId");
+                    b.HasIndex("ServiceProviderUserId");
 
                     b.HasIndex("UserId");
 
@@ -219,23 +217,19 @@ namespace ProximaApi.Migrations
 
             modelBuilder.Entity("ProximaApi.Models.Review", b =>
                 {
-                    b.HasOne("ProximaApi.Models.Service", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("ServiceId");
-
-                    b.HasOne("ProximaApi.Models.ServiceProvider", "ServiceProvider")
-                        .WithMany("Reviews")
-                        .HasForeignKey("ServiceProviderId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("ProximaApi.Models.User", "ServiceProviderUser")
+                        .WithMany()
+                        .HasForeignKey("ServiceProviderUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("ProximaApi.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("ServiceProvider");
+                    b.Navigation("ServiceProviderUser");
 
                     b.Navigation("User");
                 });
@@ -270,11 +264,6 @@ namespace ProximaApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProximaApi.Models.Service", b =>
-                {
-                    b.Navigation("Reviews");
-                });
-
             modelBuilder.Entity("ProximaApi.Models.ServiceCategories", b =>
                 {
                     b.Navigation("Services");
@@ -282,8 +271,6 @@ namespace ProximaApi.Migrations
 
             modelBuilder.Entity("ProximaApi.Models.ServiceProvider", b =>
                 {
-                    b.Navigation("Reviews");
-
                     b.Navigation("Services");
                 });
 #pragma warning restore 612, 618

@@ -52,6 +52,7 @@ namespace ProximaApi.Controllers
                     s.Price,
                     Category = s.ServiceCategory.CategoryName,
                     Provider = s.ServiceProvider.User.FullName,
+                    s.ImageUrl
                 }).ToListAsync();
             return Ok(service);
         }
@@ -83,7 +84,7 @@ namespace ProximaApi.Controllers
 
         //booking details
         [HttpGet("myBooking")]
-        public async Task <IActionResult> MyBookings()
+        public async Task<IActionResult> MyBookings()
         {
             int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var bookings = await _context.Bookings
@@ -91,9 +92,9 @@ namespace ProximaApi.Controllers
                 .ThenInclude(s => s.ServiceCategory)
                 .Include(b => b.Service)
                 .ThenInclude(b => b.ServiceProvider)
-                .ThenInclude(p=>p.User)
+                .ThenInclude(p => p.User)
                 .Where(b => b.UserId == userid)
-                
+
                 .Select(b => new
                 {
                     b.Id,
@@ -101,7 +102,7 @@ namespace ProximaApi.Controllers
                     Category = b.Service.ServiceCategory.CategoryName,
                     ProviderName = b.Service.ServiceProvider.User.FullName,
                     b.BookingDate,
-                    b.Status,
+                    Status = b.Status.ToString()
 
                 }).ToListAsync();
             return Ok(bookings);
@@ -113,12 +114,15 @@ namespace ProximaApi.Controllers
         public async Task<IActionResult> GetProvidersWithServices()
         {
             var providers = await _context.ServiceProviders
-                .Include(p=>p.User)
+                .Include(p => p.User)
                 .Include(p => p.Services)
+                .Include(p=>p.Reviews)
                 .Select(p => new
                 {
                     p.Id,
                     ProviderName = p.User.FullName,
+                    AverageRating=p.Reviews.Any()? p.Reviews.Average(r=>r.Rating):0,
+                    TotalReviews=p.Reviews.Count(),
                     Services = p.Services.Select(s => new
                     {
                         s.Id,
@@ -130,13 +134,213 @@ namespace ProximaApi.Controllers
 
             return Ok(providers);
         }
-    
-         [HttpGet("category")]
+
+        [HttpGet("category")]
         public async Task<IActionResult> GetCategories()
         {
             var categories = await _context.ServicesCategories.ToListAsync();
             return Ok(categories);
         }
+
+
+        [HttpPut("cancel/{id}")]
+        public async Task<IActionResult> CancelBooking(int id)
+        {
+            try
+            {
+                int userId =
+                    int.Parse(
+                        User.FindFirst(ClaimTypes.NameIdentifier).Value
+                    );
+
+                var booking =
+                    await _context.Bookings
+                    .FirstOrDefaultAsync(b =>
+                        b.Id == id &&
+                        b.UserId == userId);
+
+                if (booking == null)
+                    return NotFound("Booking not found");
+
+                // only pending
+
+                if (booking.Status != BookingStatus.Pending)
+                {
+                    return BadRequest(
+                        "Only pending booking can cancel"
+                    );
+                }
+
+                booking.Status =
+                    BookingStatus.Cancelled;
+
+                await _context.SaveChangesAsync();
+
+                return Ok(
+                    new
+                    {
+                        message =
+                        "Booking cancelled"
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    500,
+                    ex.Message
+                );
+            }
+        }
+
+
+        [HttpPost("review")]
+        public async Task<IActionResult> AddReview(ReviewDto dto)
+        {
+            try
+            {
+                int userId =
+                    int.Parse(
+                        User.FindFirst(ClaimTypes.NameIdentifier).Value
+                    );
+
+                var booking =
+                    await _context.Bookings
+                    .Include(b => b.Service)
+                    .FirstOrDefaultAsync(b =>
+                        b.Id == dto.BookingId 
+                       );
+
+                if (booking == null)
+                    return BadRequest("Booking not found");
+
+                if (booking.Status != BookingStatus.Completed)
+                    return BadRequest(
+                        "Review allowed only after completion"
+                    );
+
+                var already =
+                    await _context.Reviews
+                    .AnyAsync(r =>
+                        r.UserId == userId &&
+                        r.ServiceProviderId ==
+                        booking.Service.ServiceProviderId);
+
+                if (already)
+                    return BadRequest(
+                        "Already reviewed"
+                    );
+
+                var review =
+                    new Review
+                    {
+                        UserId = userId,
+
+                        ServiceProviderId =
+                        booking.Service.ServiceProviderId,
+
+                        Rating = dto.Rating,
+
+                        Comment = dto.Comment
+                    };
+
+                _context.Reviews.Add(review);
+
+                await _context.SaveChangesAsync();
+
+                return Ok("Review added");
+            }
+
+            catch (Exception ex)
+            {
+                return StatusCode(
+                    500,
+                    ex.Message
+                );
+            }
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(
+ string? keyword,
+ int? categoryId
+ )
+        {
+
+            var services =
+            await _context.Services
+
+            .Include(s => s.ServiceCategory)
+
+            .Include(s => s.ServiceProvider)
+            .ThenInclude(p => p.User)
+
+            .AsQueryable()
+
+            .Where(s =>
+
+            (string.IsNullOrEmpty(keyword)
+
+            ||
+
+            s.ServiceName.Contains(keyword))
+
+            &&
+
+            (categoryId == null
+            ||
+
+            categoryId == 0
+            ||
+
+            s.ServiceCategoryId
+            ==
+            categoryId)
+
+            )
+
+            .ToListAsync();
+
+            var result =
+            services
+
+            .GroupBy(
+            s =>
+            s.ServiceProvider
+            )
+
+            .Select(g => new {
+
+                providerName =
+            g.First()
+            .ServiceProvider
+            .User
+            .FullName,
+
+                averageRating = 0,
+
+                totalReviews = 0,
+
+                services =
+            g.Select(s => new {
+
+                s.Id,
+
+                s.ServiceName,
+
+                s.Price
+
+            })
+
+            })
+
+            .ToList();
+
+            return Ok(result);
+
+        }
+
+
     }
-    
-  }
+
+}

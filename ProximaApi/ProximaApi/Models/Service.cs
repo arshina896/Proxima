@@ -12,6 +12,8 @@ namespace ProximaApi.Models
         public ServiceProvider ServiceProvider { get; set; }
         public int ServiceCategoryId { get; set; }
         public ServiceCategories ServiceCategory { get; set; }
+        public string? ImageUrl { get; set; }
+        public ICollection<Review> Reviews { get; set; }
     }
 }
 

@@ -100,5 +100,139 @@ namespace ProximaApi.Controllers
             await _context.SaveChangesAsync();
             return Ok(category);
         }
+        //[HttpGet("stats")]
+        //public async Task<IActionResult> GetStats()
+        //{
+        //    var totalUsers = await _context.Users.CountAsync();
+        //    var totalProviders = await _context.ServiceProviders.CountAsync();
+        //    var totalCategories = await _context.ServicesCategories.CountAsync();
+        //    var totalServices = await _context.Services.CountAsync();
+
+        //    return Ok(new
+        //    {
+        //        totalUsers,
+        //        totalProviders,
+        //        totalCategories,
+        //        totalServices
+        //    });
+        //}
+        [HttpGet("stats")]
+        public async Task<IActionResult> GetStats()
+        {
+            return Ok(new
+            {
+                totalUsers = await _context.Users.CountAsync(),
+                totalProviders = await _context.ServiceProviders.CountAsync(),
+                totalServices = await _context.Services.CountAsync(),
+                totalCategories = await _context.ServicesCategories.CountAsync()
+            });
+        }
+
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers()
+        {
+            var users = await _context.Users
+                .Select(u => new
+                {
+                    u.Id,
+                    u.FullName,
+                    u.Email,
+                    u.Role
+                })
+                .ToListAsync();
+
+            return Ok(users);
+        }
+        [HttpGet("services")]
+        public async Task<IActionResult> GetServices()
+        {
+            var services = await _context.Services
+                .Include(s => s.ServiceProvider)
+                .Include(s => s.ServiceCategory)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.ServiceName,
+                    s.Price,
+                    Category = s.ServiceCategory.CategoryName
+                })
+                .ToListAsync();
+
+            return Ok(services);
+        }
+        [HttpGet("bookings")]
+        public async Task<IActionResult> GetBookings()
+        {
+            var bookings = await _context.Bookings
+                .Include(b => b.User)
+                .Include(b => b.Service)
+                .ThenInclude(s=>s.ServiceProvider)
+                .ThenInclude(sp=>sp.User)
+                .Select(b => new
+                {
+                    b.Id,
+                    Customer = b.User.FullName,
+                    Service = b.Service.ServiceName,
+                    Provider=b.Service.ServiceProvider.User.FullName,
+                    b.BookingDate,
+                    Status = b.Status.ToString()
+                })
+                .ToListAsync();
+
+            return Ok(bookings);
+        }
+      
+        [HttpDelete("user/{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            _context.Users.Remove(user);
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+
+        [HttpDelete("service/{id}")]
+        public async Task<IActionResult> DeleteService(int id)
+        {
+            var service = await _context.Services.FindAsync(id);
+
+            if (service == null)
+                return NotFound("Service not found");
+
+            _context.Services.Remove(service);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Service deleted successfully"
+            });
+        }
+
+
+        [HttpDelete("booking/{id}")]
+        public async Task<IActionResult> DeleteBooking(int id)
+        {
+            var booking = await _context.Bookings.FindAsync(id);
+
+            if (booking == null)
+                return NotFound("Booking not found");
+
+            _context.Bookings.Remove(booking);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Booking deleted successfully"
+            });
+        }
     }
 }

@@ -1,45 +1,322 @@
-<h2>Admin Dashboard</h2>
+<div class="container mt-4">
 
-<div *ngIf="loading">Loading...</div>
+  <h2 class="text-center mb-4">Admin Dashboard</h2>
 
-<table *ngIf="!loading && pendingProviders.length > 0" border="1">
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Action</th>
-  </tr>
+  <!-- STATS -->
+  <div class="stats-container row mb-4">
 
-  <tr *ngFor="let p of pendingProviders">
-    <td>{{ p.fullName }}</td>
-    <td>{{ p.email }}</td>
-    <td>
-      <button (click)="approve(p.id)">Approve</button>
-    </td>
-  </tr>
-</table>
+    <div class="col-md-3">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h2>{{ stats.totalUsers }}</h2>
+          <p>Total Users</p>
+        </div>
+      </div>
+    </div>
 
-<div *ngIf="!loading && pendingProviders.length === 0">
-  ❗ No pending requests
+    <div class="col-md-3">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h2>{{ stats.totalProviders }}</h2>
+          <p>Total Providers</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h2>{{ stats.totalServices }}</h2>
+          <p>Total Services</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card text-center shadow">
+        <div class="card-body">
+          <h2>{{ stats.totalCategories }}</h2>
+          <p>Total Categories</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PENDING PROVIDERS -->
+  <div class="card shadow mb-4">
+
+    <div class="card-header bg-warning">
+      <h4 class="mb-0">Pending Provider Requests</h4>
+    </div>
+
+    <div class="card-body">
+
+      <div *ngIf="loading" class="text-center">
+        Loading...
+      </div>
+
+      <table *ngIf="!loading && pendingProviders.length > 0" class="table table-bordered table-striped">
+
+        <thead class="table-dark">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th width="150">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let p of pendingProviders">
+
+            <td>{{ p.fullName }}</td>
+            <td>{{ p.email }}</td>
+
+            <td>
+              <button class="btn btn-success btn-sm" (click)="approve(p.id)">
+                Approve
+              </button>
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+      <div *ngIf="!loading && pendingProviders.length === 0" class="alert alert-info">
+
+        No pending provider requests
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- CATEGORY FORM -->
+  <div class="card shadow mb-4">
+
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">
+        {{ editMode ? 'Edit Category' : 'Create Category' }}
+      </h4>
+    </div>
+
+    <div class="card-body">
+
+      <div class="row">
+
+        <div class="col-md-8">
+          <input [(ngModel)]="newCategory" class="form-control" placeholder="Enter category name">
+        </div>
+
+        <div class="col-md-4">
+
+          <button *ngIf="!editMode" class="btn btn-success me-2" (click)="createCategory()">
+            Add Category
+          </button>
+
+          <button *ngIf="editMode" class="btn btn-primary me-2" (click)="saveCategory()">
+            Update
+          </button>
+
+          <button *ngIf="editMode" class="btn btn-secondary" (click)="resetForm()">
+            Cancel
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ALL CATEGORIES -->
+  <div class="card shadow mb-4">
+
+    <div class="card-header bg-dark text-white">
+      <h4 class="mb-0">All Categories</h4>
+    </div>
+
+    <div class="card-body">
+
+      <table class="table table-bordered table-hover">
+
+        <thead class="table-secondary">
+          <tr>
+            <th>ID</th>
+            <th>Category Name</th>
+            <th width="180">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let c of categories">
+
+            <td>{{ c.id }}</td>
+
+            <td>
+              {{ c.categoryName || c.CategoryName }}
+            </td>
+
+            <td>
+
+              <button class="btn btn-warning btn-sm me-2" (click)="startEdit(c)">
+                Edit
+              </button>
+
+              <button class="btn btn-danger btn-sm" (click)="deleteCategory(c.id)">
+                Delete
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- USERS -->
+  <div class="card shadow mb-4">
+
+    <div class="card-header bg-info text-white">
+      <h4 class="mb-0">All Users</h4>
+    </div>
+
+    <div class="card-body">
+      <input type="text" class="form-control mb-3" placeholder="Search User..." [(ngModel)]="searchUser">
+      <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <!-- <tr *ngFor="let u of users"> -->
+          <tr *ngFor="let u of filteredUsers">
+            <td>{{u.id}}</td>
+            <td>{{u.fullName}}</td>
+            <td>{{u.email}}</td>
+            <td>{{u.role}}</td>
+            <td>
+              <button *ngIf="u.role !== 'Admin'" class="btn btn-danger btn-sm" (click)="deleteUser(u.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+  <!-- SERVICES -->
+  <div class="card shadow mb-4">
+
+    <div class="card-header bg-success text-white">
+      <h4 class="mb-0">All Services</h4>
+    </div>
+
+    <div class="card-body">
+      <input type="text" class="form-control mb-3" placeholder="Search Service..." [(ngModel)]="searchService">
+      <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Service Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let s of filteredServices">
+            <td>{{s.id}}</td>
+            <td>{{s.serviceName}}</td>
+            <td>{{s.category}}</td>
+            <td>₹ {{s.price}}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteService(s.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- BOOKINGS -->
+  <div class="card shadow mb-4">
+    <div class="card-header bg-secondary text-white">
+      <h4 class="mb-0">All Bookings</h4>
+    </div>
+    <div class="card-body">
+      <input type="text" class="form-control mb-3" placeholder="Search Bookings..." [(ngModel)]="searchBooking">
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Service</th>
+            <th>provider</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let b of filteredBookings">
+            <td>{{b.id}}</td>
+            <td>{{b.customer}}</td>
+            <td>{{b.service}}</td>
+            <td>{{b.provider}}</td>
+            <td>{{b.bookingDate | date:'short'}}</td>
+
+            <td>
+              <span class="badge"
+                [ngClass]="{'bg-warning': b.status == 'Pending','bg-success': b.status == 'Approved','bg-danger': b.status == 'Rejected' }">
+                {{ b.status }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteBooking(b.id)">
+
+                Delete
+
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- LOGOUT -->
+  <div class="text-center mt-4 mb-5">
+    <button class="btn btn-outline-danger" (click)="logout()">
+      Logout
+    </button>
+  </div>
 </div>
-
-<h3>Create Category</h3>
-
-<input [(ngModel)]="newCategory" placeholder="Enter category name">
-
-<button *ngIf="!editMode" (click)="createCategory()">Add</button>
-<button *ngIf="editMode" (click)="saveCategory()">Update</button>
-<button *ngIf="editMode" (click)="resetForm()">Cancel</button>
-
-<hr>
-
-
-<h3>All Categories</h3>
-
-<ul>
-  <li *ngFor="let c of categories">
-    {{ c.categoryName || c.CategoryName }}
-    <button (click)="startEdit(c)">Edit</button>
-    <button (click)="deleteCategory(c.id)">Delete</button>
-  </li>
-</ul>
-<button (click)="logout()">Logout</button>
