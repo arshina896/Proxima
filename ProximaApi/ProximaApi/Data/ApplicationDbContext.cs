@@ -14,17 +14,7 @@ namespace ProximaApi.Data
                 .Property(s => s.Price)
                 .HasPrecision(10, 2);
 
-            //modelBuilder.Entity<Review>()
-            //    .HasOne(r => r.User)
-            //    .WithMany()
-            //    .HasForeignKey(r => r.UserId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Review>()
-            //    .HasOne(r => r.ServiceProvider)
-            //    .WithMany()
-            //    .HasForeignKey(r => r.ServiceProviderId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            
             modelBuilder.Entity<Review>()
 .HasOne(r => r.User)
 .WithMany()
@@ -63,6 +53,7 @@ namespace ProximaApi.Data
         public DbSet<Service> Services { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
     }
 }

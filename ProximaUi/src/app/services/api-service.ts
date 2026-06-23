@@ -22,10 +22,8 @@ export class ApiService {
   }
 
 
-  bookingService(serviceId: number) {
-    return this.http.post(environments.apiUrl + '/customer', { serviceId: serviceId }
-
-    );
+  bookingService(data: any) {
+    return this.http.post(environments.apiUrl + '/customer', data);
   }
   getMyBookin() {
     return this.http.get(environments.apiUrl + '/customer/myBooking');
@@ -49,7 +47,15 @@ export class ApiService {
   }
   searchServices(data: any) {
 
-    return this.http.get(environments.apiUrl +'/customer/search?keyword=' +data.keyword +'&categoryId=' + data.categoryId);
+    return this.http.get(environments.apiUrl + '/customer/search?keyword=' + data.keyword + '&categoryId=' + data.categoryId);
+
+  }
+  completeBooking(id: number) {
+    return this.http.put(environments.apiUrl + '/customer/complete/' + id, {});
+  }
+  getNotifications() {
+    return this.http.get(environments.apiUrl + '/customer/notifications'
+    );
 
   }
 }

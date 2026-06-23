@@ -56,59 +56,52 @@ namespace ProximaApi.Controllers
                 }).ToListAsync();
             return Ok(service);
         }
-        //booking
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> CreateBooking(BookingDto bookingDto)
-        {
-            int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var service = await _context.Services
-             .Include(s => s.ServiceProvider)
-             .FirstOrDefaultAsync(s => s.Id == bookingDto.ServiceId);
-            if (service == null)
-                return NotFound("Service Not found");
-            if (!service.ServiceProvider.IsApproved)
-                return BadRequest("Service provider not approved");
-            var booking = new Booking
-            {
-                UserId = userId,
-                ServiceId = bookingDto.ServiceId,
-                BookingDate = DateTime.Now,
-                Status = BookingStatus.Pending
-            };
-            _context.Bookings.Add(booking);
-            await _context.SaveChangesAsync();
-            return Ok(new { message = "Booking Created successfully" });
-        }
-
-
-        //booking details
+       
         [HttpGet("myBooking")]
         public async Task<IActionResult> MyBookings()
         {
-            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            var bookings = await _context.Bookings
-                .Include(s => s.Service)
-                .ThenInclude(s => s.ServiceCategory)
+            int userid = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier ).Value);
+            var bookings =
+                await _context.Bookings
                 .Include(b => b.Service)
-                .ThenInclude(b => b.ServiceProvider)
+                .ThenInclude(s => s.ServiceCategory)
+
+                .Include(b => b.Service)
+                .ThenInclude(s => s.ServiceProvider)
                 .ThenInclude(p => p.User)
+
                 .Where(b => b.UserId == userid)
 
                 .Select(b => new
                 {
                     b.Id,
-                    ServiceName = b.Service.ServiceName,
-                    Category = b.Service.ServiceCategory.CategoryName,
-                    ProviderName = b.Service.ServiceProvider.User.FullName,
-                    b.BookingDate,
-                    Status = b.Status.ToString()
 
-                }).ToListAsync();
+                    ServiceName =
+                        b.Service.ServiceName,
+
+                    Category =
+                        b.Service.ServiceCategory.CategoryName,
+
+                    ProviderName =
+                        b.Service.ServiceProvider.User.FullName,
+
+                    BookingDate =
+                        b.BookingDate,
+
+                    ServiceDate =
+                        b.ServiceDate,
+
+                    TimeSlot =
+                        b.TimeSlot,
+
+                    Status =
+                        b.Status.ToString()
+                })
+
+                .ToListAsync();
+
             return Ok(bookings);
-
         }
-
 
         [HttpGet("providerWithService")]
         public async Task<IActionResult> GetProvidersWithServices()
@@ -116,13 +109,13 @@ namespace ProximaApi.Controllers
             var providers = await _context.ServiceProviders
                 .Include(p => p.User)
                 .Include(p => p.Services)
-                .Include(p=>p.Reviews)
+                .Include(p => p.Reviews)
                 .Select(p => new
                 {
                     p.Id,
                     ProviderName = p.User.FullName,
-                    AverageRating=p.Reviews.Any()? p.Reviews.Average(r=>r.Rating):0,
-                    TotalReviews=p.Reviews.Count(),
+                    AverageRating = p.Reviews.Any() ? p.Reviews.Average(r => r.Rating) : 0,
+                    TotalReviews = p.Reviews.Count(),
                     Services = p.Services.Select(s => new
                     {
                         s.Id,
@@ -208,7 +201,7 @@ namespace ProximaApi.Controllers
                     await _context.Bookings
                     .Include(b => b.Service)
                     .FirstOrDefaultAsync(b =>
-                        b.Id == dto.BookingId 
+                        b.Id == dto.BookingId
                        );
 
                 if (booking == null)
@@ -259,12 +252,90 @@ namespace ProximaApi.Controllers
                 );
             }
         }
+        //booking
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> CreateBooking(
+        [FromBody] BookingDto bookingDto)
+        {
+            Console.WriteLine("SERVICE ID = " + bookingDto.ServiceId);
 
+            Console.WriteLine("DATE = " + bookingDto.ServiceDate);
+
+            Console.WriteLine("TIME = " + bookingDto.TimeSlot);
+            int userId =
+                int.Parse(
+                    User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var service =
+                await _context.Services
+                .Include(s => s.ServiceProvider)
+                .FirstOrDefaultAsync(
+                    s => s.Id ==
+                    bookingDto.ServiceId
+                );
+
+            if (service == null)
+                return NotFound(
+                    "Service Not found"
+                );
+
+            if (!service.ServiceProvider.IsApproved)
+                return BadRequest(
+                    "Service provider not approved"
+                );
+
+            // DATE VALIDATION
+            if (bookingDto.ServiceDate < DateOnly.FromDateTime(DateTime.Today))
+            {
+                return BadRequest("Past date not allowed");
+            }
+            // TIME VALIDATION
+            if (string.IsNullOrWhiteSpace(
+                bookingDto.TimeSlot))
+            {
+                return BadRequest(
+                    "Select time"
+                );
+            }
+
+            var booking =
+                new Booking
+                {
+                    UserId = userId,
+
+                    ServiceId =
+                        bookingDto.ServiceId,
+
+                    BookingDate =
+                        DateTime.Now,
+
+                    ServiceDate =
+                        bookingDto.ServiceDate,
+
+                    TimeSlot =
+                        bookingDto.TimeSlot,
+
+                    Status =
+                        BookingStatus.Pending
+                };
+
+            _context.Bookings.Add(
+                booking
+            );
+
+            await _context.SaveChangesAsync();
+
+            return Ok(
+                new
+                {
+                    message =
+                    "Booking Created successfully"
+                }
+            );
+        }
         [HttpGet("search")]
-        public async Task<IActionResult> Search(
- string? keyword,
- int? categoryId
- )
+        public async Task<IActionResult> Search(string? keyword, int? categoryId)
         {
 
             var services =
@@ -309,7 +380,8 @@ namespace ProximaApi.Controllers
             s.ServiceProvider
             )
 
-            .Select(g => new {
+            .Select(g => new
+            {
 
                 providerName =
             g.First()
@@ -322,7 +394,8 @@ namespace ProximaApi.Controllers
                 totalReviews = 0,
 
                 services =
-            g.Select(s => new {
+            g.Select(s => new
+            {
 
                 s.Id,
 
@@ -339,8 +412,71 @@ namespace ProximaApi.Controllers
             return Ok(result);
 
         }
+        [HttpPut("complete/{id}")]
+        public async Task<IActionResult> CompleteBooking(int id)
+        {
+            int userId =
+            int.Parse(
+            User.FindFirst(
+            ClaimTypes.NameIdentifier
+            ).Value
+            );
 
+            var booking =
+            await _context.Bookings
+            .FirstOrDefaultAsync(
+            b =>
+            b.Id == id &&
+            b.UserId == userId
+            );
 
+            if (booking == null)
+                return NotFound(
+                "Booking not found"
+                );
+
+            if (
+            booking.Status
+            !=
+            BookingStatus.Approved
+            )
+            {
+                return BadRequest(
+                "Only approved booking can complete"
+                );
+            }
+
+            booking.Status =
+            BookingStatus.Completed;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(
+            new
+            {
+                message =
+            "Service Completed"
+            }
+            );
+        }
+        [HttpGet("notifications")]
+        public async Task<IActionResult> GetNotifications()
+        {
+            int userId =
+                int.Parse(
+                    User.FindFirst(
+                        ClaimTypes.NameIdentifier
+                    ).Value
+                );
+
+            var notifications =
+                await _context.Notifications
+                .Where(n => n.UserId == userId)
+                .OrderByDescending(n => n.CreatedAt)
+                .ToListAsync();
+
+            return Ok(notifications);
+        }
     }
 
 }

@@ -1,103 +1,219 @@
-<!-- <h2>My Bookings</h2>
-
-<div *ngIf="loading">
-  <p>Loading...</p>
-</div>
-
-<div *ngIf="!loading && bookings.length === 0">
-  <p>No bookings found</p>
-</div>
-
-<div *ngIf="!loading && bookings.length > 0">
-  <div *ngFor="let b of bookings">
-    <h3>{{ b.serviceName }}</h3>
-    <p>Category: {{ b.category }}</p>
-    <p>Provider: {{ b.providerName }}</p>
-    <p>Status: {{ b.status }}</p>
-   <p>Date: {{ b.bookingDate | date:'short' }}</p>
-  </div>
-</div> -->
-
 <div class="container mt-4">
 
-  <h2 class="mb-3">My Bookings</h2>
+<h2 class="mb-3">My Bookings</h2>
 
-  <div *ngIf="loading" class="text-center">
-    <p>Loading...</p>
-  </div>
+<!-- LOADING -->
 
-  <div *ngIf="!loading && bookings.length === 0" class="text-center">
-    <p>No bookings found</p>
-  </div>
+<div *ngIf="loading" class="text-center">
 
-  <div class="row" *ngIf="bookings.length > 0">
-    <div class="col-md-4 mb-3" *ngFor="let b of bookings">
-      <div class="card shadow p-3">
+<p>Loading...</p>
 
-        <h5>{{ b.serviceName }}</h5>
+</div>
 
-        <p class="text-muted">
-          {{ b.category }}
-        </p>
+<!-- EMPTY -->
 
-        <p>
-          Provider: {{ b.providerName }}
-        </p>
+<div *ngIf="!loading && bookings.length===0"
+class="text-center">
 
-        <p>
-          Date: {{ b.bookingDate | date:'short' }}
-        </p>
+<p>No bookings found</p>
 
-        <!-- STATUS BADGE -->
-        <span class="badge" [ngClass]="{
-            'bg-warning': b.status === 'Pending',
-            'bg-success': b.status === 'Approved',
-            'bg-danger': b.status === 'Rejected',
-            'bg-primary': b.status === 'Completed',
-            'bg-secondary': b.status==='Cancelled'
-          }">
-          {{ b.status }}
-        </span>
-        <!-- CANCEL BUTTON -->
+</div>
 
-        <div *ngIf="b.status=='Completed'" class="mt-3">
+<!-- BOOKINGS -->
 
-          <label>
-            Rating
-          </label>
+<div class="row"
+*ngIf="!loading && bookings.length>0">
 
-          <select class="form-select" [(ngModel)]="rating">
+<div
+class="col-md-4 mb-3"
+*ngFor="let b of bookings">
 
-            <option [value]="5">★★★★★</option>
+<div class="card shadow p-3">
 
-            <option [value]="4">★★★★</option>
+<h5>
 
-            <option [value]="3">★★★</option>
+{{b.serviceName}}
 
-            <option [value]="2">★★</option>
+</h5>
 
-            <option [value]="1">★</option>
+<p>
 
-          </select>
+Category:
 
-          <textarea class="form-control mt-2" [(ngModel)]="comment" placeholder="Write review">
+{{b.category}}
+
+</p>
+
+<p>
+
+Provider:
+
+{{b.providerName}}
+
+</p>
+
+<p>
+
+Service Date:
+
+{{b.serviceDate | date:'dd/MM/yyyy'}}
+
+</p>
+
+<p>
+
+Time:
+
+{{b.timeSlot}}
+
+</p>
+
+<!-- STATUS -->
+
+<p>
+
+Status:
+
+<span
+class="badge"
+[ngClass]="{
+
+'bg-warning':
+b.status=='Pending',
+
+'bg-success':
+b.status=='Approved',
+
+'bg-danger':
+b.status=='Rejected',
+
+'bg-primary':
+b.status=='Completed',
+
+'bg-secondary':
+b.status=='Cancelled'
+
+}">
+
+{{b.status}}
+
+</span>
+
+</p>
+
+<hr>
+
+<!-- COMPLETE -->
+
+<div class="mt-2">
+
+<button
+
+*ngIf="b.status=='Approved'"
+
+class="btn btn-primary btn-sm"
+
+(click)="completeBooking(b.id)">
+
+Complete Service
+
+</button>
+
+</div>
+
+<!-- REVIEW -->
+
+<div
+*ngIf="b.status=='Completed'"
+class="mt-3">
+
+<label>
+
+Rating
+
+</label>
+
+<select
+class="form-select"
+
+[(ngModel)]="rating">
+
+<option [value]="5">
+
+★★★★★
+
+</option>
+
+<option [value]="4">
+
+★★★★
+
+</option>
+
+<option [value]="3">
+
+★★★
+
+</option>
+
+<option [value]="2">
+
+★★
+
+</option>
+
+<option [value]="1">
+
+★
+
+</option>
+
+</select>
+
+<textarea
+
+class="form-control mt-2"
+
+[(ngModel)]="comment"
+
+placeholder="Write review">
 
 </textarea>
-          <button class="btn btn-success mt-2" (click)="submitReview(b.id)">
 
-            Submit Review
+<button
 
-          </button>
+class="btn btn-success mt-2"
 
-        </div>
-        <div class="mt-2">
-          <button *ngIf="b.status=='Pending'" class="btn btn-danger btn-sm" (click)="cancelBooking(b.id)">
-            Cancel Booking
-          </button>
+(click)="submitReview(b.id)">
 
-        </div>
-      </div>
-    </div>
-  </div>
+Submit Review
+
+</button>
+
+</div>
+
+<!-- CANCEL -->
+
+<div class="mt-2">
+
+<button
+
+*ngIf="b.status=='Pending'"
+
+class="btn btn-danger btn-sm"
+
+(click)="cancelBooking(b.id)">
+
+Cancel Booking
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </div>

@@ -246,8 +246,45 @@ namespace ProximaApi.Controllers
             }
 
             booking.Status = status;
+            //crete notification
+            string msg = "";
+            if(status== BookingStatus.Approved)
+            {
+                msg = $"Your booking for {booking.Service.ServiceName} was rejection";
+            }
+            else if (status == BookingStatus.Completed)
+            {
+                msg =
+                $"Your service {booking.Service.ServiceName} completed 🎉";
+            }
+
+            if (!string.IsNullOrEmpty(msg))
+            {
+                _context.Notifications.Add(
+                new Notification
+                {
+                    UserId =
+                booking.UserId,
+
+                    Message =
+                msg,
+
+                    CreatedAt =
+                DateTime.Now,
+
+                    IsRead =
+                false
+                });
+            }
+
             await _context.SaveChangesAsync();
-            return Ok(new { message = "Booking status updated" });
+
+            return Ok(
+            new
+            {
+                message =
+            "Booking status updated"
+            });
         }
 
         [HttpGet("bookings")]

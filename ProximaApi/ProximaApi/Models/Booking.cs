@@ -11,5 +11,8 @@ namespace ProximaApi.Models
         public Service Service { get; set; }
         public DateTime BookingDate { get; set; }
         public BookingStatus Status { get; set; }
+        public DateOnly? ServiceDate { get; set; }
+
+        public string? TimeSlot { get; set; }
     }
 }

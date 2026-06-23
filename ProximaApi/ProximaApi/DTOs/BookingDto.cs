@@ -6,5 +6,8 @@ namespace ProximaApi.DTOs
     {
         [Required]
         public int ServiceId { get; set; }
+        public DateOnly ServiceDate { get; set; }
+
+        public string TimeSlot { get; set; }
     }
 }

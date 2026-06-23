@@ -52,32 +52,90 @@ export class MyBookings implements OnInit {
         }
       });
   }
- submitReview(bookingId:number){
+  submitReview(bookingId: number) {
 
-console.log("BOOKING ID=", bookingId);
+    console.log("BOOKING ID=", bookingId);
 
-const data={
+    const data = {
 
-bookingId: bookingId,
+      bookingId: bookingId,
 
-rating: this.rating,
+      rating: this.rating,
 
-comment: this.comment
+      comment: this.comment
 
-};
+    };
 
-console.log("SENDING=", data);
+    console.log("SENDING=", data);
 
-this.api.addReview(data)
+    this.api.addReview(data)
+      .subscribe({
+
+        next: () => {
+
+          alert("Review Added ✅");
+
+          this.comment = "";
+
+          this.rating = 5;
+
+        },
+
+        error: (err) => {
+
+          console.log(err);
+
+          alert(err.error);
+
+        }
+
+      });
+
+  }
+  completeBooking(id: number) {
+
+    this.api
+      .completeBooking(id)
+      .subscribe({
+
+        next: () => {
+
+          alert(
+            "Service Completed ✅"
+          );
+
+          this.loadBookings();
+
+        },
+
+        error: (err) => {
+
+          console.log(err);
+
+          alert(
+            err.error
+          );
+
+        }
+
+      });
+
+  }
+loadBookings(){
+
+this.loading = true;
+
+this.api
+.getMyBookin()
 .subscribe({
 
-next:()=>{
+next:(res:any)=>{
 
-alert("Review Added ✅");
+this.bookings = res;
 
-this.comment="";
+this.loading = false;
 
-this.rating=5;
+this.cdr.detectChanges();
 
 },
 
@@ -85,11 +143,12 @@ error:(err)=>{
 
 console.log(err);
 
-alert(err.error);
+this.loading = false;
 
 }
 
 });
 
 }
+
 }
