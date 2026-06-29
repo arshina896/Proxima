@@ -415,66 +415,34 @@ namespace ProximaApi.Controllers
         [HttpPut("complete/{id}")]
         public async Task<IActionResult> CompleteBooking(int id)
         {
-            int userId =
-            int.Parse(
-            User.FindFirst(
-            ClaimTypes.NameIdentifier
-            ).Value
-            );
+            int userId =int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var booking =
-            await _context.Bookings
-            .FirstOrDefaultAsync(
-            b =>
-            b.Id == id &&
-            b.UserId == userId
-            );
+            var booking =await _context.Bookings
+                .FirstOrDefaultAsync(b =>b.Id == id &&b.UserId == userId);
 
             if (booking == null)
-                return NotFound(
-                "Booking not found"
-                );
+                return NotFound( "Booking not found");
 
-            if (
-            booking.Status
-            !=
-            BookingStatus.Approved
-            )
+            if ( booking.Status !=BookingStatus.Approved)
             {
-                return BadRequest(
-                "Only approved booking can complete"
-                );
+                return BadRequest("Only approved booking can complete");
             }
 
-            booking.Status =
-            BookingStatus.Completed;
+            booking.Status =BookingStatus.Completed;
 
             await _context.SaveChangesAsync();
 
-            return Ok(
-            new
-            {
-                message =
-            "Service Completed"
-            }
-            );
+            return Ok(new {message = "Service Completed"});
         }
         [HttpGet("notifications")]
         public async Task<IActionResult> GetNotifications()
         {
-            int userId =
-                int.Parse(
-                    User.FindFirst(
-                        ClaimTypes.NameIdentifier
-                    ).Value
-                );
-
+            int userId =int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var notifications =
                 await _context.Notifications
                 .Where(n => n.UserId == userId)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
-
             return Ok(notifications);
         }
     }

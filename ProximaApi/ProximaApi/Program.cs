@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using ProximaApi.Data;
 using ProximaApi.Helpers;
 using ProximaApi.Models;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -77,7 +78,30 @@ app.UseAuthorization();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
+app.UseStaticFiles(
 
+new StaticFileOptions
+{
+
+    FileProvider =
+
+new PhysicalFileProvider(
+
+Path.Combine(
+
+Directory.GetCurrentDirectory(),
+
+"uploads"
+
+)
+
+),
+
+    RequestPath = "/uploads"
+
+}
+
+);
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 ////

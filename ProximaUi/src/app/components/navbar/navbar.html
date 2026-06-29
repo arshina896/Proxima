@@ -1,0 +1,104 @@
+<nav class="navbar custom-navbar">
+
+    <div class="container-fluid">
+
+        <!-- LOGO -->
+
+        <div class="left-section">
+
+            <!-- <img src="/assets/logo/proxima-logo.png" class="logo"> -->
+            <img src="/assets/logo/F__1_-removebg-preview.png" class="logo">
+
+            <div class="brand-name">
+
+                PROXIMA
+
+            </div>
+
+        </div>
+
+        <!-- SEARCH -->
+
+        <div class="center-section">
+
+            <input class="search-box" type="text" placeholder="Search services...">
+
+        </div>
+
+        <!-- RIGHT -->
+
+        <div class="right-section">
+
+            <!-- NOTIFICATION -->
+
+            <div class="dropdown notification-wrapper">
+
+                <button class="notification-btn" data-bs-toggle="dropdown">
+
+                    🔔
+
+                    <span class="notification-count" *ngIf="notifications.length">
+
+                        {{notifications.length}}
+
+                    </span>
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li class="dropdown-header">
+
+                        Notifications
+
+                    </li>
+
+                    <li *ngIf="notifications.length==0">
+
+                        <div class="dropdown-item">
+
+                            No Notifications
+
+                        </div>
+
+                    </li>
+
+                    <li *ngFor="let n of notifications">
+
+                        <div class="dropdown-item">
+
+                            {{n.message}}
+
+                            <br>
+
+                            <small>
+
+                                {{n.createdAt | date:'short'}}
+
+                            </small>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <button routerLink="/my-bookings" class="booking-btn">
+
+                My Bookings
+
+            </button>
+
+            <button (click)="logout()" class="logout-btn">
+
+                Logout
+
+            </button>
+
+        </div>
+
+    </div>
+
+</nav>

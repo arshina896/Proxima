@@ -122,31 +122,98 @@ export class ProviderDashboard implements OnInit {
   // ✅ EDIT
   startEdit(service: any) {
     console.log("Edit service", service);
+
     this.serviceName = service.serviceName;
     this.price = service.price;
 
     const cat = this.categories.find(c => c.categoryName === service.categoryName);
     this.categoryId = cat ? cat.id : null;
-
+    this.selectedFile = null;
     this.editMode = true;
     this.editServiceId = service.id;
     console.log("EDIT ID =", this.editServiceId);
   }
 
   // ✅ UPDATE
+  // saveService() {
+  //   if (!this.serviceName || !this.price || !this.categoryId) {
+  //     alert("Fill all fields");
+  //     return;
+  //   }
+
+  //   const data = {
+  //     serviceName: this.serviceName,
+  //     price: this.price,
+  //     serviceCategoryId: this.categoryId
+  //   };
+
+  //   this.api.updateService(this.editServiceId!, data)
+  //     .subscribe({
+
+  //       next: () => {
+
+  //         this.getService();
+
+  //         this.resetForm();
+
+  //         alert("Updated Successfully");
+  //       },
+  //       error: (err) => {
+
+  //         console.log("UPDATE ERROR", err);
+  //         console.log("SERVER ERROR", err.error);
+  //       }
+  //     });
+  // }
   saveService() {
-    if (!this.serviceName || !this.price || !this.categoryId) {
+
+    if (
+      !this.serviceName ||
+      !this.price ||
+      !this.categoryId
+    ) {
+
       alert("Fill all fields");
+
       return;
+
     }
 
-    const data = {
-      serviceName: this.serviceName,
-      price: this.price,
-      serviceCategoryId: this.categoryId
-    };
+    const formData =
+      new FormData();
 
-    this.api.updateService(this.editServiceId!, data)
+    formData.append(
+      "serviceName",
+      this.serviceName
+    );
+
+    formData.append(
+      "price",
+      this.price.toString()
+    );
+
+    formData.append(
+      "serviceCategoryId",
+      this.categoryId.toString()
+    );
+
+    if (
+      this.selectedFile
+    ) {
+
+      formData.append(
+        "image",
+        this.selectedFile
+      );
+
+    }
+
+    this.api
+      .updateService(
+        this.editServiceId!,
+        formData
+      )
+
       .subscribe({
 
         next: () => {
@@ -155,16 +222,28 @@ export class ProviderDashboard implements OnInit {
 
           this.resetForm();
 
-          alert("Updated Successfully");
+          alert(
+            "Updated Successfully"
+          );
+
         },
+
         error: (err) => {
 
-          console.log("UPDATE ERROR", err);
-          console.log("SERVER ERROR", err.error);
-        }
-      });
-  }
+          console.log(
+            "UPDATE ERROR",
+            err
+          );
 
+          console.log(
+            err.error
+          );
+
+        }
+
+      });
+
+  }
   // ✅ DELETE
   deleteService(id: number) {
     console.log("Delete ID=", id);
@@ -215,28 +294,28 @@ export class ProviderDashboard implements OnInit {
   trackById(index: number, item: any) {
     return item.id;
   }
-  getReviews(){
+  getReviews() {
 
-this.api.getReviews()
-.subscribe({
+    this.api.getReviews()
+      .subscribe({
 
-next:(res)=>{
+        next: (res) => {
 
-console.log("REVIEWS=",res);
+          console.log("REVIEWS=", res);
 
-this.reviewData=res;
+          this.reviewData = res;
 
-this.cdr.detectChanges();
+          this.cdr.detectChanges();
 
-},
+        },
 
-error:(err)=>{
+        error: (err) => {
 
-console.log("REVIEW ERROR=",err);
+          console.log("REVIEW ERROR=", err);
 
-}
+        }
 
-});
+      });
 
-}
+  }
 }

@@ -1,13 +1,26 @@
-<div class="container mt-4">
+<app-navbar></app-navbar>
+
+<app-hero></app-hero>
+
+<div class="container mt-5">
+
   <div class="row mb-4">
-    <!-- SEARCH -->
+
     <div class="col-md-3">
+
       <input class="form-control" [(ngModel)]="search" placeholder="Search">
+
     </div>
-    <!-- CATEGORY -->
+
     <div class="col-md-3">
+
       <select class="form-select" [(ngModel)]="categoryId">
-        <option value="0">All Categories</option>
+
+        <option value="0">
+
+          All Categories
+
+        </option>
 
         <option *ngFor="let c of categories" [value]="c.id">
 
@@ -19,16 +32,32 @@
 
     </div>
 
-    <!-- SORT -->
     <div class="col-md-2">
+
       <select class="form-select" [(ngModel)]="sort">
-        <option value=""> Sort</option>
-        <option value="price"> Price ↑ </option>
-        <option value="rating">Rating ⭐</option>
+
+        <option value="">
+
+          Sort
+
+        </option>
+
+        <option value="price">
+
+          Price ↑
+
+        </option>
+
+        <option value="rating">
+
+          Rating ⭐
+
+        </option>
+
       </select>
+
     </div>
 
-    <!-- SEARCH BUTTON -->
     <div class="col-md-2">
 
       <button class="btn btn-primary" (click)="searchService()">
@@ -39,7 +68,6 @@
 
     </div>
 
-    <!-- RESET -->
     <div class="col-md-2">
 
       <button class="btn btn-secondary" (click)="resetFilter()">
@@ -51,13 +79,25 @@
     </div>
 
   </div>
-  <h2 class="mb-3">Service Providers</h2>
+
+  <h2 class="mb-4">
+
+    Service Providers
+
+  </h2>
 
   <div class="row">
-    <div class="col-md-4 mb-3" *ngFor="let p of providers">
-      <div class="card shadow p-3">
 
-        <h5>{{ p.providerName }}</h5>
+    <div class="col-md-4 mb-4" *ngFor="let p of providers">
+
+      <div class="card p-3 shadow">
+
+        <h4>
+
+          {{p.providerName}}
+
+        </h4>
+
         <p class="text-warning">
 
           ⭐
@@ -65,16 +105,25 @@
 
           (
           {{p.totalReviews}}
-          reviews)
+          reviews
+          )
 
         </p>
-        <div *ngFor="let s of p.services" class="border p-2 mb-2">
 
-          <p>{{ s.serviceName }}</p>
+        <div class="border p-3 mb-3" *ngFor="let s of p.services">
 
-          <p>₹{{ s.price }}</p>
+          <p>
 
-          <!-- DATE -->
+            {{s.serviceName}}
+
+          </p>
+
+          <p>
+
+            ₹{{s.price}}
+
+          </p>
+
           <input type="date" class="form-control mb-2" [(ngModel)]="s.serviceDate">
 
           <input type="time" class="form-control mb-2" [(ngModel)]="s.timeSlot">
@@ -84,84 +133,79 @@ s,
 s.serviceDate,
 s.timeSlot
 )">
+
             Book Now
+
           </button>
 
         </div>
 
       </div>
+
     </div>
+
   </div>
 
   <hr>
 
   <a routerLink="/services" class="btn btn-outline-primary me-2">
+
     View Services
+
   </a>
 
   <a routerLink="/my-bookings" class="btn btn-outline-success me-2">
+
     My Bookings
+
   </a>
-<hr>
 
+  <div class="dropdown d-inline-block ms-3">
 
-<!-- ADD HERE ↓↓↓ -->
+    <button class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown">
 
-<div class="dropdown d-inline-block me-2">
+      🔔 {{notifications.length}}
 
-<button
-class="btn btn-warning dropdown-toggle"
-data-bs-toggle="dropdown">
+    </button>
 
-🔔 {{notifications.length}}
+    <ul class="dropdown-menu">
 
-</button>
+      <li *ngIf="notifications.length==0">
 
-<ul class="dropdown-menu">
+        <div class="dropdown-item">
 
-<li *ngIf="notifications.length==0">
+          No Notifications
 
-<div class="dropdown-item">
+        </div>
 
-No Notifications
+      </li>
 
-</div>
+      <li *ngFor="let n of notifications">
 
-</li>
+        <div class="dropdown-item">
 
-<li *ngFor="let n of notifications">
+          {{n.message}}
 
-<div class="dropdown-item">
+          <br>
 
-{{n.message}}
+          <small>
 
-<br>
+            {{n.createdAt|date:'short'}}
 
-<small>
+          </small>
 
-{{n.createdAt | date:'short'}}
+        </div>
 
-</small>
+      </li>
 
-</div>
+    </ul>
 
-</li>
+  </div>
 
-</ul>
+  <button class="btn btn-danger ms-3" (click)="logout()">
 
-</div>
-
-<!-- ADD HERE ↑↑↑ -->
-
-<button
-class="btn btn-danger"
-(click)="logout()">
-
-Logout
-
-</button>
-  <button class="btn btn-danger" (click)="logout()">
     Logout
+
   </button>
 
 </div>

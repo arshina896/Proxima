@@ -1,0 +1,42 @@
+<div *ngIf="service; else loading">
+
+    <div class="service-container">
+
+        <img [src]="'https://localhost:7040/' + service.imageUrl" width="400">
+
+        <div class="service-content">
+
+            <h1>
+                {{service.serviceName}}
+            </h1>
+
+            <h3>
+                {{service.category}}
+            </h3>
+
+            <p>
+                Provider :
+                {{service.provider}}
+            </p>
+
+            <h2>
+                ₹{{service.price}}
+            </h2>
+
+            <button>
+                Book Now
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #loading>
+
+    <h2>
+        Loading...
+    </h2>
+
+</ng-template>

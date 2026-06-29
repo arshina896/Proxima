@@ -147,48 +147,139 @@ namespace ProximaApi.Controllers
 
             return Ok(new { message = "Service deleted successfully" });
         }
-
-
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateService(int id, ServiceDto dto)
+        public async Task<IActionResult>UpdateService(int id,[FromForm] ServiceDto dto)
         {
-            try
-            {
-                int userId = int.Parse(
-                    User.FindFirst(ClaimTypes.NameIdentifier).Value);
+               try
+                 {
+                int userId = int.Parse( User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-                var provider = await _context.ServiceProviders
-                    .FirstOrDefaultAsync(s => s.UserId == userId);
-
+                var provider =await _context.ServiceProviders.FirstOrDefaultAsync( s => s.UserId == userId);
                 if (provider == null)
                     return Unauthorized();
 
-                var service = await _context.Services
-                    .FirstOrDefaultAsync(s =>
-                        s.Id == id &&
-                        s.ServiceProviderId == provider.Id);
+                var service =await _context.Services .FirstOrDefaultAsync(
+                s =>s.Id == id && s.ServiceProviderId ==provider.Id );
 
                 if (service == null)
                     return NotFound();
 
+
                 service.ServiceName = dto.ServiceName;
-                service.Price = dto.Price;
+
+                service.Price =dto.Price;
+
                 service.ServiceCategoryId = dto.ServiceCategoryId;
 
-                await _context.SaveChangesAsync();
-                return Ok(new
+
+                /* IMAGE UPDATE */
+
+                if (
+                dto.Image != null
+                )
                 {
-                    service.Id,
-                    service.ServiceName,
-                    service.Price,
-                    service.ServiceCategoryId
-                });
+
+                    var fileName =Guid.NewGuid() +Path.GetExtension( dto.Image.FileName);
+
+                    var uploadFolder =
+ Path.Combine(
+ Directory.GetCurrentDirectory(),
+ "uploads"
+ );
+
+                    if (
+                    !Directory.Exists(
+                    uploadFolder
+                    ))
+                    {
+
+                        Directory.CreateDirectory(
+                        uploadFolder
+                        );
+
+                    }
+
+                    var filePath =
+                    Path.Combine(
+                    uploadFolder,
+                    fileName
+                    );
+
+                    using var stream =
+                    new FileStream(
+                    filePath,
+                    FileMode.Create
+                    );
+
+                    await dto.Image
+                    .CopyToAsync(
+                    stream
+                    );
+
+                    service.ImageUrl =
+                    $"uploads/{fileName}";
+
+                }
+
+
+                await _context.SaveChangesAsync();
+
+                return Ok();
+
             }
+
             catch (Exception ex)
             {
-                return StatusCode(500, ex.ToString());
+
+                return StatusCode(
+                500,
+                ex.Message
+                );
+
             }
+
         }
+
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> UpdateService(int id, ServiceDto dto)
+        //{
+        //    try
+        //    {
+        //        int userId = int.Parse(
+        //            User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+        //        var provider = await _context.ServiceProviders
+        //            .FirstOrDefaultAsync(s => s.UserId == userId);
+
+        //        if (provider == null)
+        //            return Unauthorized();
+
+        //        var service = await _context.Services
+        //            .FirstOrDefaultAsync(s =>
+        //                s.Id == id &&
+        //                s.ServiceProviderId == provider.Id);
+
+        //        if (service == null)
+        //            return NotFound();
+
+        //        service.ServiceName = dto.ServiceName;
+        //        service.Price = dto.Price;
+        //        service.ServiceCategoryId = dto.ServiceCategoryId;
+
+        //        await _context.SaveChangesAsync();
+        //        return Ok(new
+        //        {
+        //            service.Id,
+        //            service.ServiceName,
+        //            service.Price,
+        //            service.ServiceCategoryId
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex.ToString());
+        //    }
+        //}
 
         [HttpGet("Provider-bookings")]
         public async Task<IActionResult> ProviderBookings()

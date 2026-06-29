@@ -8,18 +8,19 @@ import { AdminDashboard } from './pages/admin-dashboard/admin-dashboard';
 
 import { MyBookings } from './pages/my-bookings/my-bookings';
 import { Services } from './pages/services/services';
-
+import { ServiceDetails } from './pages/service-details/service-details';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
-  // { path: 'home', component: Home, canActivate: [authGuard] },
-  { path: 'home', component: Home},
-  {path:'provider',component:ProviderDashboard},
-  
-  {path:'services',component:Services},
-  {path:'my-bookings',component:MyBookings},
-  {path:'admin',component:AdminDashboard},
+
+  { path: 'home', component: Home },
+  { path: 'provider', component: ProviderDashboard },
+
+  { path: 'services', component: Services },
+  { path: 'my-bookings', component: MyBookings },
+  { path: 'admin', component: AdminDashboard },
+  {path: 'service/:id',component: ServiceDetails},
 
 ];
 
