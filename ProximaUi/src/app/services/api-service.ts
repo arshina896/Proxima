@@ -25,7 +25,7 @@ export class ApiService {
   bookingService(data: any) {
     return this.http.post(environments.apiUrl + '/customer', data);
   }
-  getMyBookin() {
+  getMyBooking() {
     return this.http.get(environments.apiUrl + '/customer/myBooking');
   }
 

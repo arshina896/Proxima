@@ -21,8 +21,10 @@ export const routes: Routes = [
   { path: 'services', component: Services },
   { path: 'my-bookings', component: MyBookings },
   { path: 'admin', component: AdminDashboard },
-  {path: 'service/:id',component: ServiceDetails},
-{path:'service-booking/:id',component:ServiceBooking}
+  { path: 'service/:id', component: ServiceDetails },
+  { path: 'service-booking/:id', component: ServiceBooking },
+  {
+    path: 'my-booking',component: MyBookings},
 ];
 
 

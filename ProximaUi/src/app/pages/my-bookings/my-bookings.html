@@ -1,8 +1,7 @@
-<div class="container mt-4">
+<!-- <div class="container mt-4">
 
 <h2 class="mb-3">My Bookings</h2>
 
-<!-- LOADING -->
 
 <div *ngIf="loading" class="text-center">
 
@@ -10,7 +9,6 @@
 
 </div>
 
-<!-- EMPTY -->
 
 <div *ngIf="!loading && bookings.length===0"
 class="text-center">
@@ -19,7 +17,6 @@ class="text-center">
 
 </div>
 
-<!-- BOOKINGS -->
 
 <div class="row"
 *ngIf="!loading && bookings.length>0">
@@ -68,7 +65,6 @@ Time:
 
 </p>
 
-<!-- STATUS -->
 
 <p>
 
@@ -103,7 +99,6 @@ b.status=='Cancelled'
 
 <hr>
 
-<!-- COMPLETE -->
 
 <div class="mt-2">
 
@@ -121,7 +116,6 @@ Complete Service
 
 </div>
 
-<!-- REVIEW -->
 
 <div
 *ngIf="b.status=='Completed'"
@@ -192,7 +186,6 @@ Submit Review
 
 </div>
 
-<!-- CANCEL -->
 
 <div class="mt-2">
 
@@ -215,5 +208,174 @@ Cancel Booking
 </div>
 
 </div>
+
+</div> -->
+<div class="booking-page">
+
+    <div class="header">
+
+        <h1>My Bookings</h1>
+
+        <p>
+            View and manage your bookings
+        </p>
+
+    </div>
+
+
+    <!-- EMPTY -->
+
+    <div class="empty" *ngIf="bookings.length===0">
+
+        📦 No bookings found
+
+    </div>
+
+
+    <!-- LIST -->
+
+    <div *ngIf="bookings.length>0">
+
+        <div class="booking-card" *ngFor="let b of bookings">
+
+            <div class="left">
+
+                <img [src]="
+b.imageUrl
+?
+'https://localhost:7040/'+b.imageUrl
+:
+'https://placehold.co/120x120'
+">
+
+            </div>
+
+
+            <div class="middle">
+
+                <h3>
+
+                    {{b.serviceName}}
+
+                </h3>
+
+                <p>
+
+                    {{b.category}}
+
+                </p>
+
+                <p>
+
+                    👤 {{b.providerName}}
+
+                </p>
+
+            </div>
+
+
+            <div class="details">
+
+                <div>
+
+                    Booking
+
+                    <br>
+
+                    <b>
+
+                        {{b.bookingDate
+                        |
+                        date:'dd MMM yyyy'}}
+
+                    </b>
+
+                </div>
+
+
+                <div>
+
+                    Service
+
+                    <br>
+
+                    <b>
+
+                        {{b.serviceDate}}
+
+                    </b>
+
+                </div>
+
+
+                <div>
+
+                    Time
+
+                    <br>
+
+                    <b>
+
+                        {{b.timeSlot}}
+
+                    </b>
+
+                </div>
+
+            </div>
+
+
+            <div class="right">
+
+                <span class="status" [ngClass]="{
+
+'pending': b.status==='Pending',
+
+'approved': b.status==='Approved',
+
+'rejected': b.status==='Rejected',
+
+'completed': b.status==='Completed'
+
+}">
+
+                    {{b.status}}
+
+                </span>
+
+                <!-- REVIEW -->
+
+                <div class="review-box" *ngIf="b.status==='Completed'">
+
+                    <h5>
+
+                        Leave Review
+
+                    </h5>
+
+                    <div class="stars">
+
+                        <span *ngFor="let s of [1,2,3,4,5]" (click)="rating=s" [class.active]="s<=rating">
+
+                            ★
+
+                        </span>
+
+                    </div>
+
+                    <textarea [(ngModel)]="comment" placeholder="Write your review"></textarea>
+
+                    <button class="review-btn" (click)="submitReview(b.id)">
+
+                        Submit Review
+
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
 
 </div>

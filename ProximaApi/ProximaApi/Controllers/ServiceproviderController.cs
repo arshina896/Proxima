@@ -166,13 +166,6 @@ namespace ProximaApi.Controllers
 
                 if (service == null)
                     return NotFound();
-
-
-                //service.ServiceName = dto.ServiceName;
-                //service.Description = dto.Description;
-                //service.Price =dto.Price;
-
-                //service.ServiceCategoryId = dto.ServiceCategoryId;
                 service.ServiceName =
 string.IsNullOrWhiteSpace(dto.ServiceName)
 ? service.ServiceName
@@ -262,46 +255,7 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
 
         }
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateService(int id, ServiceDto dto)
-        //{
-        //    try
-        //    {
-        //        int userId = int.Parse(
-        //            User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-        //        var provider = await _context.ServiceProviders
-        //            .FirstOrDefaultAsync(s => s.UserId == userId);
-
-        //        if (provider == null)
-        //            return Unauthorized();
-
-        //        var service = await _context.Services
-        //            .FirstOrDefaultAsync(s =>
-        //                s.Id == id &&
-        //                s.ServiceProviderId == provider.Id);
-
-        //        if (service == null)
-        //            return NotFound();
-
-        //        service.ServiceName = dto.ServiceName;
-        //        service.Price = dto.Price;
-        //        service.ServiceCategoryId = dto.ServiceCategoryId;
-
-        //        await _context.SaveChangesAsync();
-        //        return Ok(new
-        //        {
-        //            service.Id,
-        //            service.ServiceName,
-        //            service.Price,
-        //            service.ServiceCategoryId
-        //        });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.ToString());
-        //    }
-        //}
+       
 
         [HttpGet("Provider-bookings")]
         public async Task<IActionResult> ProviderBookings()
@@ -359,21 +313,33 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
             }
 
             booking.Status = status;
-            //crete notification
+
+            // CREATE NOTIFICATION
+
             string msg = "";
-            if(status== BookingStatus.Approved)
+
+            if (status == BookingStatus.Approved)
             {
-                msg = $"Your booking for {booking.Service.ServiceName} was rejection";
+                msg =
+                $"Your booking for {booking.Service.ServiceName} was approved ✅";
             }
+
+            else if (status == BookingStatus.Rejected)
+            {
+                msg =
+                $"Your booking for {booking.Service.ServiceName} was rejected ❌";
+            }
+
             else if (status == BookingStatus.Completed)
             {
                 msg =
                 $"Your service {booking.Service.ServiceName} completed 🎉";
             }
 
-            if (!string.IsNullOrEmpty(msg))
+            if (!string.IsNullOrWhiteSpace(msg))
             {
                 _context.Notifications.Add(
+
                 new Notification
                 {
                     UserId =
@@ -387,7 +353,9 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
 
                     IsRead =
                 false
-                });
+                }
+
+                );
             }
 
             await _context.SaveChangesAsync();

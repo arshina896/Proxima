@@ -77,28 +77,22 @@ namespace ProximaApi.Controllers
                 {
                     b.Id,
 
-                    ServiceName =
-                        b.Service.ServiceName,
+                    ServiceName =b.Service.ServiceName,
 
-                    Category =
-                        b.Service.ServiceCategory.CategoryName,
+                    Category =b.Service.ServiceCategory.CategoryName,
 
-                    ProviderName =
-                        b.Service.ServiceProvider.User.FullName,
+                    ProviderName =b.Service.ServiceProvider.User.FullName,
 
-                    BookingDate =
-                        b.BookingDate,
+                    BookingDate =b.BookingDate,
 
-                    ServiceDate =
-                        b.ServiceDate,
+                    ServiceDate =b.ServiceDate,
 
-                    TimeSlot =
-                        b.TimeSlot,
+                    TimeSlot =b.TimeSlot,
 
-                    Status =
-                        b.Status.ToString()
+                    Status =b.Status.ToString(),
+
+                    ImageUrl =b.Service.ImageUrl
                 })
-
                 .ToListAsync();
 
             return Ok(bookings);
@@ -253,6 +247,7 @@ namespace ProximaApi.Controllers
                     ex.Message
                 );
             }
+
         }
         //booking
         [Authorize]

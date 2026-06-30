@@ -1,56 +1,156 @@
-<div class="booking-card">
+<div *ngIf="service as s; else loading">
 
-<h1>
+    <div class="booking-container">
 
-Book Service
+        <!-- LEFT -->
 
-</h1>
+        <div class="left">
+
+            <img [src]="
+s.imageUrl
+?
+'https://localhost:7040/' + s.imageUrl
+:
+'https://placehold.co/600x400'
+" class="service-image" />
+
+        </div>
+
+
+        <!-- RIGHT -->
+
+        <div class="right">
+
+            <div class="top">
+
+                <span class="category">
+
+                    {{s.category}}
+
+                </span>
+
+                <h1>
+
+                    {{s.serviceName}}
+
+                </h1>
+
+                <div class="provider">
+
+                    👤 {{s.provider}}
+
+                </div>
+
+                <div class="price">
+
+                    ₹{{s.price}}
+
+                </div>
+
+            </div>
+
+
+            <!-- DATE -->
+
+           <div class="field">
 
 <label>
 
-Select Date
+📅 Choose Date
 
 </label>
+
+<div class="date-list">
+
+<div
+class="date-card"
+*ngFor="let d of dates"
+[class.active]="selectedDate===d.full"
+(click)="selectDate(d)"
+>
+
+<span>{{d.day}}</span>
+
+<b>{{d.date}}</b>
+
+<small>{{d.month}}</small>
+
+</div>
+
+</div>
+
+<div class="extra-date">
+
+<p>Or choose another date</p>
 
 <input
 type="date"
 [(ngModel)]="serviceDate"
->
-
-<label>
-
-Select Time
-
-</label>
-
-<select
-[(ngModel)]="timeSlot"
->
-
-<option value="09:00 AM">
-09:00 AM
-</option>
-
-<option value="11:00 AM">
-11:00 AM
-</option>
-
-<option value="02:00 PM">
-02:00 PM
-</option>
-
-<option value="05:00 PM">
-05:00 PM
-</option>
-
-</select>
-
-<button
-(click)="bookNow()"
->
-
-Confirm Booking
-
-</button>
+(change)="selectedDate=serviceDate"
+/>
 
 </div>
+
+</div>
+
+            <!-- TIME + NOTE -->
+
+            <div class="row">
+
+                <div class="field small">
+
+                    <label>
+
+                        🕒 Time
+
+                    </label>
+
+                    <input type="time" [(ngModel)]="timeSlot" />
+
+                </div>
+
+                <div class="field big">
+
+                    <label>
+
+                        📝 Note
+
+                    </label>
+
+                    <input type="text" [(ngModel)]="note" placeholder="Optional" />
+
+                </div>
+
+            </div>
+
+
+            <div class="total">
+
+                Total
+
+                <span>
+
+                    ₹{{s.price}}
+
+                </span>
+
+            </div>
+
+
+            <button class="confirm-btn" (click)="bookNow()">
+
+                Confirm Booking
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #loading>
+
+    Loading...
+
+</ng-template>
