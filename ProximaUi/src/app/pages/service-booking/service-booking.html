@@ -1,0 +1,56 @@
+<div class="booking-card">
+
+<h1>
+
+Book Service
+
+</h1>
+
+<label>
+
+Select Date
+
+</label>
+
+<input
+type="date"
+[(ngModel)]="serviceDate"
+>
+
+<label>
+
+Select Time
+
+</label>
+
+<select
+[(ngModel)]="timeSlot"
+>
+
+<option value="09:00 AM">
+09:00 AM
+</option>
+
+<option value="11:00 AM">
+11:00 AM
+</option>
+
+<option value="02:00 PM">
+02:00 PM
+</option>
+
+<option value="05:00 PM">
+05:00 PM
+</option>
+
+</select>
+
+<button
+(click)="bookNow()"
+>
+
+Confirm Booking
+
+</button>
+
+</div>

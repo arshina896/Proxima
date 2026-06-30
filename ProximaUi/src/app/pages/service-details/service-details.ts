@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api-service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-service-details',
@@ -11,13 +11,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './service-details.css',
 })
 export class ServiceDetails implements OnInit {
-   service: any = null;
+  service: any = null;
 
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
-    private cdr: ChangeDetectorRef
-  ) {}
+    private cdr: ChangeDetectorRef,
+    private router:
+      Router
+  ) { }
 
   ngOnInit() {
 
@@ -56,6 +58,31 @@ export class ServiceDetails implements OnInit {
         }
 
       });
+
+  }
+  bookService(
+    id: number
+  ) {
+
+    this.router.navigate(
+      [
+        '/service-booking',
+        id
+      ]
+    );
+
+  }
+
+  routeToBooking(
+    id: number
+  ) {
+
+    this.api;
+
+    this.cdr;
+
+    window.location.href =
+      '/service-booking/' + id;
 
   }
 }

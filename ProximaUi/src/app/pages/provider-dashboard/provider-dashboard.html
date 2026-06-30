@@ -65,7 +65,13 @@
       <div class="col-md-4">
         <input [(ngModel)]="serviceName" name="serviceName" class="form-control" placeholder="Service Name">
       </div>
+      <div class="col-md-12">
 
+        <textarea [(ngModel)]="description" name="description" rows="4" class="form-control"
+          placeholder="Describe your service...">
+</textarea>
+
+      </div>
       <div class="col-md-3">
         <input [(ngModel)]="price" name="price" type="number" class="form-control" placeholder="Price">
       </div>
@@ -112,6 +118,7 @@
         <tr>
           <th> Image</th>
           <th>Category</th>
+          <th>Description</th>
           <th>Service</th>
           <th>Price</th>
           <th>Action</th>
@@ -128,6 +135,7 @@
             </span>
           </td>
           <td>{{ s.categoryName }}</td>
+          <td>{{s.description}}</td>
           <td>{{ s.serviceName }}</td>
           <td>₹ {{ s.price }}</td>
 

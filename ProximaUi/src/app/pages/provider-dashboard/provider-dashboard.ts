@@ -19,6 +19,7 @@ export class ProviderDashboard implements OnInit {
 
   categoryId: number | null = null;
   serviceName = "";
+  description = '';
   price: number | null = null;
 
   editMode = false;
@@ -98,6 +99,7 @@ export class ProviderDashboard implements OnInit {
 
     const formData = new FormData();
     formData.append("serviceName", this.serviceName);
+    formData.append("description", this.description);
     formData.append("price", this.price.toString());
     formData.append("serviceCategoryId", this.categoryId.toString());
     if (this.selectedFile) {
@@ -124,6 +126,8 @@ export class ProviderDashboard implements OnInit {
     console.log("Edit service", service);
 
     this.serviceName = service.serviceName;
+    this.description =
+      service.description || '';
     this.price = service.price;
 
     const cat = this.categories.find(c => c.categoryName === service.categoryName);
@@ -134,37 +138,7 @@ export class ProviderDashboard implements OnInit {
     console.log("EDIT ID =", this.editServiceId);
   }
 
-  // ✅ UPDATE
-  // saveService() {
-  //   if (!this.serviceName || !this.price || !this.categoryId) {
-  //     alert("Fill all fields");
-  //     return;
-  //   }
-
-  //   const data = {
-  //     serviceName: this.serviceName,
-  //     price: this.price,
-  //     serviceCategoryId: this.categoryId
-  //   };
-
-  //   this.api.updateService(this.editServiceId!, data)
-  //     .subscribe({
-
-  //       next: () => {
-
-  //         this.getService();
-
-  //         this.resetForm();
-
-  //         alert("Updated Successfully");
-  //       },
-  //       error: (err) => {
-
-  //         console.log("UPDATE ERROR", err);
-  //         console.log("SERVER ERROR", err.error);
-  //       }
-  //     });
-  // }
+  
   saveService() {
 
     if (
@@ -179,23 +153,13 @@ export class ProviderDashboard implements OnInit {
 
     }
 
-    const formData =
-      new FormData();
+    const formData = new FormData();
 
-    formData.append(
-      "serviceName",
-      this.serviceName
-    );
+    formData.append("serviceName", this.serviceName);
+    formData.append("description", this.description);
+    formData.append("price", this.price.toString());
 
-    formData.append(
-      "price",
-      this.price.toString()
-    );
-
-    formData.append(
-      "serviceCategoryId",
-      this.categoryId.toString()
-    );
+    formData.append("serviceCategoryId", this.categoryId.toString());
 
     if (
       this.selectedFile
@@ -273,6 +237,7 @@ export class ProviderDashboard implements OnInit {
   // ✅ RESET (fixed)
   resetForm() {
     this.serviceName = "";
+    this.description = "";
     this.price = null;
     this.categoryId = null;
     this.editMode = false;

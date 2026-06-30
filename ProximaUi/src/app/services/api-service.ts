@@ -58,6 +58,8 @@ export class ApiService {
     );
 
   }
+  createBooking(data: any) {return this.http.post(environments.apiUrl +'/customer',data);
+}
 }
 
 // //   "email": "arshina@gmail.com",

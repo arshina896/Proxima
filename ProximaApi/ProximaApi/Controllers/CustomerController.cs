@@ -49,6 +49,7 @@ namespace ProximaApi.Controllers
                 {
                     s.Id,
                     s.ServiceName,
+                    s.Description,
                     s.Price,
                     Category = s.ServiceCategory.CategoryName,
                     Provider = s.ServiceProvider.User.FullName,
@@ -120,6 +121,7 @@ namespace ProximaApi.Controllers
                     {
                         s.Id,
                         s.ServiceName,
+                        s.Description,
                         s.Price
                     })
                 })

@@ -1,31 +1,95 @@
 <div *ngIf="service; else loading">
 
-    <div class="service-container">
+    <div class="service-page">
 
-        <img [src]="'https://localhost:7040/' + service.imageUrl" width="400">
+        <div class="image-section">
 
-        <div class="service-content">
+            <img [src]="'https://localhost:7040/' + service.imageUrl" class="service-image" />
+
+        </div>
+
+
+        <div class="details-section">
+
+            <span class="category">
+
+                {{service.categoryName}}
+
+            </span>
 
             <h1>
+
                 {{service.serviceName}}
+
             </h1>
 
-            <h3>
-                {{service.category}}
-            </h3>
 
-            <p>
-                Provider :
-                {{service.provider}}
-            </p>
+            <div class="rating">
 
-            <h2>
+                ★★★★★
+                <span>(4.8)</span>
+
+            </div>
+
+
+            <div class="provider-card">
+
+                <h4>
+
+                    Provider
+
+                </h4>
+
+                <p>
+
+                    {{service.provider}}
+
+                </p>
+
+                <p>
+
+                    100+ bookings completed
+
+                </p>
+
+                <p>
+
+                    Response Time: ~30 min
+
+                </p>
+
+            </div>
+
+
+            <h2 class="price">
+
                 ₹{{service.price}}
+
             </h2>
 
-            <button>
+
+            <button class="book-btn" (click)="bookService(service.id)">
+
                 Book Now
+
             </button>
+
+
+            <div class="desc-box">
+
+                <h3>
+
+                    About Service
+
+                </h3>
+
+                <p>
+
+                    {{service.description}}
+
+                </p>
+
+            </div>
 
         </div>
 
@@ -33,10 +97,13 @@
 
 </div>
 
+
 <ng-template #loading>
 
-    <h2>
+    <div class="loading">
+
         Loading...
-    </h2>
+
+    </div>
 
 </ng-template>

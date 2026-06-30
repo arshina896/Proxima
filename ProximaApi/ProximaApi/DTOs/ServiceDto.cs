@@ -11,5 +11,6 @@ namespace ProximaApi.DTOs
 
         public IFormFile? Image { get; set; }
         public int ServiceCategoryId { get; set; }
+        public string? Description { get; set; }
     }
 }

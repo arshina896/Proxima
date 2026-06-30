@@ -76,6 +76,7 @@ namespace ProximaApi.Controllers
                 var service = new Service
                 {
                     ServiceName = serviceDto.ServiceName,
+                    Description = serviceDto.Description,
                     Price = serviceDto.Price,
                     ServiceCategoryId = serviceDto.ServiceCategoryId,
                     ServiceProviderId = provider.Id,
@@ -89,6 +90,7 @@ namespace ProximaApi.Controllers
                 {
                     service.Id,
                     service.ServiceName,
+                    service.Description,
                     service.Price,
                     service.ImageUrl,
                     CategoryName = _context.ServicesCategories
@@ -116,6 +118,7 @@ namespace ProximaApi.Controllers
         {
             s.Id,
             s.ServiceName,
+            s.Description,
             s.Price,
             s.ImageUrl,
             CategoryName = s.ServiceCategory.CategoryName
@@ -165,12 +168,24 @@ namespace ProximaApi.Controllers
                     return NotFound();
 
 
-                service.ServiceName = dto.ServiceName;
+                //service.ServiceName = dto.ServiceName;
+                //service.Description = dto.Description;
+                //service.Price =dto.Price;
 
-                service.Price =dto.Price;
+                //service.ServiceCategoryId = dto.ServiceCategoryId;
+                service.ServiceName =
+string.IsNullOrWhiteSpace(dto.ServiceName)
+? service.ServiceName
+: dto.ServiceName;
 
-                service.ServiceCategoryId = dto.ServiceCategoryId;
+                service.Description =
+                dto.Description ?? service.Description;
 
+                service.Price =
+                dto.Price;
+
+                service.ServiceCategoryId =
+                dto.ServiceCategoryId;
 
                 /* IMAGE UPDATE */
 
@@ -184,6 +199,7 @@ namespace ProximaApi.Controllers
                     var uploadFolder =
  Path.Combine(
  Directory.GetCurrentDirectory(),
+ "wwwroot",
  "uploads"
  );
 
@@ -221,10 +237,16 @@ namespace ProximaApi.Controllers
 
                 }
 
-
+                Console.WriteLine(service.Description);
                 await _context.SaveChangesAsync();
 
-                return Ok();
+                return Ok(new
+                {
+                    service.Id,
+                    service.ServiceName,
+                    service.Description,
+                    service.Price
+                });
 
             }
 
