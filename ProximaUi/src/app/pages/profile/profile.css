@@ -1,0 +1,270 @@
+/* Page */
+
+.profile-page{
+    background:#f4f7fc;
+    min-height:100vh;
+    padding:40px 0;
+}
+
+/* Header */
+
+.profile-header{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.profile-header h2{
+    font-size:38px;
+    font-weight:700;
+    color:#1e293b;
+    margin-bottom:10px;
+}
+
+.profile-header p{
+    color:#64748b;
+    font-size:16px;
+}
+
+/* Card */
+
+.profile-card{
+    background:#fff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+/* Left Panel */
+
+.left-panel{
+    text-align:center;
+    border-right:1px solid #e5e7eb;
+    padding-right:25px;
+}
+
+.image-wrapper{
+    position:relative;
+    width:180px;
+    margin:auto;
+}
+
+.profile-image{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    object-fit:cover;
+    border:5px solid #0d6efd;
+    transition:.3s;
+}
+
+.profile-image:hover{
+    transform:scale(1.05);
+}
+
+.default-icon{
+    font-size:180px;
+    color:#cbd5e1;
+}
+
+/* Camera Button */
+
+.camera-btn{
+    position:absolute;
+    bottom:10px;
+    right:10px;
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    background:#0d6efd;
+    color:white;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+}
+
+.camera-btn:hover{
+    background:#2563eb;
+    transform:scale(1.1);
+}
+
+.left-panel h4{
+    margin-top:20px;
+    font-weight:700;
+}
+
+.left-panel p{
+    color:gray;
+    font-size:14px;
+}
+
+/* Right Panel */
+
+.right-panel{
+    padding-left:30px;
+}
+
+.right-panel h5{
+
+    font-weight:700;
+
+    color:#2563eb;
+
+    margin-bottom:20px;
+
+}
+
+/* Form */
+
+.form-group{
+
+    margin-bottom:18px;
+
+}
+
+.form-group label{
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+    display:block;
+
+}
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+
+    padding:12px;
+
+    border:1px solid #d6d6d6;
+
+    transition:.3s;
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:0 0 0 .2rem rgba(37,99,235,.15);
+
+}
+
+/* Readonly */
+
+input[readonly]{
+
+    background:#f8fafc;
+
+}
+
+/* About */
+
+textarea{
+
+    resize:none;
+
+}
+
+/* Save Button */
+
+.save-btn{
+
+    width:100%;
+
+    margin-top:30px;
+
+    padding:14px;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.save-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 10px 25px rgba(13,110,253,.35);
+
+}
+
+/* Responsive */
+
+@media(max-width:991px){
+
+.left-panel{
+
+border-right:none;
+
+border-bottom:1px solid #e5e7eb;
+
+padding-bottom:25px;
+
+padding-right:0;
+
+margin-bottom:30px;
+
+}
+
+.right-panel{
+
+padding-left:0;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.profile-card{
+
+padding:20px;
+
+}
+
+.profile-header h2{
+
+font-size:28px;
+
+}
+
+.profile-image{
+
+width:140px;
+
+height:140px;
+
+}
+
+.default-icon{
+
+font-size:140px;
+
+}
+
+.image-wrapper{
+
+width:140px;
+
+}
+
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef,Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ApiService } from '../../services/api-service';
@@ -9,14 +9,16 @@ import { ApiService } from '../../services/api-service';
   imports: [CommonModule, RouterModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Navbar {
   notifications: any[] = [];
-  constructor(private api: ApiService,private cdr:ChangeDetectorRef) { }
+    profile: any = {};
+      profileImage = '';
+  constructor(private api: ApiService, private cdr: ChangeDetectorRef) { }
   ngOnInit() {
     this.loadNotifications();
-    // this.cdr.detectChanges();
+    this.loadProfile();
   }
   logout() {
 
@@ -32,8 +34,38 @@ export class Navbar {
       .subscribe((res: any) => {
 
         this.notifications = res;
-this.cdr.detectChanges();
+        this.cdr.detectChanges();
       });
 
   }
+  loadProfile() {
+
+    this.api.getProfile().subscribe({
+
+      next: (res: any) => {
+
+        this.profile = res;
+
+        if (res.profileImage) {
+
+          this.profileImage =
+            "https://localhost:7040/" +
+            res.profileImage;
+
+        }
+
+        this.cdr.detectChanges();
+
+      },
+
+      error: err => {
+
+        console.log(err);
+
+      }
+
+    });
+
+  }
+
 }

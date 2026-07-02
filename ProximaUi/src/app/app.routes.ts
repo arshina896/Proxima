@@ -10,6 +10,7 @@ import { MyBookings } from './pages/my-bookings/my-bookings';
 import { Services } from './pages/services/services';
 import { ServiceDetails } from './pages/service-details/service-details';
 import { ServiceBooking } from './pages/service-booking/service-booking';
+import { Profile } from './pages/profile/profile';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
@@ -23,8 +24,9 @@ export const routes: Routes = [
   { path: 'admin', component: AdminDashboard },
   { path: 'service/:id', component: ServiceDetails },
   { path: 'service-booking/:id', component: ServiceBooking },
-  {
-    path: 'my-booking',component: MyBookings},
+  { path: 'my-booking', component: MyBookings },
+  {path: 'profile',component: Profile},
+
 ];
 
 

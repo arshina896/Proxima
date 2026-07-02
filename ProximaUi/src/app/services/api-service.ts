@@ -58,8 +58,18 @@ export class ApiService {
     );
 
   }
-  createBooking(data: any) {return this.http.post(environments.apiUrl +'/customer',data);
-}
+  createBooking(data: any) {
+    return this.http.post(environments.apiUrl + '/customer', data);
+  }
+  //profile
+  getProfile() {
+    return this.http.get(environments.apiUrl + '/profile');
+  }
+
+  updateProfile(data: FormData) {
+    return this.http.put(environments.apiUrl + '/profile', data);
+  }
+
 }
 
 // //   "email": "arshina@gmail.com",
