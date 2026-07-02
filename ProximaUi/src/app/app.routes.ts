@@ -26,6 +26,7 @@ export const routes: Routes = [
   { path: 'service-booking/:id', component: ServiceBooking },
   { path: 'my-booking', component: MyBookings },
   {path: 'profile',component: Profile},
+{ path:'provider/:id',loadComponent:()=>import('./pages/provider-profile/provider-profile').then(c=>c.ProviderProfile)},
 
 ];
 

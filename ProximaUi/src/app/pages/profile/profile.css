@@ -1,85 +1,63 @@
-/* Page */
-
 .profile-page{
-    background:#f4f7fc;
+    background:#f5f7fb;
     min-height:100vh;
-    padding:40px 0;
-}
-
-/* Header */
-
-.profile-header{
-    text-align:center;
-    margin-bottom:30px;
 }
 
 .profile-header h2{
-    font-size:38px;
+    font-size:42px;
     font-weight:700;
     color:#1e293b;
-    margin-bottom:10px;
 }
 
 .profile-header p{
     color:#64748b;
-    font-size:16px;
+    font-size:18px;
 }
-
-/* Card */
 
 .profile-card{
     background:#fff;
-    border-radius:20px;
-    padding:35px;
-    box-shadow:0 15px 40px rgba(0,0,0,.08);
+    border-radius:25px;
+    overflow:hidden;
 }
-
-/* Left Panel */
 
 .left-panel{
     text-align:center;
+    padding:40px 20px;
+    height:100%;
     border-right:1px solid #e5e7eb;
-    padding-right:25px;
 }
 
 .image-wrapper{
-    position:relative;
     width:180px;
-    margin:auto;
+    height:180px;
+    position:relative;
 }
 
 .profile-image{
     width:180px;
     height:180px;
-    border-radius:50%;
     object-fit:cover;
+    border-radius:50%;
     border:5px solid #0d6efd;
-    transition:.3s;
-}
-
-.profile-image:hover{
-    transform:scale(1.05);
 }
 
 .default-icon{
     font-size:180px;
-    color:#cbd5e1;
+    color:#0d6efd;
 }
-
-/* Camera Button */
 
 .camera-btn{
     position:absolute;
+    right:0;
     bottom:10px;
-    right:10px;
 
-    width:45px;
-    height:45px;
+    width:50px;
+    height:50px;
 
     border-radius:50%;
 
     background:#0d6efd;
-    color:white;
+    color:#fff;
 
     display:flex;
     justify-content:center;
@@ -87,13 +65,10 @@
 
     cursor:pointer;
 
-    font-size:18px;
-
     transition:.3s;
 }
 
 .camera-btn:hover{
-    background:#2563eb;
     transform:scale(1.1);
 }
 
@@ -103,168 +78,106 @@
 }
 
 .left-panel p{
-    color:gray;
-    font-size:14px;
+    color:#6b7280;
 }
 
-/* Right Panel */
-
 .right-panel{
-    padding-left:30px;
+    padding:40px;
 }
 
 .right-panel h5{
-
+    color:#0d6efd;
+    font-size:26px;
     font-weight:700;
-
-    color:#2563eb;
-
     margin-bottom:20px;
-
 }
 
-/* Form */
-
 .form-group{
-
-    margin-bottom:18px;
-
+    margin-bottom:20px;
 }
 
 .form-group label{
-
     font-weight:600;
-
     margin-bottom:8px;
-
     display:block;
-
 }
 
 .form-control,
 .form-select{
-
     border-radius:12px;
-
     padding:12px;
-
-    border:1px solid #d6d6d6;
-
-    transition:.3s;
-
 }
 
 .form-control:focus,
 .form-select:focus{
-
-    border-color:#2563eb;
-
-    box-shadow:0 0 0 .2rem rgba(37,99,235,.15);
-
+    box-shadow:0 0 0 .2rem rgba(13,110,253,.15);
+    border-color:#0d6efd;
 }
-
-/* Readonly */
-
-input[readonly]{
-
-    background:#f8fafc;
-
-}
-
-/* About */
 
 textarea{
-
     resize:none;
-
 }
-
-/* Save Button */
 
 .save-btn{
-
     width:100%;
-
-    margin-top:30px;
-
     padding:14px;
-
     border-radius:12px;
-
     font-size:17px;
-
     font-weight:600;
-
-    transition:.3s;
-
+    margin-top:20px;
 }
 
-.save-btn:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:0 10px 25px rgba(13,110,253,.35);
-
+hr{
+    margin:30px 0;
 }
 
-/* Responsive */
+/* Tablet */
 
 @media(max-width:991px){
 
-.left-panel{
+    .left-panel{
+        border-right:none;
+        border-bottom:1px solid #e5e7eb;
+    }
 
-border-right:none;
-
-border-bottom:1px solid #e5e7eb;
-
-padding-bottom:25px;
-
-padding-right:0;
-
-margin-bottom:30px;
+    .right-panel{
+        padding:30px;
+    }
 
 }
 
-.right-panel{
-
-padding-left:0;
-
-}
-
-}
+/* Mobile */
 
 @media(max-width:576px){
 
-.profile-card{
+    .profile-header h2{
+        font-size:30px;
+    }
 
-padding:20px;
+    .profile-card{
+        border-radius:15px;
+    }
 
-}
+    .right-panel{
+        padding:20px;
+    }
 
-.profile-header h2{
+    .image-wrapper{
+        width:140px;
+        height:140px;
+    }
 
-font-size:28px;
+    .profile-image{
+        width:140px;
+        height:140px;
+    }
 
-}
+    .default-icon{
+        font-size:140px;
+    }
 
-.profile-image{
-
-width:140px;
-
-height:140px;
-
-}
-
-.default-icon{
-
-font-size:140px;
-
-}
-
-.image-wrapper{
-
-width:140px;
-
-}
+    .right-panel h5{
+        font-size:22px;
+    }
 
 }

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api-service';
 import { Navbar } from '../../components/navbar/navbar';
 import { Hero } from '../../components/hero/hero';
+import { ProviderList } from '../../components/provider-list/provider-list';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ import { Hero } from '../../components/hero/hero';
     CommonModule,
     FormsModule,
     Navbar,
-    Hero
+    Hero,
+    ProviderList
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
@@ -44,7 +46,7 @@ export class Home implements OnInit {
 
   }
 
- 
+
   loadProviders() {
 
     this.api
@@ -69,55 +71,55 @@ export class Home implements OnInit {
       });
 
   }
- loadCategories(){
+  loadCategories() {
 
-this.api
-.getCategories()
-.subscribe({
+    this.api
+      .getCategories()
+      .subscribe({
 
-next:(res:any)=>{
+        next: (res: any) => {
 
-this.categories =
-res || [];
+          this.categories =
+            res || [];
 
-this.cdr.detectChanges();
+          this.cdr.detectChanges();
 
-},
+        },
 
-error:(err)=>{
+        error: (err) => {
 
-console.log(err);
+          console.log(err);
 
-}
+        }
 
-});
+      });
 
-}
+  }
 
- loadNotifications(){
+  loadNotifications() {
 
-this.api
-.getNotifications()
-.subscribe({
+    this.api
+      .getNotifications()
+      .subscribe({
 
-next:(res:any)=>{
+        next: (res: any) => {
 
-this.notifications =
-res || [];
+          this.notifications =
+            res || [];
 
-this.cdr.detectChanges();
+          this.cdr.detectChanges();
 
-},
+        },
 
-error:(err)=>{
+        error: (err) => {
 
-console.log(err);
+          console.log(err);
 
-}
+        }
 
-});
+      });
 
-}
+  }
 
   searchService() {
 

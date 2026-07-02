@@ -442,6 +442,91 @@ namespace ProximaApi.Controllers
                 .ToListAsync();
             return Ok(notifications);
         }
+        [AllowAnonymous]
+        [HttpGet("providers")]
+        public async Task<IActionResult> GetProviders()
+        {
+            var providers = await _context.ServiceProviders
+                .Include(p => p.User)
+                .Include(p => p.Services)
+                .Include(p => p.Reviews)
+                .Where(p => p.IsApproved)
+                .Select(p => new
+                {
+                    p.Id,
+
+                    FullName = p.User.FullName,
+
+                    ProfileImage = p.User.ProfileImage,
+
+                    City = p.User.City,
+
+                    State = p.User.State,
+
+                    Rating = p.Reviews.Any()
+                        ? p.Reviews.Average(r => r.Rating)
+                        : 0,
+
+                    TotalReviews = p.Reviews.Count(),
+
+                    TotalServices = p.Services.Count()
+                })
+                .ToListAsync();
+
+            return Ok(providers);
+        }
+        //provider profile view 
+        [AllowAnonymous]
+        [HttpGet("provider/{id}")]
+        public async Task<IActionResult> GetProviderProfile(int id)
+        {
+            var provider = await _context.ServiceProviders
+
+                .Include(p => p.User)
+
+                .Include(p => p.Services)
+
+                .Include(p => p.Reviews)
+
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (provider == null)
+                return NotFound("Provider not found");
+
+            return Ok(new
+            {
+                provider.Id,
+
+                FullName = provider.User.FullName,
+
+                Email = provider.User.Email,
+
+                PhoneNumber = provider.User.PhoneNumber,
+
+                ProfileImage = provider.User.ProfileImage,
+
+                City = provider.User.City,
+
+                State = provider.User.State,
+
+                About = provider.User.About,
+
+                Rating = provider.Reviews.Any()
+                    ? provider.Reviews.Average(r => r.Rating)
+                    : 0,
+
+                TotalReviews = provider.Reviews.Count(),
+
+                Services = provider.Services.Select(s => new
+                {
+                    s.Id,
+                    s.ServiceName,
+                    s.Description,
+                    s.Price,
+                    s.ImageUrl
+                })
+            });
+        }
     }
 
 }

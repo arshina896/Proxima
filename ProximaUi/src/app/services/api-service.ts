@@ -69,7 +69,13 @@ export class ApiService {
   updateProfile(data: FormData) {
     return this.http.put(environments.apiUrl + '/profile', data);
   }
-
+  getAllProviders() {
+    return this.http.get(environments.apiUrl + '/customer/providers');
+  }
+  //provider profile
+  getProviderProfile(id: number) {
+    return this.http.get(environments.apiUrl + '/customer/provider/' + id);
+  }
 }
 
 // //   "email": "arshina@gmail.com",
