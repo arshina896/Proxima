@@ -1,0 +1,419 @@
+/* .category-section{
+
+    padding:80px 0;
+
+    background:#f8fafc;
+
+}
+
+.section-title{
+
+    font-size:40px;
+
+    font-weight:700;
+
+    color:#222;
+
+}
+
+.section-subtitle{
+
+    color:#777;
+
+    font-size:18px;
+
+    margin-top:10px;
+
+}
+
+.category-card{
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    height:100%;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+
+}
+
+.category-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+
+}
+.category-icon{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:auto;
+
+    margin-bottom:20px;
+
+    background:linear-gradient(
+        90deg,
+        #ff6b2c,
+        #ff8b55
+    );
+
+}
+
+.category-icon i{
+
+    font-size:42px;
+
+    color:#fff;
+
+}
+.category-card h5{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.category-card p{
+
+    color:#777;
+
+    margin-bottom:0;
+
+}
+
+@media(max-width:768px){
+
+.section-title{
+
+font-size:30px;
+
+}
+
+.category-card{
+
+padding:25px 15px;
+
+}
+
+.category-icon{
+
+width:75px;
+
+height:75px;
+
+}
+
+.category-icon i{
+
+font-size:34px;
+
+}
+
+} */
+
+/* ===========================
+   CATEGORY SECTION
+=========================== */
+
+.category-section{
+
+    padding:90px 0;
+
+    background:linear-gradient(
+        180deg,
+        #F8FAF8,
+        #EEF3EC
+    );
+
+}
+
+.section-title{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#1F2937;
+
+    margin-bottom:12px;
+
+}
+
+.section-subtitle{
+
+    font-size:18px;
+
+    color:#6B7280;
+
+}
+
+/* ===========================
+   CATEGORY CARD
+=========================== */
+
+.category-card{
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:35px 25px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    height:100%;
+
+    transition:.35s;
+
+    border:1px solid #E5E7EB;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.06);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* top line */
+
+.category-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:5px;
+
+    background:#485935;
+
+    transform:scaleX(0);
+
+    transition:.35s;
+
+}
+
+/* hover */
+
+.category-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+        0 20px 40px rgba(72,89,53,.18);
+
+}
+
+.category-card:hover::before{
+
+    transform:scaleX(1);
+
+}
+
+/* ===========================
+   ICON
+=========================== */
+
+.category-icon{
+
+    width:90px;
+
+    height:90px;
+
+    margin:auto;
+
+    margin-bottom:22px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        #485935,
+        #6B7E4F
+    );
+
+    transition:.35s;
+
+}
+
+.category-icon i{
+
+    color:#fff;
+
+    font-size:42px;
+
+    transition:.35s;
+
+}
+
+.category-card:hover .category-icon{
+
+    transform:rotate(8deg) scale(1.08);
+
+}
+
+.category-card:hover .category-icon i{
+
+    transform:scale(1.1);
+
+}
+
+/* ===========================
+   TEXT
+=========================== */
+
+.category-card h5{
+
+    font-size:22px;
+
+    font-weight:700;
+
+    color:#1F2937;
+
+    margin-bottom:10px;
+
+}
+
+.category-card p{
+
+    color:#6B7280;
+
+    font-size:15px;
+
+    margin-bottom:18px;
+
+}
+
+/* ===========================
+   EXPLORE BUTTON
+=========================== */
+
+.category-card::after{
+
+    content:"Explore →";
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    background:#EEF3EC;
+
+    color:#485935;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.category-card:hover::after{
+
+    background:#485935;
+
+    color:white;
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:992px){
+
+    .category-section{
+
+        padding:70px 0;
+
+    }
+
+    .section-title{
+
+        font-size:34px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .section-title{
+
+        font-size:30px;
+
+    }
+
+    .section-subtitle{
+
+        font-size:16px;
+
+    }
+
+    .category-card{
+
+        padding:28px 18px;
+
+    }
+
+    .category-icon{
+
+        width:75px;
+
+        height:75px;
+
+    }
+
+    .category-icon i{
+
+        font-size:34px;
+
+    }
+
+    .category-card h5{
+
+        font-size:19px;
+
+    }
+
+}

@@ -3,9 +3,8 @@
    PROXIMA DESIGN SYSTEM
 ========================== */
 @import "bootstrap-icons/font/bootstrap-icons.css";
+/* 
 :root{
-
-/* COLORS */
 
 --primary:#67C6A5;
 
@@ -26,25 +25,21 @@
 --border:#E7ECEF;
 
 
-/* SHADOW */
 
 --shadow:
 0 10px 30px
 rgba(0,0,0,.06);
 
 
-/* RADIUS */
 
 --radius:18px;
 
 
-/* TRANSITIONS */
 
 --transition:.3s;
 
 }
 
-/* RESET */
 
 *{
 
@@ -74,7 +69,6 @@ sans-serif;
 
 }
 
-/* BUTTON */
 
 .btn-main{
 
@@ -104,7 +98,6 @@ translateY(-3px);
 
 }
 
-/* CARD */
 
 .proxima-card{
 
@@ -118,5 +111,292 @@ box-shadow:
 var(--shadow);
 
 padding:20px;
+
+} */
+
+
+
+/* ==========================================
+   PROXIMA DESIGN SYSTEM (GREEN THEME)
+========================================== */
+
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:root{
+
+    /* COLORS */
+
+    --primary:#485935;
+
+    --primary-light:#93A267;
+
+    --primary-soft:#CADBB7;
+
+    --primary-dark:#39482B;
+
+    --secondary:#FBFBFB;
+
+    --bg:#F8F9F5;
+
+    --surface:#FFFFFF;
+
+    --text:#1F2937;
+
+    --text-light:#6B7280;
+
+    --danger:#E53935;
+
+    --warning:#F4B400;
+
+    --success:#43A047;
+
+    --border:#E5E7EB;
+
+
+    /* SHADOW */
+
+    --shadow:
+        0 10px 30px rgba(72,89,53,.12);
+
+    --shadow-hover:
+        0 18px 40px rgba(72,89,53,.18);
+
+
+    /* RADIUS */
+
+    --radius:18px;
+
+
+    /* TRANSITION */
+
+    --transition:.3s;
+
+}
+
+
+/* ===========================
+   RESET
+=========================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html,
+body{
+
+    overflow-x:hidden;
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+      background:linear-gradient(
+        180deg,
+        #F8F9F5,
+        #EEF5EA
+    );
+
+    color:var(--text);
+
+    font-family:Inter,sans-serif;
+
+}
+
+
+/* ===========================
+   LINKS
+=========================== */
+
+a{
+
+    text-decoration:none;
+
+    color:inherit;
+
+}
+
+
+/* ===========================
+   BUTTONS
+=========================== */
+
+.btn-main{
+
+    background:linear-gradient(
+        135deg,
+        var( --primary-dark),
+        var(--primary)
+    );
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 28px;
+
+    border-radius:14px;
+
+    transition:var(--transition);
+
+    font-weight:600;
+
+}
+
+.btn-main:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+
+/* Bootstrap Primary */
+
+.btn-primary{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+}
+
+.btn-primary:hover{
+
+    background:var(--primary-light);
+
+    border-color:var(--primary-light);
+
+}
+
+
+/* Bootstrap Outline */
+
+.btn-outline-primary{
+
+    color:var(--primary);
+
+    border-color:var(--primary);
+
+}
+
+.btn-outline-primary:hover{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+
+/* ===========================
+   CARD
+=========================== */
+
+.proxima-card{
+
+    background:var(--surface);
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    padding:20px;
+
+    transition:var(--transition);
+
+}
+
+.proxima-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+
+/* ===========================
+   FORM
+=========================== */
+
+.form-control,
+.form-select{
+
+    border-radius:12px;
+
+    border:1px solid var(--border);
+
+}
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 .2rem rgba(72,89,53,.15);
+
+}
+
+
+/* ===========================
+   BADGES
+=========================== */
+
+.badge-success{
+
+    background:#DDEED9;
+
+    color:var(--primary);
+
+}
+
+.badge-warning{
+
+    background:#FFF3CD;
+
+    color:#B8860B;
+
+}
+
+.badge-danger{
+
+    background:#FFE5E5;
+
+    color:#D32F2F;
+
+}
+
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary-light);
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
 
 }

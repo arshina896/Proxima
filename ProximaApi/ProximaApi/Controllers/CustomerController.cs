@@ -77,12 +77,13 @@ namespace ProximaApi.Controllers
                 {
                     b.Id,
 
+                    ServiceId = b.ServiceId,
                     ServiceName =b.Service.ServiceName,
 
                     Category =b.Service.ServiceCategory.CategoryName,
 
                     ProviderName =b.Service.ServiceProvider.User.FullName,
-
+                    Price = b.Service.Price,
                     BookingDate =b.BookingDate,
 
                     ServiceDate =b.ServiceDate,
@@ -130,7 +131,28 @@ namespace ProximaApi.Controllers
             var categories = await _context.ServicesCategories.ToListAsync();
             return Ok(categories);
         }
+        [HttpGet("category/{categoryId}")]
+        public async Task<IActionResult> GetServicesByCategory(int categoryId)
+        {
+            var services = await _context.Services
+                .Include(s => s.ServiceCategory)
+                .Include(s => s.ServiceProvider)
+                .ThenInclude(p => p.User)
+                .Where(s => s.ServiceCategoryId == categoryId)
+                .Select(s => new
+                {
+                    s.Id,
+                    s.ServiceName,
+                    s.Description,
+                    s.Price,
+                    s.ImageUrl,
+                    Category = s.ServiceCategory.CategoryName,
+                    Provider = s.ServiceProvider.User.FullName
+                })
+                .ToListAsync();
 
+            return Ok(services);
+        }
 
         [HttpPut("cancel/{id}")]
         public async Task<IActionResult> CancelBooking(int id)
@@ -527,6 +549,10 @@ namespace ProximaApi.Controllers
                 })
             });
         }
+        
+
+
+
     }
 
 }

@@ -1,0 +1,79 @@
+<section class="category-page">
+
+  <div class="container">
+
+    <div class="page-header text-center mb-5">
+
+      <h2>{{categoryName}}</h2>
+
+      <p>Explore all available services</p>
+
+    </div>
+
+    <div class="row g-4">
+
+      <div
+        class="col-lg-4 col-md-6"
+        *ngFor="let service of services">
+
+        <div class="service-card">
+
+          <img
+            *ngIf="service.imageUrl"
+            [src]="'https://localhost:7040/' + service.imageUrl"
+            class="service-image">
+
+          <img
+            *ngIf="!service.imageUrl"
+            src="https://placehold.co/600x400"
+            class="service-image">
+
+          <div class="service-body">
+
+            <span class="provider">
+
+              {{service.provider}}
+
+            </span>
+
+            <h4>
+
+              {{service.serviceName}}
+
+            </h4>
+
+            <p>
+
+              {{service.description}}
+
+            </p>
+
+            <div class="bottom">
+
+              <h3>
+
+                ₹{{service.price}}
+
+              </h3>
+
+              <button
+                class="btn-main"
+                (click)="viewService(service.id)">
+
+                Book Now
+
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

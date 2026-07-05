@@ -1,0 +1,367 @@
+/* ===========================
+   BACKGROUND
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+.auth-page{
+    width:100%;
+    min-height:100vh;
+
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)),
+    url(/assets/Images/Login-Background.jpg);
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    backdrop-filter:blur(2px);
+}
+
+/* ===========================
+ NAVBAR
+=========================== */
+
+.navbar{
+
+    position:absolute;
+    top:0;
+    left:0;
+
+    width:100%;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:25px 80px;
+
+    z-index:10;
+}
+
+.logo{
+
+    font-size:34px;
+    color:white;
+    font-weight:bold;
+    letter-spacing:2px;
+
+}
+
+.navbar ul{
+
+    display:flex;
+    gap:35px;
+    list-style:none;
+
+}
+
+.navbar a{
+
+    color:white;
+    text-decoration:none;
+    font-weight:500;
+    transition:.3s;
+
+}
+
+.navbar a:hover{
+
+    color:#66cfff;
+
+}
+
+/* ===========================
+ CARD
+=========================== */
+
+.auth-card{
+
+    width:430px;
+
+    padding:45px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.12);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+    0 15px 40px rgba(0,0,0,.35);
+
+    color:white;
+
+    position:relative;
+
+    z-index:5;
+
+    animation:popup .7s ease;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+        transform:translateY(40px) scale(.9);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0) scale(1);
+
+    }
+
+}
+
+/* ===========================
+ CLOSE
+=========================== */
+
+.close-btn{
+
+    position:absolute;
+
+    right:18px;
+    top:15px;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.close-btn:hover{
+
+    transform:rotate(180deg);
+
+}
+
+/* ===========================
+ TITLE
+=========================== */
+
+.auth-card h2{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+    font-size:34px;
+
+    font-weight:700;
+
+}
+
+/* ===========================
+ INPUT
+=========================== */
+
+.input-box{
+
+    position:relative;
+
+    margin-bottom:25px;
+
+}
+
+.input-box input{
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+
+    border-bottom:2px solid rgba(255,255,255,.5);
+
+    outline:none;
+
+    color:white;
+
+    padding:14px 40px 12px 5px;
+
+    font-size:16px;
+
+}
+
+.input-box input::placeholder{
+
+    color:#eee;
+
+}
+
+.input-box i{
+
+    position:absolute;
+
+    right:8px;
+
+    top:15px;
+
+    color:white;
+
+}
+
+/* ===========================
+ OPTIONS
+=========================== */
+
+.options{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:25px;
+
+    font-size:14px;
+
+}
+
+.options label{
+
+    display:flex;
+
+    gap:5px;
+
+    align-items:center;
+
+}
+
+.options a{
+
+    color:white;
+
+    text-decoration:none;
+
+}
+
+.options a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ===========================
+ BUTTON
+=========================== */
+
+.auth-btn{
+
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:white;
+
+    color:#222;
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.auth-btn:hover{
+
+    background:#00a8ff;
+
+    color:white;
+
+    transform:translateY(-3px);
+
+}
+
+/* ===========================
+ FOOTER
+=========================== */
+
+.auth-card p{
+
+    margin-top:25px;
+
+    text-align:center;
+
+}
+
+.auth-card span{
+
+    color:#8fd8ff;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+.auth-card span:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ===========================
+ MOBILE
+=========================== */
+
+@media(max-width:768px){
+
+    .navbar{
+
+        padding:20px;
+
+    }
+
+    .navbar ul{
+
+        display:none;
+
+    }
+
+    .auth-card{
+
+        width:92%;
+
+        padding:30px;
+
+    }
+
+    .logo{
+
+        font-size:28px;
+
+    }
+
+}

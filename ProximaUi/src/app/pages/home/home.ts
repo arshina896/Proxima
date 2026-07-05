@@ -9,6 +9,7 @@ import { ApiService } from '../../services/api-service';
 import { Navbar } from '../../components/navbar/navbar';
 import { Hero } from '../../components/hero/hero';
 import { ProviderList } from '../../components/provider-list/provider-list';
+import { CategoryList } from '../../components/category-list/category-list';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ import { ProviderList } from '../../components/provider-list/provider-list';
     FormsModule,
     Navbar,
     Hero,
-    ProviderList
+    ProviderList,
+    CategoryList
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'
@@ -232,3 +234,4 @@ export class Home implements OnInit {
   }
 
 }
+

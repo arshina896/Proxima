@@ -1,4 +1,4 @@
-.container {
+/* .container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
@@ -30,4 +30,36 @@ button {
 button:hover {
   background: #0056b3;
 }
+ */
+.container{
 
+    max-width:1300px;
+
+}
+
+.search-box{
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:20px;
+
+    box-shadow:0 10px 30px rgba(72,89,53,.10);
+
+}
+
+.form-control,
+.form-select{
+
+    height:52px;
+
+    border-radius:12px;
+
+}
+
+.btn-main{
+
+    height:52px;
+
+}

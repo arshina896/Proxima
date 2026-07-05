@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environments } from '../../environments/environments';
 import { HttpClient } from '@angular/common/http';
-environments
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,7 +17,6 @@ export class ApiService {
   }
 
   getService() {
-
     return this.http.get(environments.apiUrl + '/customer');
   }
 
@@ -28,8 +27,6 @@ export class ApiService {
   getMyBooking() {
     return this.http.get(environments.apiUrl + '/customer/myBooking');
   }
-
-
 
   getProvider() {
     return this.http.get(environments.apiUrl + '/customer/providerWithService');
@@ -76,6 +73,13 @@ export class ApiService {
   getProviderProfile(id: number) {
     return this.http.get(environments.apiUrl + '/customer/provider/' + id);
   }
+
+  getServicesByCategory(categoryId: number) {
+    return this.http.get(
+      environments.apiUrl + '/customer/category/' + categoryId
+    );
+  }
+
 }
 
 // //   "email": "arshina@gmail.com",

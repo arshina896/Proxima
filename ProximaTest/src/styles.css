@@ -1,0 +1,119 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap-icons/font/bootstrap-icons.css";
+:root{
+
+/* COLORS */
+
+--primary:#67C6A5;
+
+--primary-dark:#2C8F7B;
+
+--secondary:#FFD8B1;
+
+--bg:#FAFAF8;
+
+--surface:#FFFFFF;
+
+--text:#1E293B;
+
+--text-light:#64748B;
+
+--danger:#FF4D6D;
+
+--border:#E7ECEF;
+
+
+/* SHADOW */
+
+--shadow:
+0 10px 30px
+rgba(0,0,0,.06);
+
+
+/* RADIUS */
+
+--radius:18px;
+
+
+/* TRANSITIONS */
+
+--transition:.3s;
+
+}
+
+/* RESET */
+
+*{
+
+margin:0;
+
+padding:0;
+
+box-sizing:border-box;
+
+}
+
+body{
+
+background:
+linear-gradient(
+180deg,
+#FAFAF8,
+#F7FFFC
+);
+
+color:
+var(--text);
+
+font-family:
+Inter,
+sans-serif;
+
+}
+
+/* BUTTON */
+
+.btn-main{
+
+background:
+linear-gradient(
+135deg,
+var(--primary),
+var(--primary-dark)
+);
+
+color:white;
+
+border:none;
+
+padding:12px 28px;
+
+border-radius:14px;
+
+transition:.3s;
+
+}
+
+.btn-main:hover{
+
+transform:
+translateY(-3px);
+
+}
+
+/* CARD */
+
+.proxima-card{
+
+background:
+var(--surface);
+
+border-radius:
+var(--radius);
+
+box-shadow:
+var(--shadow);
+
+padding:20px;
+
+}

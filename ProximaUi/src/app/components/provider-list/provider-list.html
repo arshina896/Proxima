@@ -1,4 +1,4 @@
-<section class="container my-5">
+<!-- <section class="container my-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
@@ -72,6 +72,76 @@
                     <button class="btn btn-primary w-100 mt-3" [routerLink]="['/provider',provider.id]">
 
                         View Profile
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section> -->
+<section class="container my-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="fw-bold">
+                Explore Service Providers
+            </h3>
+
+            <p class="text-muted mb-0">
+                Trusted professionals ready to help
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="row g-4">
+
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6"
+             *ngFor="let provider of providers">
+
+            <div class="provider-card">
+
+                <div class="text-center">
+
+                    <img *ngIf="provider.profileImage"
+                         [src]="'https://localhost:7040/' + provider.profileImage"
+                         class="provider-img">
+
+                    <i *ngIf="!provider.profileImage"
+                       class="bi bi-person-circle provider-icon">
+                    </i>
+
+                </div>
+
+                <div class="provider-body">
+
+                    <h4 class="provider-name">
+
+                        {{provider.fullName}}
+
+                    </h4>
+
+                    <small class="provider-role">
+
+                        Home Service Provider
+
+                    </small>
+
+                    <button
+                        class="profile-btn"
+                        [routerLink]="['/provider',provider.id]">
+
+                        View Profile
+
+                        <i class="bi bi-arrow-right ms-2"></i>
 
                     </button>
 

@@ -39,7 +39,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
-
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAngular",
+//        policy =>
+//        {
+//            policy.WithOrigins("http://localhost:5300")
+//                  .AllowAnyHeader()
+//                  .AllowAnyMethod();
+//        });
+//});
 
 builder.Services.AddCors(options =>
 {

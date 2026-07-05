@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api-service';
 import { RouterModule } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 export class ProviderList implements OnInit{
   providers: any[] = [];
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService,private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.loadProviders();
@@ -27,6 +27,7 @@ export class ProviderList implements OnInit{
         next: (res: any) => {
 
           this.providers = res;
+          this.cdr.detectChanges();
 
         },
 

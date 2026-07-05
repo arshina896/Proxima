@@ -11,22 +11,26 @@ import { Services } from './pages/services/services';
 import { ServiceDetails } from './pages/service-details/service-details';
 import { ServiceBooking } from './pages/service-booking/service-booking';
 import { Profile } from './pages/profile/profile';
+import { Auth } from './pages/auth/auth';
+import { CategoryServices } from './pages/category-services/category-services';
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', component: Auth },
+  // { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-  { path: 'home', component: Home },
-  { path: 'provider', component: ProviderDashboard },
+  { path: 'home', component: Home,canActivate: [authGuard] },
+  { path: 'provider', component: ProviderDashboard ,canActivate: [authGuard]},
 
-  { path: 'services', component: Services },
-  { path: 'my-bookings', component: MyBookings },
-  { path: 'admin', component: AdminDashboard },
-  { path: 'service/:id', component: ServiceDetails },
-  { path: 'service-booking/:id', component: ServiceBooking },
-  { path: 'my-booking', component: MyBookings },
-  {path: 'profile',component: Profile},
+  { path: 'services', component: Services ,canActivate: [authGuard]},
+  { path: 'my-bookings', component: MyBookings ,canActivate: [authGuard]},
+  { path: 'admin', component: AdminDashboard ,canActivate: [authGuard]},
+  { path: 'service/:id', component: ServiceDetails ,canActivate: [authGuard]},
+  { path: 'service-booking/:id', component: ServiceBooking,canActivate: [authGuard] },
+  { path: 'my-booking', component: MyBookings,canActivate: [authGuard] },
+  {path: 'profile',component: Profile,canActivate: [authGuard]},
 { path:'provider/:id',loadComponent:()=>import('./pages/provider-profile/provider-profile').then(c=>c.ProviderProfile)},
+{ path: 'category/:id', component: CategoryServices},
 
 ];
 

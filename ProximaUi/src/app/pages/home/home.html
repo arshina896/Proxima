@@ -1,7 +1,8 @@
+<!-- 
 <app-navbar></app-navbar>
 
 <app-hero></app-hero>
-
+<app-category-list></app-category-list>
 <app-provider-list></app-provider-list>
 
 
@@ -211,4 +212,98 @@ s.timeSlot
 
   </button>
 
+</div> -->
+<app-navbar></app-navbar>
+
+<app-hero></app-hero>
+
+<app-category-list></app-category-list>
+
+<div class="container py-5">
+
+    <!-- Search -->
+
+    <div class="search-box mb-5">
+
+        <div class="row g-3">
+
+            <div class="col-lg-4">
+
+                <input
+                    class="form-control"
+                    [(ngModel)]="search"
+                    placeholder="Search service...">
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <select
+                    class="form-select"
+                    [(ngModel)]="categoryId">
+
+                    <option value="0">
+
+                        All Categories
+
+                    </option>
+
+                    <option
+                        *ngFor="let c of categories"
+                        [value]="c.id">
+
+                        {{c.categoryName}}
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <select
+                    class="form-select"
+                    [(ngModel)]="sort">
+
+                    <option value="">
+
+                        Sort By
+
+                    </option>
+
+                    <option value="price">
+
+                        Price
+
+                    </option>
+
+                    <option value="rating">
+
+                        Rating
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <button
+                    class="btn btn-main w-100"
+                    (click)="searchService()">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+
+<app-provider-list></app-provider-list>

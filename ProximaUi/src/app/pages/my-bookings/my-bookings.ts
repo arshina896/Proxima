@@ -1,157 +1,3 @@
-// import { CommonModule } from '@angular/common';
-// import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-// import { ApiService } from '../../services/api-service';
-// import { FormsModule } from '@angular/forms';
-
-
-// @Component({
-//   selector: 'app-my-bookings',
-//   imports: [CommonModule, FormsModule],
-//   standalone: true,
-//   templateUrl: './my-bookings.html',
-//   styleUrl: './my-bookings.css',
-// })
-// export class MyBookings implements OnInit {
-//   bookings: any[] = [];
-//   loading = true;
-//   rating = 5;
-//   comment = '';
-//   selectedProviderId: number | null = null;
-
-//   constructor(private api: ApiService, private cdr: ChangeDetectorRef) { }
-
-//   ngOnInit() {
-//     console.log("MyBookings Loaded ✅");
-
-//     this.api.getMyBookin().subscribe({
-//       next: (res: any) => {
-//         console.log("API DATA:", res);
-//         this.bookings = res;
-//         this.loading = false;
-//         this.cdr.detectChanges();
-//       },
-//       error: (err) => {
-//         console.log(err);
-//         this.loading = false;
-//         this.cdr.detectChanges();
-//       }
-//     });
-//   }
-//   cancelBooking(id: number) {
-//     if (!confirm("Cancel booking?"))
-//       return;
-//     this.api.cancelBooking(id)
-//       .subscribe({
-//         next: () => {
-//           alert("Booking cancelled");
-//           this.ngOnInit();
-//         },
-//         error: (err) => {
-//           console.log(err);
-//           alert(err.error);
-//         }
-//       });
-//   }
-//   submitReview(bookingId: number) {
-
-//     console.log("BOOKING ID=", bookingId);
-
-//     const data = {
-
-//       bookingId: bookingId,
-
-//       rating: this.rating,
-
-//       comment: this.comment
-
-//     };
-
-//     console.log("SENDING=", data);
-
-//     this.api.addReview(data)
-//       .subscribe({
-
-//         next: () => {
-
-//           alert("Review Added ✅");
-
-//           this.comment = "";
-
-//           this.rating = 5;
-
-//         },
-
-//         error: (err) => {
-
-//           console.log(err);
-
-//           alert(err.error);
-
-//         }
-
-//       });
-
-//   }
-//   completeBooking(id: number) {
-
-//     this.api
-//       .completeBooking(id)
-//       .subscribe({
-
-//         next: () => {
-
-//           alert(
-//             "Service Completed ✅"
-//           );
-
-//           this.loadBookings();
-
-//         },
-
-//         error: (err) => {
-
-//           console.log(err);
-
-//           alert(
-//             err.error
-//           );
-
-//         }
-
-//       });
-
-//   }
-// loadBookings(){
-
-// this.loading = true;
-
-// this.api
-// .getMyBookin()
-// .subscribe({
-
-// next:(res:any)=>{
-
-// this.bookings = res;
-
-// this.loading = false;
-
-// this.cdr.detectChanges();
-
-// },
-
-// error:(err)=>{
-
-// console.log(err);
-
-// this.loading = false;
-
-// }
-
-// });
-
-// }
-
-// }
 
 
 import { CommonModule } from '@angular/common';
@@ -168,140 +14,134 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './my-bookings.css',
 })
 export class MyBookings implements OnInit {
-rating = 5;
-comment = '';
+  rating = 5;
+  comment = '';
   bookings: any[] = [];
 
   constructor(
-    private api: ApiService,private cdr: ChangeDetectorRef
+    private api: ApiService, private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
 
     this.loadBookings();
-this.cdr.detectChanges();
+    this.cdr.detectChanges();
   }
 
- loadBookings() {
+  loadBookings() {
 
-this.api
-.getMyBooking()
+    this.api
+      .getMyBooking()
 
-.subscribe({
+      .subscribe({
 
-next:(res:any)=>{
+        next: (res: any) => {
 
-console.log("BOOKINGS=",res);
+          console.log("BOOKINGS=", res);
 
-this.bookings = [...res];
+          this.bookings = [...res];
 
-this.cdr.detectChanges();
+          this.cdr.detectChanges();
 
-},
+        },
 
-error:(err)=>{
+        error: (err) => {
 
-console.log(err);
+          console.log(err);
 
-this.bookings=[];
+          this.bookings = [];
 
-this.cdr.detectChanges();
+          this.cdr.detectChanges();
 
-}
+        }
 
-});
+      });
 
-}
-//   submitReview(bookingId: number) {
+  }
 
-//   const data = {
 
-//     bookingId: bookingId,
+  submitReview(bookingId: number) {
 
-//     rating: this.rating,
+    if (!this.comment) {
 
-//     comment: this.comment
+      alert("Write comment");
 
-//   };
+      return;
 
-//   console.log("REVIEW DATA =", data);
+    }
 
-//   this.api
-//     .addReview(data)
-//     .subscribe({
+    const data = {
 
-//       next: () => {
+      bookingId,
 
-//         alert("Review Added ✅");
+      rating: this.rating,
 
-//         this.comment = "";
+      comment: this.comment
 
-//         this.rating = 5;
+    };
 
-//         this.loadBookings();
+    this.api.addReview(data)
 
-//       },
+      .subscribe({
 
-//       error: (err) => {
+        next: () => {
 
-//         console.log(err);
+          alert("Review Added ✅");
 
-//         alert(
-//           err.error ||
-//           "Review Failed"
-//         );
+          this.rating = 5;
 
-//       }
+          this.comment = '';
 
-//     });
+        },
 
-// }
+        error: (err) => {
 
-submitReview(bookingId:number){
+          console.log(err);
 
-if(!this.comment){
+          alert(err.error);
 
-alert("Write comment");
+        }
 
-return;
+      });
 
-}
+  }
+cancelBooking(id: number) {
 
-const data={
+  const ok = confirm(
+    "Are you sure you want to cancel this booking?"
+  );
 
-bookingId,
+  if (!ok) {
+    return;
+  }
 
-rating:this.rating,
+  this.api
+    .cancelBooking(id)
+    .subscribe({
 
-comment:this.comment
+      next: (res: any) => {
 
-};
+        alert("Booking Cancelled ✅");
 
-this.api.addReview(data)
+        this.loadBookings();
+ this.cdr.detectChanges();
+      },
 
-.subscribe({
+      error: (err) => {
 
-next:()=>{
+        console.log(err);
 
-alert("Review Added ✅");
+        alert(
+          err.error?.message ||
+          err.error ||
+          "Cancel failed"
+        );
 
-this.rating=5;
+      }
 
-this.comment='';
-
-},
-
-error:(err)=>{
-
-console.log(err);
-
-alert(err.error);
+    });
 
 }
 
-});
-
 }
 
-
-}

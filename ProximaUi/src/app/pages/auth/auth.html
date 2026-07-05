@@ -1,0 +1,160 @@
+<div class="auth-page">
+
+  <!-- Overlay -->
+  <div class="overlay"></div>
+
+
+
+  <!-- Login/Register Card -->
+  <div class="auth-card">
+
+    <!-- Close -->
+    <div class="close-btn">
+      ✕
+    </div>
+
+    <!-- LOGIN -->
+    <div *ngIf="!isRegister">
+
+      <h2>Login</h2>
+
+      <div class="input-box">
+
+        <input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          name="email">
+
+        <i class="bi bi-envelope-fill"></i>
+
+      </div>
+
+      <div class="input-box">
+
+        <input
+          type="password"
+          placeholder="Password"
+          [(ngModel)]="password"
+          name="password">
+
+        <i class="bi bi-lock-fill"></i>
+
+      </div>
+
+      <div class="options">
+
+        <label>
+
+          <input type="checkbox">
+
+          Remember me
+
+        </label>
+
+        <a href="#">
+          Forgot Password?
+        </a>
+
+      </div>
+
+      <button
+        class="auth-btn"
+        (click)="login()">
+
+        Login
+
+      </button>
+
+      <p>
+
+        Don't have an account?
+
+        <span (click)="toggleForm()">
+
+          Register
+
+        </span>
+
+      </p>
+
+    </div>
+
+    <!-- REGISTER -->
+    <div *ngIf="isRegister">
+
+      <h2>Create Account</h2>
+
+      <div class="input-box">
+
+        <input
+          type="text"
+          placeholder="Full Name"
+          [(ngModel)]="fullname"
+          name="fullname">
+
+        <i class="bi bi-person-fill"></i>
+
+      </div>
+
+      <div class="input-box">
+
+        <input
+          type="email"
+          placeholder="Email"
+          [(ngModel)]="email"
+          name="registerEmail">
+
+        <i class="bi bi-envelope-fill"></i>
+
+      </div>
+
+      <div class="input-box">
+
+        <input
+          type="password"
+          placeholder="Password"
+          [(ngModel)]="password"
+          name="registerPassword">
+
+        <i class="bi bi-lock-fill"></i>
+
+      </div>
+
+      <div class="input-box">
+
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword">
+
+        <i class="bi bi-shield-lock-fill"></i>
+
+      </div>
+
+      <button
+        class="auth-btn"
+        (click)="register()">
+
+        Register
+
+      </button>
+
+      <p>
+
+        Already have an account?
+
+        <span (click)="toggleForm()">
+
+          Login
+
+        </span>
+
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
