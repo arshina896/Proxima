@@ -1,0 +1,338 @@
+/* =========================================
+   REVIEWS SECTION
+========================================= */
+
+.reviews-section{
+    margin-top:40px;
+}
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.section-header{
+    margin-bottom:30px;
+}
+
+.section-badge{
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:30px;
+    background:#eef4e5;
+    color:#485935;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+.section-header h2{
+    font-size:34px;
+    font-weight:700;
+    color:#2d3326;
+    margin-bottom:8px;
+}
+
+.section-header p{
+    color:#777;
+    margin:0;
+}
+
+/* =========================================
+   RATING SUMMARY
+========================================= */
+
+.rating-summary{
+    display:flex;
+    justify-content:center;
+    margin-bottom:40px;
+}
+
+.rating-card{
+
+    width:320px;
+
+    background:rgba(255,255,255,.55);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.35);
+
+    border-radius:22px;
+
+    padding:35px;
+
+    text-align:center;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+}
+
+.rating-card h1{
+
+    font-size:70px;
+
+    color:#485935;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.rating-card h5{
+
+    color:#333;
+
+    font-size:22px;
+
+    margin-bottom:15px;
+
+}
+
+.stars{
+
+    color:#ffb400;
+
+    font-size:28px;
+
+    letter-spacing:4px;
+
+    margin-bottom:15px;
+
+}
+
+.rating-card p{
+
+    color:#666;
+
+    margin:0;
+
+}
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty-state{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:60px;
+
+    text-align:center;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+    color:#666;
+
+    margin-bottom:30px;
+
+}
+
+.empty-state h4{
+
+    color:#485935;
+
+    margin-bottom:12px;
+
+}
+
+/* =========================================
+   REVIEW CARD
+========================================= */
+
+.review-card{
+
+    background:rgba(255,255,255,.55);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.35);
+
+    border-radius:22px;
+
+    padding:25px;
+
+    transition:.35s;
+
+    height:100%;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.review-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
+
+}
+
+/* =========================================
+   TOP
+========================================= */
+
+.review-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:15px;
+
+}
+
+.review-top h4{
+
+    margin:0;
+
+    color:#2f3828;
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+.review-date{
+
+    color:#888;
+
+    font-size:14px;
+
+}
+
+/* =========================================
+   RATING
+========================================= */
+
+.rating{
+
+    background:#eef4e5;
+
+    color:#485935;
+
+    padding:8px 16px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+.review-stars{
+
+    color:#ffb400;
+
+    font-size:22px;
+
+    margin-bottom:15px;
+
+    letter-spacing:3px;
+
+}
+
+/* =========================================
+   COMMENT
+========================================= */
+
+.review-comment{
+
+    color:#666;
+
+    line-height:1.8;
+
+    margin:0;
+
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media(max-width:992px){
+
+.section-header h2{
+
+    font-size:28px;
+
+}
+
+.rating-card{
+
+    width:100%;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.review-top{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+}
+
+.rating{
+
+    align-self:flex-start;
+
+}
+
+.section-header h2{
+
+    font-size:24px;
+
+}
+
+.rating-card h1{
+
+    font-size:55px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.rating-card{
+
+    padding:25px;
+
+}
+
+.review-card{
+
+    padding:20px;
+
+}
+
+.review-top h4{
+
+    font-size:20px;
+
+}
+
+.stars{
+
+    font-size:24px;
+
+}
+
+.review-stars{
+
+    font-size:20px;
+
+}
+
+}

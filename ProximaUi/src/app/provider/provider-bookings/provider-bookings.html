@@ -1,0 +1,117 @@
+<!-- ========================================= -->
+<!-- BOOKINGS SECTION -->
+<!-- ========================================= -->
+
+<section class="bookings-section">
+
+    <div class="section-header">
+
+        <span class="section-badge">
+            Booking Management
+        </span>
+
+        <h2>
+            My Bookings
+        </h2>
+
+        <p>
+            Manage customer bookings and update their status.
+        </p>
+
+    </div>
+
+    <!-- No Bookings -->
+
+    <div class="empty-state" *ngIf="bookings.length==0">
+
+        <h4>No Bookings Found</h4>
+
+        <p>
+            Customer bookings will appear here.
+        </p>
+
+    </div>
+
+    <!-- Booking Cards -->
+
+    <div class="booking-card" *ngFor="let b of bookings; trackBy: trackById">
+
+        <!-- Left -->
+
+        <div class="booking-info">
+
+            <h3>
+
+                {{b.customerName}}
+
+            </h3>
+
+            <p>
+
+                <strong>Service :</strong>
+
+                {{b.serviceName}}
+
+            </p>
+
+            <p>
+
+                <strong>Booking Date :</strong>
+
+                {{b.bookingDate | date:'dd MMM yyyy'}}
+
+            </p>
+            <p>
+                <strong>Booking Time :</strong>
+                {{ b.bookingDate | date:'hh:mm a' }}
+            </p>
+
+        </div>
+
+        <!-- Right -->
+
+        <div class="booking-right">
+
+            <span class="status" [ngClass]="{
+
+                'pending':b.status=='Pending',
+
+                'approved':b.status=='Approved',
+
+                'completed':b.status=='Completed',
+
+                'rejected':b.status=='Rejected'
+
+            }">
+
+                {{b.status}}
+
+            </span>
+
+            <div class="booking-actions">
+
+                <button *ngIf="b.status=='Pending'" class="btn btn-approve" (click)="updateStatus(b.id,'Approved')">
+
+                    Approve
+
+                </button>
+
+                <button *ngIf="b.status=='Pending'" class="btn btn-reject" (click)="updateStatus(b.id,'Rejected')">
+
+                    Reject
+
+                </button>
+
+                <button *ngIf="b.status=='Approved'" class="btn btn-complete" (click)="updateStatus(b.id,'Completed')">
+
+                    Complete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

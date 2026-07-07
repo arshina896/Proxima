@@ -1,0 +1,364 @@
+/* ==========================================
+   BOOKINGS SECTION
+========================================== */
+
+.bookings-section{
+    margin-top:40px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.section-header{
+    margin-bottom:30px;
+}
+
+.section-badge{
+    display:inline-block;
+    padding:8px 18px;
+    background:#eef4e5;
+    color:#485935;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:15px;
+}
+
+.section-header h2{
+    font-size:34px;
+    font-weight:700;
+    color:#2f3828;
+    margin-bottom:8px;
+}
+
+.section-header p{
+    color:#777;
+    margin:0;
+}
+
+/* ==========================================
+   EMPTY STATE
+========================================== */
+
+.empty-state{
+    background:#fff;
+    border-radius:20px;
+    padding:60px 20px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+}
+
+.empty-state h4{
+    font-size:26px;
+    color:#485935;
+    margin-bottom:10px;
+}
+
+.empty-state p{
+    color:#777;
+}
+
+/* ==========================================
+   BOOKING CARD
+========================================== */
+
+.booking-card{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:28px;
+
+    margin-bottom:25px;
+
+    background:#ffffff;
+
+    border-radius:20px;
+
+    border:1px solid #ececec;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.06);
+
+    transition:.3s;
+
+}
+
+.booking-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.08);
+
+}
+
+/* ==========================================
+   LEFT
+========================================== */
+
+.booking-info h3{
+
+    font-size:24px;
+
+    color:#2f3828;
+
+    margin-bottom:15px;
+
+}
+
+.booking-info p{
+
+    margin-bottom:8px;
+
+    color:#666;
+
+    font-size:15px;
+
+}
+
+.booking-info strong{
+
+    color:#485935;
+
+}
+
+/* ==========================================
+   RIGHT
+========================================== */
+
+.booking-right{
+
+    text-align:right;
+
+}
+
+/* ==========================================
+   STATUS
+========================================== */
+
+.status{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+}
+
+.pending{
+
+    background:#fff6d9;
+
+    color:#d68900;
+
+}
+
+.approved{
+
+    background:#dff8e5;
+
+    color:#198754;
+
+}
+
+.completed{
+
+    background:#d7efff;
+
+    color:#0d6efd;
+
+}
+
+.rejected{
+
+    background:#fde3e5;
+
+    color:#dc3545;
+
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.booking-actions{
+
+    display:flex;
+
+    gap:10px;
+
+    justify-content:flex-end;
+
+}
+
+.booking-actions .btn{
+
+    min-width:110px;
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:10px 18px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-approve{
+
+    background:#485935;
+
+    color:#fff;
+
+}
+
+.btn-approve:hover{
+
+    background:#39472b;
+
+}
+
+.btn-reject{
+
+    background:#dc3545;
+
+    color:#fff;
+
+}
+
+.btn-reject:hover{
+
+    background:#bb2d3b;
+
+}
+
+.btn-complete{
+
+    background:#198754;
+
+    color:#fff;
+
+}
+
+.btn-complete:hover{
+
+    background:#157347;
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:991px){
+
+.booking-card{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.booking-right{
+
+    width:100%;
+
+    margin-top:20px;
+
+    text-align:left;
+
+}
+
+.booking-actions{
+
+    justify-content:flex-start;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.section-header h2{
+
+    font-size:28px;
+
+}
+
+.booking-info h3{
+
+    font-size:22px;
+
+}
+
+.booking-actions{
+
+    flex-direction:column;
+
+    width:100%;
+
+}
+
+.booking-actions .btn{
+
+    width:100%;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.booking-card{
+
+    padding:20px;
+
+}
+
+.section-header h2{
+
+    font-size:24px;
+
+}
+
+.section-header p{
+
+    font-size:14px;
+
+}
+
+.booking-info h3{
+
+    font-size:20px;
+
+}
+
+.booking-info p{
+
+    font-size:14px;
+
+}
+
+.status{
+
+    width:100%;
+
+    text-align:center;
+
+}
+
+}

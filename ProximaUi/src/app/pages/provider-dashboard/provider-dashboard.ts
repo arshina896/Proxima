@@ -44,6 +44,7 @@ export class ProviderDashboard implements OnInit {
     this.getService();
     this.loadStats();
     this.getReviews();
+   
   }
 
   loadBooking() {
@@ -60,6 +61,7 @@ export class ProviderDashboard implements OnInit {
       }
     });
   }
+  
   //status
   loadStats() {
     this.api.getProviderStats().subscribe({

@@ -1,0 +1,695 @@
+/* =========================================
+   SERVICE FORM SECTION
+========================================= */
+
+.service-form-section{
+
+    margin-bottom:40px;
+
+}
+
+.form-card{
+
+    background:#93a26741;
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.35);
+
+    border-radius:24px;
+
+    padding:35px;
+
+    box-shadow:0 20px 45px rgba(0,0,0,.08);
+
+}
+
+/* =========================================
+   SECTION HEADER
+========================================= */
+
+.section-header{
+
+    margin-bottom:30px;
+
+}
+
+.section-badge{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    background:#eef4e5;
+
+    color:#485935;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+
+}
+
+.section-header h2{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:#2d3326;
+
+    margin-bottom:8px;
+
+}
+
+.section-header p{
+
+    color:#777;
+
+    margin:0;
+
+}
+/* =========================================
+   FORM LABEL
+========================================= */
+
+.form-label{
+
+    display:block;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    color:#485935;
+
+    margin-bottom:10px;
+
+}
+
+/* =========================================
+   INPUT & SELECT
+========================================= */
+
+.form-control,
+.form-select{
+
+    width:100%;
+
+    height:58px;
+
+    background:rgba(255,255,255,.35);
+
+    border:1px solid rgba(255,255,255,.45);
+
+    border-radius:16px;
+
+    padding:0 18px;
+
+    color:#2f2f2f;
+
+    font-size:15px;
+
+    transition:.3s;
+
+    box-shadow:none;
+
+    backdrop-filter:blur(12px);
+
+}
+
+/* Placeholder */
+
+.form-control::placeholder{
+
+    color:#8c8c8c;
+
+}
+
+/* Focus */
+
+.form-control:focus,
+.form-select:focus{
+
+    background:rgba(255,255,255,.55);
+
+    border:1px solid #93A267;
+
+    box-shadow:0 0 0 4px rgba(147,162,103,.18);
+
+    outline:none;
+
+}
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+textarea.form-control{
+
+    height:160px;
+
+    padding:18px;
+
+    resize:none;
+
+}
+/* =========================================
+   FILE UPLOAD
+========================================= */
+
+input[type="file"]{
+
+    height:58px;
+
+    background:rgba(255,255,255,.35);
+
+    border:1px solid rgba(255,255,255,.45);
+
+    border-radius:16px;
+
+    padding:12px 15px;
+
+    backdrop-filter:blur(12px);
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+input[type="file"]:hover{
+
+    background:#7e8d57;
+
+    border-color:#7e8d57;
+
+}
+
+/* File Button */
+
+input[type="file"]::file-selector-button{
+
+    background:#485935;
+
+    color:#fff;
+
+    border:none;
+
+    padding:8px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    margin-right:15px;
+
+    transition:.3s;
+
+}
+
+input[type="file"]::file-selector-button:hover{
+
+    background:#7e8d57;
+
+}
+/* =========================================
+   SAVE BUTTON
+========================================= */
+
+.btn-save{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#485935;
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+    box-shadow:0 10px 25px rgba(72,89,53,.25);
+
+}
+
+.btn-save:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 35px rgba(72,89,53,.35);
+
+}
+
+.btn-save:active{
+
+    transform:scale(.98);
+
+}
+/* =========================================
+   MY SERVICES SECTION
+========================================= */
+
+.services-section{
+
+    margin-top:40px;
+
+}
+
+.service-card{
+
+    background:rgba(255,255,255,.55);
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.35);
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    transition:.35s;
+
+    height:100%;
+
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+
+}
+
+.service-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 25px 45px rgba(0,0,0,.12);
+
+}
+/* =========================================
+   IMAGE
+========================================= */
+
+.service-card img{
+
+    width:100%;
+
+    height:240px;
+
+    object-fit:cover;
+
+    transition:.5s;
+
+}
+
+.service-card:hover img{
+
+    transform:scale(1.05);
+
+}
+/* =========================================
+   CONTENT
+========================================= */
+
+.service-content{
+
+    padding:22px;
+
+}
+
+.category-badge{
+
+    display:inline-block;
+
+    padding:7px 16px;
+
+    border-radius:30px;
+
+    background:#eef4e5;
+
+    color:#485935;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-bottom:15px;
+
+}
+
+.service-content h4{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#2f3828;
+
+    margin-bottom:10px;
+
+}
+
+.service-content p{
+
+    color:#666;
+
+    line-height:1.7;
+
+    min-height:70px;
+
+}
+
+.price{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#485935;
+
+    margin:20px 0;
+
+}
+/* =========================================
+   SERVICE ACTIONS
+========================================= */
+
+.service-actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.service-actions .btn{
+
+    flex:1;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+/* ============================
+   EDIT BUTTON
+============================ */
+
+.btn-edit{
+
+    background:rgba(147,162,103,.18);
+
+    color:#485935;
+
+    border:1px solid rgba(147,162,103,.35);
+
+}
+
+.btn-edit:hover{
+
+    background:#93A267;
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+}
+
+/* ============================
+   DELETE BUTTON
+============================ */
+
+.btn-delete{
+
+    background:rgba(220,53,69,.12);
+
+    color:#dc3545;
+
+    border:1px solid rgba(220,53,69,.25);
+
+}
+
+.btn-delete:hover{
+
+    background:#dc3545;               
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+}
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
+
+/* Large Laptop */
+@media (max-width:1200px){
+
+    .form-card{
+        padding:30px;
+    }
+
+    .section-header h2{
+        font-size:30px;
+    }
+
+    .service-card img{
+        height:220px;
+    }
+
+}
+
+/* Tablet */
+@media (max-width:992px){
+
+    .form-card{
+        padding:25px;
+    }
+
+    .section-header{
+        text-align:center;
+    }
+
+    .section-header h2{
+        font-size:28px;
+    }
+
+    .section-header p{
+        font-size:15px;
+    }
+
+    .form-control,
+    .form-select,
+    input[type="file"],
+    .btn-save{
+
+        height:54px;
+
+    }
+
+    textarea.form-control{
+
+        height:150px;
+
+    }
+
+    .service-card img{
+
+        height:210px;
+
+    }
+
+}
+
+/* Mobile */
+@media (max-width:768px){
+
+    .service-form-section{
+
+        margin-bottom:30px;
+
+    }
+
+    .form-card{
+
+        padding:20px;
+
+        border-radius:18px;
+
+    }
+
+    .section-header h2{
+
+        font-size:24px;
+
+    }
+
+    .section-header p{
+
+        font-size:14px;
+
+    }
+
+    .section-badge{
+
+        font-size:12px;
+
+        padding:6px 14px;
+
+    }
+
+    .form-label{
+
+        font-size:14px;
+
+    }
+
+    .form-control,
+    .form-select,
+    input[type="file"]{
+
+        height:50px;
+
+        font-size:14px;
+
+    }
+
+    textarea.form-control{
+
+        height:130px;
+
+    }
+
+    .btn-save{
+
+        height:50px;
+
+        font-size:15px;
+
+    }
+
+    .service-card{
+
+        border-radius:18px;
+
+    }
+
+    .service-card img{
+
+        height:200px;
+
+    }
+
+    .service-content{
+
+        padding:18px;
+
+    }
+
+    .service-content h4{
+
+        font-size:22px;
+
+    }
+
+    .price{
+
+        font-size:24px;
+
+    }
+
+    .service-actions{
+
+        flex-direction:column;
+
+    }
+
+    .service-actions .btn{
+
+        width:100%;
+
+    }
+
+}
+
+/* Small Mobile */
+@media (max-width:576px){
+
+    .form-card{
+
+        padding:18px;
+
+    }
+
+    .section-header h2{
+
+        font-size:22px;
+
+    }
+
+    .section-header p{
+
+        font-size:13px;
+
+    }
+
+    .service-card img{
+
+        height:180px;
+
+    }
+
+    .service-content{
+
+        padding:16px;
+
+    }
+
+    .service-content h4{
+
+        font-size:20px;
+
+    }
+
+    .price{
+
+        font-size:22px;
+
+    }
+
+}
+.service-content h3{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    color:#2f3828;
+
+    margin-bottom:10px;
+
+}

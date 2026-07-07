@@ -1,0 +1,247 @@
+<!-- ========================================= -->
+<!-- ADD / EDIT SERVICE -->
+<!-- ========================================= -->
+
+<section class="service-form-section">
+
+    <div class="form-card">
+
+        <div class="section-header">
+
+            <span class="section-badge">
+                Service Management
+            </span>
+
+            <h2>
+                {{ editMode ? 'Update Service' : 'Add New Service' }}
+            </h2>
+
+            <p>
+                Create your professional service and publish it for customers.
+            </p>
+
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Service Name -->
+
+            <div class="col-lg-6">
+
+                <label class="form-label">
+                    Service Name
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Service Name"
+                    [(ngModel)]="serviceName">
+
+            </div>
+
+            <!-- Category -->
+
+            <div class="col-lg-6">
+
+                <label class="form-label">
+                    Category
+                </label>
+
+                <select
+                    class="form-select"
+                    [(ngModel)]="categoryId">
+
+                    <option [ngValue]="null">
+                        Choose Category
+                    </option>
+
+                    <option
+                        *ngFor="let c of categories"
+                        [ngValue]="c.id">
+
+                        {{ c.categoryName }}
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Description -->
+
+            <div class="col-12">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                <textarea
+                    rows="6"
+                    class="form-control"
+                    placeholder="Describe your service..."
+                    [(ngModel)]="description">
+
+                </textarea>
+
+            </div>
+
+            <!-- Price -->
+
+            <div class="col-md-4">
+
+                <label class="form-label">
+                    Price
+                </label>
+
+                <input
+                    type="number"
+                    class="form-control"
+                    placeholder="Enter Price"
+                    [(ngModel)]="price">
+
+            </div>
+
+            <!-- Upload -->
+
+            <div class="col-md-4">
+
+                <label class="form-label">
+                    Service Image
+                </label>
+
+                <input
+                    type="file"
+                    class="form-control"
+                    (change)="onFileSelected($event)">
+
+            </div>
+
+            <!-- Button -->
+
+            <div class="col-md-4 d-grid">
+
+                <label class="form-label invisible">
+                    Button
+                </label>
+
+                <button
+                    *ngIf="!editMode"
+                    class="btn btn-save"
+                    (click)="createService()">
+
+                    Add Service
+
+                </button>
+
+                <button
+                    *ngIf="editMode"
+                    class="btn btn-save"
+                    (click)="saveService()">
+
+                    Update Service
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- MY SERVICES -->
+<!-- ========================================= -->
+
+<section class="services-section">
+
+    <div class="section-header">
+
+        <span class="section-badge">
+            Published Services
+        </span>
+
+        <h2>
+            My Services
+        </h2>
+
+        <p>
+            Manage all your published services.
+        </p>
+
+    </div>
+
+    <div class="row">
+
+        <div
+            class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-4"
+            *ngFor="let s of services; trackBy: trackById">
+
+            <div class="service-card">
+
+                <div class="service-image">
+
+                    <img
+                        *ngIf="s.imageUrl"
+                        [src]="'https://localhost:7040/' + s.imageUrl"
+                        alt="Service Image">
+
+                </div>
+
+                <div class="service-content">
+
+                    <span class="category-badge">
+
+                        {{ s.categoryName }}
+
+                    </span>
+
+                    <h3>
+
+                        {{ s.serviceName }}
+
+                    </h3>
+
+                    <p>
+
+                        {{ s.description }}
+
+                    </p>
+
+                    <div class="price">
+
+                        ₹{{ s.price }}
+
+                    </div>
+
+                    <div class="service-actions">
+
+                        <button
+                            class="btn btn-edit"
+                            (click)="startEdit(s)">
+
+                            Edit
+
+                        </button>
+
+                        <button
+                            class="btn btn-delete"
+                            (click)="deleteService(s.id)">
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

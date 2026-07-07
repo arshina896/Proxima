@@ -44,7 +44,7 @@ export class Login {
           this.router.navigate(['/provider']);
         }
         else {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/home']); 
         }
       },
       error: err => {

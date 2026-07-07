@@ -1,0 +1,133 @@
+<!-- ========================================= -->
+<!-- REVIEWS SECTION -->
+<!-- ========================================= -->
+
+<section class="reviews-section">
+
+    <!-- Header -->
+
+    <div class="section-header">
+
+        <span class="section-badge">
+            Customer Feedback
+        </span>
+
+        <h2>
+            Reviews & Ratings
+        </h2>
+
+        <p>
+            View customer ratings and reviews for your services.
+        </p>
+
+    </div>
+
+    <!-- Rating Summary -->
+
+    <div class="rating-summary">
+
+        <div class="rating-card">
+
+            <h1>
+
+                {{reviewData?.average || 0}}
+
+            </h1>
+
+            <h5>
+
+                Average Rating
+
+            </h5>
+
+            <div class="stars">
+
+                ★★★★★
+
+            </div>
+
+            <p>
+
+                Based on {{reviewData?.total || 0}} Reviews
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Empty -->
+
+    <div
+        class="empty-state"
+        *ngIf="reviewData?.reviews?.length==0">
+
+        <h4>
+
+            No Reviews Yet
+
+        </h4>
+
+        <p>
+
+            Customer reviews will appear here.
+
+        </p>
+
+    </div>
+
+    <!-- Review Cards -->
+
+    <div class="row">
+
+        <div
+            class="col-lg-6 mb-4"
+            *ngFor="let r of reviewData?.reviews">
+
+            <div class="review-card">
+
+                <div class="review-top">
+
+                    <div>
+
+                        <h4>
+
+                            {{r.customer}}
+
+                        </h4>
+
+                        <span class="review-date">
+
+                            {{r.reviewDate | date:'dd MMM yyyy'}}
+
+                        </span>
+
+                    </div>
+
+                    <div class="rating">
+
+                        {{r.rating}} / 5
+
+                    </div>
+
+                </div>
+
+                <div class="review-stars">
+
+                    ★★★★★
+
+                </div>
+
+                <p class="review-comment">
+
+                    {{r.comment}}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

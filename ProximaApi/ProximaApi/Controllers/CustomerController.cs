@@ -342,8 +342,18 @@ namespace ProximaApi.Controllers
             _context.Bookings.Add(
                 booking
             );
+            var notification = new Notification
+            {
+                UserId = service.ServiceProviderId,
+                Message = $"New booking received for {service.ServiceName}",
+                IsRead = false,
+                CreatedAt = DateTime.Now
+            };
+
+            _context.Notifications.Add(notification);
 
             await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
 
             return Ok(
                 new

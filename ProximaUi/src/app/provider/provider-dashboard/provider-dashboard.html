@@ -1,0 +1,233 @@
+<div class="provider-dashboard">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo-area">
+
+            <img src="/assets/logo/F__2_-removebg-preview.png" class="logo" alt="Logo">
+
+            <h3>PROXIMA</h3>
+
+            <p>Provider Panel</p>
+
+        </div>
+
+        <ul class="menu">
+
+            <li (click)="scrollTo('dashboard')">
+                Dashboard
+            </li>
+
+            <li (click)="scrollTo('services')">
+                My Services
+            </li>
+
+            <li (click)="scrollTo('bookings')">
+                Bookings
+            </li>
+
+            <li (click)="scrollTo('reviews')">
+                Reviews
+            </li>
+
+            <li (click)="scrollTo('profile')">
+                Profile
+            </li>
+
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+        <div class="topbar">
+
+            <div class="topbar-left">
+
+                <h2>Welcome Back 👋</h2>
+
+                <p>Manage your services and bookings efficiently.</p>
+
+            </div>
+
+            <!-- <div class="topbar-right">
+
+        <button class="icon-btn">
+          <i class="bi bi-bell"></i>
+        </button>
+
+        <button class="icon-btn">
+          <i class="bi bi-person-circle" (click)="scrollTo('profile')"></i>
+        </button>
+
+      </div> -->
+            <div class="topbar-right">
+
+                <!-- Notification -->
+
+          <div class="dropdown notification-wrapper">
+
+                <button class="notification-btn" data-bs-toggle="dropdown">
+
+                    🔔
+
+                    <span class="notification-count" *ngIf="notifications.length">
+
+                        {{notifications.length}}
+
+                    </span>
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li class="dropdown-header">
+
+                        Notifications
+
+                    </li>
+
+                    <li *ngIf="notifications.length==0">
+
+                        <div class="dropdown-item">
+
+                            No Notifications
+
+                        </div>
+
+                    </li>
+
+                    <li *ngFor="let n of notifications">
+
+                        <div class="dropdown-item">
+
+                            {{n.message}}
+
+                            <br>
+
+                            <small>
+
+                                {{n.createdAt | date:'short'}}
+
+                            </small>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+                <!-- Profile -->
+
+                <button class="icon-btn" (click)="scrollTo('profile')">
+
+                    <i class="bi bi-person-circle"></i>
+
+                </button>
+
+            </div>
+        </div>
+        <!-- ========================================= -->
+        <!-- STATS -->
+        <!-- ========================================= -->
+
+        <section class="stats-section" id="dashboard">
+
+            <div class="row g-4">
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card">
+
+                        <h2>{{stats.totalServices}}</h2>
+
+                        <p>Services</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card">
+
+                        <h2>{{stats.totalBookings}}</h2>
+
+                        <p>Bookings</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card">
+
+                        <h2>{{stats.pendingBookings}}</h2>
+
+                        <p>Pending</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card">
+
+                        <h2>{{stats.approvedBookings}}</h2>
+
+                        <p>Approved</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card">
+
+                        <h2>{{stats.completedBookings}}</h2>
+
+                        <p>Completed</p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card">
+
+                        <h2>{{stats.rejectedBookings}}</h2>
+
+                        <p>Rejected</p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+        <section id="services">
+            <app-provider-services></app-provider-services>
+        </section>
+        <section id="bookings">
+
+            <app-provider-bookings></app-provider-bookings>
+
+        </section>
+        <section id="reviews">
+
+            <app-provider-reviews></app-provider-reviews>
+
+        </section>
+        <section id="profile">
+            <app-profile></app-profile>
+        </section>
+    </div>
+</div>

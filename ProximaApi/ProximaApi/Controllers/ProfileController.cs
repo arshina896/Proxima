@@ -134,6 +134,37 @@ namespace ProximaApi.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [Authorize]
+        [HttpGet("notifications")]
+        public async Task<IActionResult> GetNotifications()
+        {
+            int providerId = int.Parse(
+                User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var notifications = await _context.Notifications
+                .Where(x => x.UserId == providerId)
+                .OrderByDescending(x => x.CreatedAt)
+                .ToListAsync();
+
+            return Ok(notifications);
+        }
+        [Authorize]
+        [HttpPut("notifications/{id}/read")]
+        public async Task<IActionResult> MarkAsRead(int id)
+        {
+            var notification =
+                await _context.Notifications.FindAsync(id);
+
+            if (notification == null)
+                return NotFound();
+
+            notification.IsRead = true;
+
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
     }
 }
 

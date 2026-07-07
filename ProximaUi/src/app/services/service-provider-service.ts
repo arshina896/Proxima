@@ -45,6 +45,19 @@ export class ServiceProviderService {
   getReviews() {
     return this.http.get(environments.apiUrl +'/serviceprovider/reviews');
   }
+
+getNotifications() {
+  return this.http.get(
+    environments.apiUrl + '/profile/notifications'
+  );
+}
+
+markNotificationRead(id: number) {
+  return this.http.put(
+    environments.apiUrl + '/profile/notifications/' + id + '/read',
+    {}
+  );
+}
 }
 
 
