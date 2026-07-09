@@ -63,7 +63,7 @@ export class ProviderBookings implements OnInit {
         next: () => {
 
           this.loadBookings();
-
+ this.api.refreshStats.next();
         },
 
         error: (err) => {

@@ -5,19 +5,19 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
-   standalone: true,
-  imports: [CommonModule,FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './profile.html',
   styleUrl: './profile.css',
 })
 export class Profile implements OnInit {
- profile: any = {};
+  profile: any = {};
 
   selectedFile: File | null = null;
 
   imagePreview: string = '';
 
-  constructor(private api: ApiService,private cdr: ChangeDetectorRef) { }
+  constructor(private api: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
 
@@ -25,35 +25,62 @@ export class Profile implements OnInit {
 
   }
 
- loadProfile() {
+  loadProfile() {
 
-  this.api.getProfile().subscribe({
+    this.api.getProfile().subscribe({
 
-    next: (res: any) => {
+      next: (res: any) => {
 
-      console.log("Profile Response:", res);
+        console.log("Profile Response:", res);
 
-      this.profile = { ...res };
+        this.profile = { ...res };
 
-      if (res.profileImage) {
-        this.imagePreview =
-          'https://localhost:7040/' + res.profileImage;
-      } else {
-        this.imagePreview = '';
+        if (res.profileImage) {
+          // this.imagePreview =
+          //   'https://localhost:7040/' + res.profileImage;
+          this.imagePreview =
+'https://localhost:7040/' +
+res.profileImage +
+'?t=' +
+new Date().getTime();
+        } else {
+          this.imagePreview = '';
+        }
+
+        this.cdr.detectChanges();
+
+      },
+
+      error: err => {
+        console.log(err);
       }
 
-      this.cdr.detectChanges();
+    });
 
-    },
+  }
 
-    error: err => {
-      console.log(err);
-    }
+  // onFileSelected(event: Event) {
 
-  });
+  //   const input = event.target as HTMLInputElement;
 
-}
+  //   if (!input.files || input.files.length === 0)
+  //     return;
 
+  //   const file = input.files[0];
+
+  //   this.selectedFile = file;
+
+  //   const reader = new FileReader();
+
+  //   reader.onload = () => {
+
+  //     this.imagePreview = reader.result as string;
+
+  //   };
+
+  //   reader.readAsDataURL(file);
+  //   this.cdr.detectChanges();
+  // }
 onFileSelected(event: Event) {
 
   const input = event.target as HTMLInputElement;
@@ -61,9 +88,7 @@ onFileSelected(event: Event) {
   if (!input.files || input.files.length === 0)
     return;
 
-  const file = input.files[0];
-
-  this.selectedFile = file;
+  this.selectedFile = input.files[0];
 
   const reader = new FileReader();
 
@@ -71,12 +96,13 @@ onFileSelected(event: Event) {
 
     this.imagePreview = reader.result as string;
 
+    this.cdr.detectChanges();
+
   };
 
-  reader.readAsDataURL(file);
+  reader.readAsDataURL(this.selectedFile);
 
 }
-
   saveProfile() {
 
     const formData = new FormData();
@@ -86,10 +112,10 @@ onFileSelected(event: Event) {
       this.profile.fullName
     );
 
-  formData.append(
-  "Phone",
-  this.profile.phoneNumber
-);
+    formData.append(
+      "Phone",
+      this.profile.phoneNumber
+    );
 
     formData.append(
       "Gender",
@@ -144,7 +170,7 @@ onFileSelected(event: Event) {
           alert("Profile Updated Successfully ✅");
 
           this.loadProfile();
-
+    this.cdr.detectChanges();
         },
 
         error: err => {
@@ -154,6 +180,6 @@ onFileSelected(event: Event) {
         }
 
       });
-
+ 
   }
 }

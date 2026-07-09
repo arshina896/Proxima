@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environments } from '../../environments/environments';
-
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceProviderService {
-
+ refreshStats = new Subject<void>();
   constructor(private http: HttpClient) { }
 
   createService(data: any) {

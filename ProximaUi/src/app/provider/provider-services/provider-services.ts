@@ -131,7 +131,7 @@ export class ProviderServices implements OnInit{
         this.getService();
 
         this.resetForm();
-
+ this.api.refreshStats.next();
       },
 
       error: (err) => {
@@ -211,7 +211,7 @@ export class ProviderServices implements OnInit{
           this.getService();
 
           this.resetForm();
-
+ this.api.refreshStats.next();
         },
 
         error: (err) => {
@@ -243,7 +243,7 @@ export class ProviderServices implements OnInit{
         this.services = this.services.filter(s => s.id != id);
 
         this.cdr.detectChanges();
-
+ this.api.refreshStats.next();
       },
 
       error: (err) => {

@@ -9,7 +9,7 @@ import { Profile } from '../../pages/profile/profile';
 
 @Component({
   selector: 'app-provider-dashboard',
-  imports: [CommonModule, ProviderServices,ProviderBookings,
+  imports: [CommonModule, ProviderServices, ProviderBookings,
     ProviderReviews,
     Profile
   ],
@@ -34,33 +34,38 @@ export class ProviderDashboard implements OnInit {
 
   notifications: any[] = [];
 
-showNotifications = false;
+  showNotifications = false;
   // activePage = 'dashboard';
   constructor(private api: ServiceProviderService, private cdr: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit(): void {
 
     this.loadStats();
-      this.loadNotifications();
+    this.loadNotifications();
+    this.cdr.detectChanges();
+      this.api.refreshStats.subscribe(() => {
+
+    this.loadStats();
+
+  });
+  }
+  scrollTo(section: string) {
+
+    const element = document.getElementById(section);
+
+    if (element) {
+
+      element.scrollIntoView({
+
+        behavior: 'smooth',
+
+        block: 'start'
+
+      });
+
+    }
 
   }
- scrollTo(section: string) {
-
-  const element = document.getElementById(section);
-
-  if (element) {
-
-    element.scrollIntoView({
-
-      behavior: 'smooth',
-
-      block: 'start'
-
-    });
-
-  }
-
-}
 
   loadStats() {
 
@@ -87,43 +92,13 @@ showNotifications = false;
   }
   loadNotifications() {
 
-  this.api.getNotifications().subscribe({
+    this.api.getNotifications().subscribe({
 
-    next: (res: any) => {
+      next: (res: any) => {
 
-      console.log("Notifications:", res);
+        console.log("Notifications:", res);
 
-      this.notifications = res;
-
-      this.cdr.detectChanges();
-
-    },
-
-    error: (err) => {
-
-      console.log(err);
-
-    }
-
-  });
-
-}
-toggleNotifications() {
-
-  this.showNotifications = !this.showNotifications;
-
-}
-
-markAsRead(notification: any) {
-
-  if (notification.isRead) return;
-
-  this.api.markNotificationRead(notification.id)
-    .subscribe({
-
-      next: () => {
-
-        notification.isRead = true;
+        this.notifications = res;
 
         this.cdr.detectChanges();
 
@@ -137,12 +112,42 @@ markAsRead(notification: any) {
 
     });
 
-}
-get unreadCount(): number {
+  }
+  toggleNotifications() {
 
-  return this.notifications.filter(n => !n.isRead).length;
+    this.showNotifications = !this.showNotifications;
 
-}
+  }
+
+  markAsRead(notification: any) {
+
+    if (notification.isRead) return;
+
+    this.api.markNotificationRead(notification.id)
+      .subscribe({
+
+        next: () => {
+
+          notification.isRead = true;
+
+          this.cdr.detectChanges();
+
+        },
+
+        error: (err) => {
+
+          console.log(err);
+
+        }
+
+      });
+
+  }
+  get unreadCount(): number {
+
+    return this.notifications.filter(n => !n.isRead).length;
+
+  }
   logout() {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
