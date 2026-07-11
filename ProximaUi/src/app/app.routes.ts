@@ -15,6 +15,8 @@ import { Auth } from './pages/auth/auth';
 import { CategoryServices } from './pages/category-services/category-services';
 // import { ProviderDashboard } from './pages/provider-dashboard/provider-dashboard';
 import { ProviderDashboard } from './provider/provider-dashboard/provider-dashboard';
+import { CustomerChat } from './pages/customer-chat/customer-chat';
+import { ProviderChat } from './provider/provider-chat/provider-chat';
 // import { ProviderProfile } from './pages/provider-profile/provider-profile';
 export const routes: Routes = [
   { path: '', component: Auth },
@@ -35,7 +37,16 @@ export const routes: Routes = [
   { path: 'profile', component: Profile, canActivate: [authGuard] },
   { path: 'provider/:id', loadComponent: () => import('./pages/provider-profile/provider-profile').then(c => c.ProviderProfile) },
   { path: 'category/:id', component: CategoryServices },
- 
+ {
+  path: 'customer-chat',
+  component: CustomerChat,
+  canActivate: [authGuard]
+},
+{
+  path: 'provider-chat',
+  component: ProviderChat,
+  canActivate: [authGuard]
+}
 ];
 
 

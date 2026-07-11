@@ -374,3 +374,55 @@ TOPBAR
 
     font-weight:700;
 }
+/* =========== */
+.chat-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.35);
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    align-items:flex-end;
+
+    z-index:9999;
+
+}
+
+.chat-popup{
+
+    width:420px;
+
+    height:650px;
+
+    background:#fff;
+
+    border-radius:15px;
+
+    margin:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 0 20px rgba(0,0,0,.25);
+
+}
+
+.chat-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px;
+
+    background:#0d6efd;
+
+    color:#fff;
+
+}

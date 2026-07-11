@@ -107,7 +107,11 @@
                     Complete
 
                 </button>
-
+                <button *ngIf="b.status=='Approved' || b.status=='Completed'" class="btn btn-chat"
+                    (click)="openChat(b)">
+                    <i class="bi bi-chat-dots"></i>
+                    Chat
+                </button>
             </div>
 
         </div>

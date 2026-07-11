@@ -6,7 +6,8 @@ using ProximaApi.Data;
 using ProximaApi.Helpers;
 using ProximaApi.Models;
 using Microsoft.Extensions.FileProviders;
-
+using ProximaApi.Hubs;
+using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -37,8 +38,28 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             Encoding.UTF8.GetBytes(jwtSettings["Key"])
         )
     };
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken =
+                context.Request.Query["access_token"];
+
+            var path =
+                context.HttpContext.Request.Path;
+
+            if (!string.IsNullOrEmpty(accessToken)
+                && path.StartsWithSegments("/chatHub"))
+            {
+                context.Token = accessToken;
+            }
+
+            return Task.CompletedTask;
+        }
+    };
 });
 
+builder.Services.AddSignalR();
 //builder.Services.AddCors(options =>
 //{
 //    options.AddPolicy("AllowAngular",
@@ -57,7 +78,8 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins("http://localhost:4200")
                   .AllowAnyHeader()
-                  .AllowAnyMethod();
+                  .AllowAnyMethod()
+                  .AllowCredentials();
         });
 });
 
@@ -112,6 +134,7 @@ Directory.GetCurrentDirectory(),
 
 );
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
 app.MapFallbackToFile("index.html");
 ////
 

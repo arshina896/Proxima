@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Output,EventEmitter  } from '@angular/core';
 import { ServiceProviderService } from '../../services/service-provider-service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-provider-bookings',
@@ -9,12 +10,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './provider-bookings.css',
 })
 export class ProviderBookings implements OnInit {
-
+// @Output() chatClicked = new EventEmitter<any>();
   bookings: any[] = [];
 
   constructor(
     private api: ServiceProviderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef, private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,4 +82,18 @@ export class ProviderBookings implements OnInit {
     return item.id;
 
   }
+ openChat(booking: any) {
+
+  console.log("OPEN CHAT =", booking);
+
+  this.router.navigate(
+    ['/provider-chat'],
+    {
+      state: {
+        booking: booking
+      }
+    }
+  );
+
+}
 }

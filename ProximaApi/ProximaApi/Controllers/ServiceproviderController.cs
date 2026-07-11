@@ -274,8 +274,9 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
                 .Select(s => new
                 {
                     s.Id,
+                    UserId = s.UserId,
                     s.BookingDate,
-                    s.Status,
+                    Status = s.Status.ToString(),
                     CustomerName = s.User.FullName,
                     s.Service.ServiceName,
 
@@ -388,6 +389,7 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
      .Select(b => new
      {
          b.Id,
+         UserId = b.UserId,
          ServiceName = b.Service.ServiceName,
          CustomerName = b.User.FullName,
          b.BookingDate,

@@ -14,5 +14,7 @@ namespace ProximaApi.Models
         public DateOnly? ServiceDate { get; set; }
 
         public string? TimeSlot { get; set; }
+        public ICollection<Message> Messages { get; set; }
+    = new List<Message>();
     }
 }

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ApiService } from '../../services/api-service';
 import { FormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-bookings',
@@ -19,7 +19,7 @@ export class MyBookings implements OnInit {
   bookings: any[] = [];
 
   constructor(
-    private api: ApiService, private cdr: ChangeDetectorRef
+    private api: ApiService, private cdr: ChangeDetectorRef,private router: Router
   ) { }
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class MyBookings implements OnInit {
         next: (res: any) => {
 
           console.log("BOOKINGS=", res);
-
+console.log("FIRST BOOKING =", res[0]);
           this.bookings = [...res];
 
           this.cdr.detectChanges();
@@ -142,6 +142,19 @@ cancelBooking(id: number) {
     });
 
 }
+openChat(booking: any) {
 
+  console.log("OPEN CHAT =", booking);
+
+  this.router.navigate(
+    ['/customer-chat'],
+    {
+      state: {
+        booking: booking
+      }
+    }
+  );
+
+}
 }
 

@@ -83,6 +83,7 @@ namespace ProximaApi.Controllers
                     Category =b.Service.ServiceCategory.CategoryName,
 
                     ProviderName =b.Service.ServiceProvider.User.FullName,
+                    ProviderUserId = b.Service.ServiceProvider.UserId,
                     Price = b.Service.Price,
                     BookingDate =b.BookingDate,
 
@@ -563,6 +564,6 @@ namespace ProximaApi.Controllers
 
 
 
-    }
+    } 
 
 }

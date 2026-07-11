@@ -6,12 +6,12 @@ import { ProviderServices } from '../provider-services/provider-services';
 import { ProviderBookings } from '../provider-bookings/provider-bookings';
 import { ProviderReviews } from '../provider-reviews/provider-reviews';
 import { Profile } from '../../pages/profile/profile';
-
+import { Chat } from '../../components/chat/chat';
 @Component({
   selector: 'app-provider-dashboard',
   imports: [CommonModule, ProviderServices, ProviderBookings,
     ProviderReviews,
-    Profile
+    Profile,Chat
   ],
   templateUrl: './provider-dashboard.html',
   styleUrl: './provider-dashboard.css',
@@ -31,7 +31,11 @@ export class ProviderDashboard implements OnInit {
 
     rejectedBookings: 0
   };
+selectedBookingId: number | null = null;
 
+selectedReceiverId: number | null = null;
+
+showChat = false;
   notifications: any[] = [];
 
   showNotifications = false;
@@ -152,4 +156,21 @@ export class ProviderDashboard implements OnInit {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
+
+
+  openChat(booking: any) {
+
+  this.selectedBookingId = booking.id;
+
+  this.selectedReceiverId = booking.userId;
+
+  this.showChat = true;
+
+}
+
+closeChat() {
+
+  this.showChat = false;
+
+}
 }

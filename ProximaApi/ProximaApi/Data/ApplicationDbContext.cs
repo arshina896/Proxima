@@ -45,6 +45,25 @@ namespace ProximaApi.Data
                 .HasConversion<string>();
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Message>()
+    .HasOne(x => x.Sender)
+    .WithMany(x => x.SentMessages)
+    .HasForeignKey(x => x.SenderId)
+    .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.Receiver)
+                .WithMany(x => x.ReceivedMessages)
+                .HasForeignKey(x => x.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(x => x.Booking)
+                .WithMany(x => x.Messages)
+                .HasForeignKey(x => x.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -54,6 +73,6 @@ namespace ProximaApi.Data
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-
+        public DbSet<Message> Messages { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+<div class="container mt-4">
+
+    <h3>Provider Chat</h3>
+
+    <p><b>Booking :</b> {{booking.id}}</p>
+
+    <p><b>Customer :</b> {{booking.customerName}}</p>
+
+    <p><b>Service :</b> {{booking.serviceName}}</p>
+
+    <app-chat
+        [bookingId]="booking.id"
+        [receiverId]="booking.userId">
+    </app-chat>
+
+</div>

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ApiService } from '../../services/api-service';
 
 @Component({
@@ -51,38 +51,82 @@ export class Auth {
     };
 
     this.api.login(data).subscribe({
-
       next: (res: any) => {
 
-        localStorage.setItem("token", res.token);
+  // Save Token
+  localStorage.setItem("token", res.token);
 
-        const token = res.token;
+  const token = res.token;
 
-        const payload = JSON.parse(
-          atob(token.split('.')[1])
-        );
+  // Decode JWT
+  const payload = JSON.parse(
+    atob(token.split('.')[1])
+  );
 
-        const role =
-          payload.role ||
-          payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  // Read UserId
+  const userId =
+    payload["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
 
-        if (role === "Admin") {
+  // Read Role
+  const role =
+    payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-          this.router.navigate(['/admin']);
+  // Save to localStorage
+  localStorage.setItem("userId", userId);
+  localStorage.setItem("role", role);
 
-        }
-        else if (role === "ServiceProvider") {
+  console.log("UserId =", userId);
+  console.log("Role =", role);
+  console.log("Stored UserId =", localStorage.getItem("userId"));
 
-          this.router.navigate(['/provider']);
+  if (role === "Admin") {
 
-        }
-        else {
+    this.router.navigate(['/admin']);
 
-          this.router.navigate(['/home']);
+  }
+  else if (role === "ServiceProvider") {
 
-        }
+    this.router.navigate(['/provider']);
 
-      },
+  }
+  else {
+
+    this.router.navigate(['/home']);
+
+  }
+
+},
+      // next: (res: any) => {
+
+      //   localStorage.setItem("token", res.token);
+
+      //   const token = res.token;
+
+      //   const payload = JSON.parse(
+      //     atob(token.split('.')[1])
+      //   );
+
+      //   const role =
+      //     payload.role ||
+      //     payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+
+      //   if (role === "Admin") {
+
+      //     this.router.navigate(['/admin']);
+
+      //   }
+      //   else if (role === "ServiceProvider") {
+
+      //     this.router.navigate(['/provider']);
+
+      //   }
+      //   else {
+
+      //     this.router.navigate(['/home']);
+
+      //   }
+
+      // },
 
       error: (err) => {
 
@@ -121,47 +165,47 @@ export class Auth {
 
     };
 
-    this.api.register(data).subscribe({
+    // this.api.register(data).subscribe({
 
-      next: () => {
+    //   next: () => {
 
-        alert("Registration Successful");
+    //     alert("Registration Successful");
 
-        // Auto Login
-        const loginData = {
+    //     // Auto Login
+    //     const loginData = {
 
-          email: this.email,
+    //       email: this.email,
 
-          password: this.password
+    //       password: this.password
 
-        };
+    //     };
 
-        this.api.login(loginData).subscribe({
+    //     this.api.login(loginData).subscribe({
 
-          next: (loginRes: any) => {
+    //       next: (loginRes: any) => {
 
-            localStorage.setItem(
-              "token",
-              loginRes.token
-            );
+    //         localStorage.setItem(
+    //           "token",
+    //           loginRes.token
+    //         );
 
-            this.router.navigate(['/home']);
+    //         this.router.navigate(['/home']);
 
-          }
+    //       }
 
-        });
+    //     });
 
-      },
+    //   },
 
-      error: (err) => {
+    //   error: (err) => {
 
-        console.log(err);
+    //     console.log(err);
 
-        alert("Registration Failed");
+    //     alert("Registration Failed");
 
-      }
+    //   }
 
-    });
+    // });
 
   }
 }

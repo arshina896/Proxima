@@ -217,8 +217,11 @@
             <app-provider-services></app-provider-services>
         </section>
         <section id="bookings">
+            <app-provider-bookings
+    (chatClicked)="openChat($event)">
+</app-provider-bookings>
 
-            <app-provider-bookings></app-provider-bookings>
+            <!-- <app-provider-bookings></app-provider-bookings> -->
 
         </section>
         <section id="reviews">
@@ -229,5 +232,30 @@
         <section id="profile">
             <app-profile></app-profile>
         </section>
+        <!-- Chat Popup -->
+
+<div class="chat-overlay" *ngIf="showChat">
+
+    <div class="chat-popup">
+
+        <div class="chat-header">
+
+            <h5>Chat</h5>
+
+            <button
+                class="btn-close"
+                (click)="closeChat()">
+            </button>
+
+        </div>
+
+        <app-chat
+            [bookingId]="selectedBookingId!"
+            [receiverId]="selectedReceiverId!">
+        </app-chat>
+
+    </div>
+
+</div>
     </div>
 </div>

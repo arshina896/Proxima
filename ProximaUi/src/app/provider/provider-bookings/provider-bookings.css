@@ -362,3 +362,20 @@
 }
 
 }
+
+
+
+
+
+.btn-chat{
+    background:#0d6efd;
+    color:white;
+    border:none;
+    padding:8px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.btn-chat:hover{
+    background:#0b5ed7;
+}
