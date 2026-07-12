@@ -1,4 +1,4 @@
-<div class="chat-container">
+<!-- <div class="chat-container">
 
   <div class="chat-body" id="chatBody">
 
@@ -39,5 +39,54 @@
     </button>
 
   </div>
+
+</div> -->
+<div class="chat-container">
+
+    <!-- Messages -->
+
+    <div class="chat-body" id="chatBody">
+
+        <div
+            *ngFor="let msg of messages"
+            class="message-row"
+            [ngClass]="{
+                'my-message': msg.senderId == currentUserId,
+                'other-message': msg.senderId != currentUserId
+            }">
+
+            <div class="message-bubble">
+
+                <div class="message-text">
+                    {{msg.text}}
+                </div>
+
+                <div class="message-time">
+                    {{msg.sentAt | date:'shortTime'}}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Input -->
+
+    <div class="chat-footer">
+
+        <input
+            type="text"
+            [(ngModel)]="message"
+            (keyup.enter)="send()"
+            placeholder="Type a message...">
+
+        <button (click)="send()">
+
+            <i class="bi bi-send-fill"></i>
+
+        </button>
+
+    </div>
 
 </div>

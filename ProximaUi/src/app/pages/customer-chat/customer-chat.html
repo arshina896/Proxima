@@ -2,15 +2,18 @@
 
     <h3>Customer Chat</h3>
 
-    <p><b>Booking :</b> {{booking.id}}</p>
+  <p><b>Booking :</b> {{booking.bookingId}}</p>
 
     <p><b>Service :</b> {{booking.serviceName}}</p>
 
     <p><b>Provider :</b> {{booking.providerName}}</p>
 
-    <app-chat
+    <!-- <app-chat
         [bookingId]="booking.id"
         [receiverId]="booking.providerUserId">
-    </app-chat>
-
+    </app-chat> -->
+<app-chat
+    [bookingId]="booking.bookingId"
+    [receiverId]="booking.userId">
+</app-chat>
 </div>

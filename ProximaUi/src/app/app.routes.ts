@@ -17,6 +17,8 @@ import { CategoryServices } from './pages/category-services/category-services';
 import { ProviderDashboard } from './provider/provider-dashboard/provider-dashboard';
 import { CustomerChat } from './pages/customer-chat/customer-chat';
 import { ProviderChat } from './provider/provider-chat/provider-chat';
+import { CustomerChatList } from './pages/customer-chat-list/customer-chat-list';
+import { ProviderChatList } from './provider/provider-chat-list/provider-chat-list';
 // import { ProviderProfile } from './pages/provider-profile/provider-profile';
 export const routes: Routes = [
   { path: '', component: Auth },
@@ -46,7 +48,17 @@ export const routes: Routes = [
   path: 'provider-chat',
   component: ProviderChat,
   canActivate: [authGuard]
-}
+},
+{
+  path: 'customer-chat-list',
+  component: CustomerChatList,
+  canActivate: [authGuard]
+},
+{
+  path: 'provider-chat-list',
+  component: ProviderChatList,
+  canActivate: [authGuard]
+},
 ];
 
 

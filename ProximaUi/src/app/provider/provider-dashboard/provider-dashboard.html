@@ -1,140 +1,174 @@
 <div class="provider-dashboard">
 
-    <!-- Sidebar -->
-    <aside class="sidebar">
+    <!-- ===========================
+        SIDEBAR
+  ============================ -->
 
+    <!-- <aside class="sidebar"> -->
+    <aside class="sidebar" [class.open]="sidebarOpen">
+
+        <button class="close-sidebar" (click)="closeSidebar()">
+            <i class="bi bi-x-lg"></i>
+        </button>
         <div class="logo-area">
 
-            <img src="/assets/logo/F__2_-removebg-preview.png" class="logo" alt="Logo">
+            <img src="/assets/logo/F__2_-removebg-preview.png" alt="Proxima Logo" class="logo">
 
-            <h3>PROXIMA</h3>
+            <h2>PROXIMA</h2>
 
-            <p>Provider Panel</p>
+            <span>Provider Panel</span>
 
         </div>
 
         <ul class="menu">
 
-            <li (click)="scrollTo('dashboard')">
-                Dashboard
+            <li (click)="scrollTo('dashboard'); closeSidebar()">
+                <i class="bi bi-grid-fill"></i>
+                <span>Dashboard</span>
             </li>
 
-            <li (click)="scrollTo('services')">
-                My Services
+            <li (click)="scrollTo('services'); closeSidebar()">
+                <i class="bi bi-briefcase-fill"></i>
+                <span>My Services</span>
             </li>
 
-            <li (click)="scrollTo('bookings')">
-                Bookings
+            <li (click)="scrollTo('bookings'); closeSidebar()">
+                <i class="bi bi-calendar-check-fill"></i>
+                <span>Bookings</span>
             </li>
 
-            <li (click)="scrollTo('reviews')">
-                Reviews
+            <li (click)="scrollTo('reviews'); closeSidebar()">
+                <i class="bi bi-star-fill"></i>
+                <span>Reviews</span>
             </li>
 
-            <li (click)="scrollTo('profile')">
-                Profile
+            <li (click)="scrollTo('profile'); closeSidebar()">
+                <i class="bi bi-person-fill"></i>
+                <span>Profile</span>
+            </li>
+
+            <li class="logout" (click)="logout(); closeSidebar()">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
             </li>
 
         </ul>
+
     </aside>
 
-    <!-- Main Content -->
-    <div class="main-content">
+    <!-- ===========================
+         MAIN CONTENT
+  ============================ -->
 
+    <main class="main-content">
+
+        <!-- ===========================
+            TOPBAR
+    ============================ -->
         <div class="topbar">
+            <button class="menu-toggle" (click)="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </button>
 
             <div class="topbar-left">
 
-                <h2>Welcome Back 👋</h2>
+                <h2>
 
-                <p>Manage your services and bookings efficiently.</p>
+                    Welcome Back 👋
+
+                </h2>
+
+                <p>
+
+                    Manage your services and bookings efficiently.
+
+                </p>
 
             </div>
 
-            <!-- <div class="topbar-right">
-
-        <button class="icon-btn">
-          <i class="bi bi-bell"></i>
-        </button>
-
-        <button class="icon-btn">
-          <i class="bi bi-person-circle" (click)="scrollTo('profile')"></i>
-        </button>
-
-      </div> -->
             <div class="topbar-right">
 
                 <!-- Notification -->
 
-          <div class="dropdown notification-wrapper">
+                <div class="dropdown">
 
-                <button class="notification-btn" data-bs-toggle="dropdown">
+                    <button class="notification-btn" data-bs-toggle="dropdown">
 
-                    🔔
+                        <i class="bi bi-bell-fill"></i>
 
-                    <span class="notification-count" *ngIf="notifications.length">
+                        <span class="notification-count" *ngIf="unreadCount">
 
-                        {{notifications.length}}
+                            {{ unreadCount }}
 
-                    </span>
+                        </span>
 
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li class="dropdown-header">
+
+                            Notifications
+
+                        </li>
+
+                        <li *ngIf="notifications.length==0">
+
+                            <div class="dropdown-item">
+
+                                No Notifications
+
+                            </div>
+
+                        </li>
+
+                        <li *ngFor="let n of notifications">
+
+                            <div class="dropdown-item" (click)="markAsRead(n)">
+
+                                <strong>
+
+                                    {{n.message}}
+
+                                </strong>
+
+                                <br>
+
+                                <small>
+
+                                    {{n.createdAt | date:'short'}}
+
+                                </small>
+
+                            </div>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+                <!-- Message -->
+
+                <button class="message-btn" routerLink="/provider-chat-list">
+                    <i class="bi bi-chat-dots-fill"></i>
                 </button>
-
-                <ul class="dropdown-menu dropdown-menu-end">
-
-                    <li class="dropdown-header">
-
-                        Notifications
-
-                    </li>
-
-                    <li *ngIf="notifications.length==0">
-
-                        <div class="dropdown-item">
-
-                            No Notifications
-
-                        </div>
-
-                    </li>
-
-                    <li *ngFor="let n of notifications">
-
-                        <div class="dropdown-item">
-
-                            {{n.message}}
-
-                            <br>
-
-                            <small>
-
-                                {{n.createdAt | date:'short'}}
-
-                            </small>
-
-                        </div>
-
-                    </li>
-
-                </ul>
-
-            </div>
-
                 <!-- Profile -->
 
-                <button class="icon-btn" (click)="scrollTo('profile')">
+                <button class="profile-btn" (click)="scrollTo('profile')">
 
                     <i class="bi bi-person-circle"></i>
 
                 </button>
 
             </div>
-        </div>
-        <!-- ========================================= -->
-        <!-- STATS -->
-        <!-- ========================================= -->
 
-        <section class="stats-section" id="dashboard">
+        </div>
+
+        <!-- ===========================
+            DASHBOARD
+    ============================ -->
+
+        <section class="dashboard-section" id="dashboard">
 
             <div class="row g-4">
 
@@ -142,33 +176,23 @@
 
                     <div class="stat-card">
 
-                        <h2>{{stats.totalServices}}</h2>
+                        <div class="stat-icon">
 
-                        <p>Services</p>
+                            <i class="bi bi-briefcase-fill"></i>
 
-                    </div>
+                        </div>
 
-                </div>
+                        <h3>
 
-                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+                            {{stats.totalServices}}
 
-                    <div class="stat-card">
+                        </h3>
 
-                        <h2>{{stats.totalBookings}}</h2>
+                        <p>
 
-                        <p>Bookings</p>
+                            Total Services
 
-                    </div>
-
-                </div>
-
-                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
-
-                    <div class="stat-card">
-
-                        <h2>{{stats.pendingBookings}}</h2>
-
-                        <p>Pending</p>
+                        </p>
 
                     </div>
 
@@ -178,9 +202,23 @@
 
                     <div class="stat-card">
 
-                        <h2>{{stats.approvedBookings}}</h2>
+                        <div class="stat-icon">
 
-                        <p>Approved</p>
+                            <i class="bi bi-calendar-check-fill"></i>
+
+                        </div>
+
+                        <h3>
+
+                            {{stats.totalBookings}}
+
+                        </h3>
+
+                        <p>
+
+                            Total Bookings
+
+                        </p>
 
                     </div>
 
@@ -188,11 +226,25 @@
 
                 <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
 
-                    <div class="stat-card">
+                    <div class="stat-card pending">
 
-                        <h2>{{stats.completedBookings}}</h2>
+                        <div class="stat-icon">
 
-                        <p>Completed</p>
+                            <i class="bi bi-hourglass-split"></i>
+
+                        </div>
+
+                        <h3>
+
+                            {{stats.pendingBookings}}
+
+                        </h3>
+
+                        <p>
+
+                            Pending
+
+                        </p>
 
                     </div>
 
@@ -200,11 +252,77 @@
 
                 <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
 
-                    <div class="stat-card">
+                    <div class="stat-card approved">
 
-                        <h2>{{stats.rejectedBookings}}</h2>
+                        <div class="stat-icon">
 
-                        <p>Rejected</p>
+                            <i class="bi bi-check-circle-fill"></i>
+
+                        </div>
+
+                        <h3>
+
+                            {{stats.approvedBookings}}
+
+                        </h3>
+
+                        <p>
+
+                            Approved
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card completed">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-award-fill"></i>
+
+                        </div>
+
+                        <h3>
+
+                            {{stats.completedBookings}}
+
+                        </h3>
+
+                        <p>
+
+                            Completed
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6">
+
+                    <div class="stat-card rejected">
+
+                        <div class="stat-icon">
+
+                            <i class="bi bi-x-circle-fill"></i>
+
+                        </div>
+
+                        <h3>
+
+                            {{stats.rejectedBookings}}
+
+                        </h3>
+
+                        <p>
+
+                            Rejected
+
+                        </p>
 
                     </div>
 
@@ -213,49 +331,188 @@
             </div>
 
         </section>
-        <section id="services">
-            <app-provider-services></app-provider-services>
+
+        <!-- ===========================
+          SERVICES SECTION
+    ============================ -->
+        <section id="services" class="content-section">
+
+            <div class="section-header">
+
+                <h3>
+
+                    <i class="bi bi-briefcase-fill"></i>
+
+                    My Services
+
+                </h3>
+
+                <p>
+
+                    Manage all your services from here.
+
+                </p>
+
+            </div>
+
+            <div class="section-card">
+
+                <app-provider-services>
+
+                </app-provider-services>
+
+            </div>
+
         </section>
-        <section id="bookings">
-            <app-provider-bookings
-    (chatClicked)="openChat($event)">
-</app-provider-bookings>
 
-            <!-- <app-provider-bookings></app-provider-bookings> -->
+        <!-- ======================================
+                BOOKINGS
+    ======================================= -->
+
+        <section id="bookings" class="content-section">
+
+            <div class="section-header">
+
+                <h3>
+
+                    <i class="bi bi-calendar-check-fill"></i>
+
+                    Customer Bookings
+
+                </h3>
+
+                <p>
+
+                    Approve, reject and complete bookings.
+
+                </p>
+
+            </div>
+
+            <div class="section-card">
+
+                <app-provider-bookings (chatClicked)="openChat($event)">
+
+                </app-provider-bookings>
+
+            </div>
 
         </section>
-        <section id="reviews">
 
-            <app-provider-reviews></app-provider-reviews>
+        <!-- ======================================
+                REVIEWS
+    ======================================= -->
+
+        <section id="reviews" class="content-section">
+
+            <div class="section-header">
+
+                <h3>
+
+                    <i class="bi bi-star-fill"></i>
+
+                    Customer Reviews
+
+                </h3>
+
+                <p>
+
+                    View ratings and reviews from customers.
+
+                </p>
+
+            </div>
+
+            <div class="section-card">
+
+                <app-provider-reviews>
+
+                </app-provider-reviews>
+
+            </div>
 
         </section>
-        <section id="profile">
-            <app-profile></app-profile>
+
+        <!-- ======================================
+                PROFILE
+    ======================================= -->
+
+        <section id="profile" class="content-section">
+
+            <div class="section-header">
+
+                <h3>
+
+                    <i class="bi bi-person-fill"></i>
+
+                    My Profile
+
+                </h3>
+
+                <p>
+
+                    Update your provider profile.
+
+                </p>
+
+            </div>
+
+            <div class="section-card">
+
+                <app-profile>
+
+                </app-profile>
+
+            </div>
+
         </section>
-        <!-- Chat Popup -->
 
-<div class="chat-overlay" *ngIf="showChat">
+        <!-- ======================================
+                CHAT POPUP
+    ======================================= -->
 
-    <div class="chat-popup">
+        <div class="chat-overlay" *ngIf="showChat">
 
-        <div class="chat-header">
+            <div class="chat-popup">
 
-            <h5>Chat</h5>
+                <div class="chat-header">
 
-            <button
-                class="btn-close"
-                (click)="closeChat()">
-            </button>
+                    <div>
+
+                        <h5>
+
+                            <i class="bi bi-chat-dots-fill"></i>
+
+                            Customer Chat
+
+                        </h5>
+
+                        <small>
+
+                            Reply instantly to your customer
+
+                        </small>
+
+                    </div>
+
+                    <button class="btn-close btn-close-white" (click)="closeChat()">
+
+                    </button>
+
+                </div>
+
+                <div class="chat-body">
+
+                    <app-chat [bookingId]="selectedBookingId!" [receiverId]="selectedReceiverId!">
+
+                    </app-chat>
+
+                </div>
+
+            </div>
 
         </div>
 
-        <app-chat
-            [bookingId]="selectedBookingId!"
-            [receiverId]="selectedReceiverId!">
-        </app-chat>
+    </main>
 
-    </div>
-
-</div>
-    </div>
 </div>

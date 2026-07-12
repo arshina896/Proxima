@@ -1,0 +1,130 @@
+<!-- 
+<div class="chat-page">
+
+    <div class="chat-header">
+
+        <h3>Chats</h3>
+
+       <div class="search-box">
+
+    <input
+        type="text"
+        [(ngModel)]="search"
+        placeholder="Search customer...">
+
+</div>
+
+    </div>
+
+    <div class="chat-list">
+
+        <div
+            class="chat-item"
+            *ngFor="let chat of chats"
+            (click)="openChat(chat)">
+
+            <img
+                class="profile-image"
+                [src]="chat.profileImage
+                ? 'https://localhost:7040/' + chat.profileImage
+                : 'assets/default-user.png'">
+
+            <div class="chat-content">
+
+                <div class="top-row">
+
+                    <h5>{{chat.name}}</h5>
+
+                    <span class="time">
+
+                        {{chat.lastMessageTime | date:'shortTime'}}
+
+                    </span>
+
+                </div>
+
+                <div class="bottom-row">
+
+                    <p>{{chat.lastMessage}}</p>
+
+                  
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div> -->
+
+<div class="chat-page">
+
+    <div class="chat-header">
+
+        <h3>Chats</h3>
+
+       <div class="search-box">
+
+    <input
+        type="text"
+        [(ngModel)]="search"
+        placeholder="Search customer...">
+
+</div>
+
+    </div>
+
+   <div class="chat-list">
+
+    <div
+        class="chat-item"
+        *ngFor="let chat of filteredChats"
+        (click)="openChat(chat)">
+
+        <img
+            class="profile-image"
+            [src]="chat.profileImage
+            ? 'https://localhost:7040/' + chat.profileImage
+            : 'assets/default-user.png'">
+
+        <div class="chat-content">
+
+            <div class="top-row">
+
+                <h5>{{chat.name}}</h5>
+
+                <span class="time">
+                    {{chat.lastMessageTime | date:'shortTime'}}
+                </span>
+
+            </div>
+
+            <div class="bottom-row">
+
+                <p>{{chat.lastMessage}}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Empty State -->
+
+    <div
+        class="empty-chat"
+        *ngIf="filteredChats.length == 0">
+
+        <i class="bi bi-chat-dots"></i>
+
+        <h4>No Chats Found</h4>
+
+        <p>No customer conversation available.</p>
+
+    </div>
+
+</div>
+
+</div>

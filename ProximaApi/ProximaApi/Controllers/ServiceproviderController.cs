@@ -517,6 +517,50 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
             });
         }
 
+
+        [HttpGet("provider-list")]
+        public async Task<IActionResult> ProviderChatList()
+        {
+            int userId =
+                int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+            var provider =
+                await _context.ServiceProviders
+                .FirstOrDefaultAsync(x => x.UserId == userId);
+
+            if (provider == null)
+                return Unauthorized();
+
+            var chats = await _context.Bookings
+
+                .Include(b => b.User)
+
+                .Include(b => b.Service)
+
+                .Where(b =>
+                    b.Service.ServiceProviderId == provider.Id)
+
+                .Select(b => new
+                {
+                    BookingId = b.Id,
+
+                    CustomerName =
+                    b.User.FullName,
+
+                    CustomerId =
+                    b.UserId,
+
+                    ServiceName =
+                    b.Service.ServiceName
+                })
+
+                .ToListAsync();
+
+            return Ok(chats);
+        }
+
+
+
     }
 }
 

@@ -104,6 +104,58 @@ namespace ProximaApi.Controllers
 
             return Ok(messages);
         }
+        [HttpGet("list")]
+        public async Task<IActionResult> ChatList()
+        {
+            int userId = int.Parse(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
+            var chats = await _context.Messages
+
+                .Include(m => m.Sender)
+                .Include(m => m.Receiver)
+
+                .Where(m =>
+                    m.SenderId == userId ||
+                    m.ReceiverId == userId)
+
+                .OrderByDescending(m => m.SentAt)
+
+                .ToListAsync();
+
+            var result = chats
+
+                .GroupBy(m => m.BookingId)
+
+                .Select(g =>
+                {
+                    var last = g.First();
+
+                    var otherUser =
+                        last.SenderId == userId
+
+                        ? last.Receiver
+                        : last.Sender;
+                  
+                    return new
+                    {
+                        BookingId = last.BookingId,
+
+                        UserId = otherUser.Id,
+
+                        Name = otherUser.FullName,
+
+                        ProfileImage = otherUser.ProfileImage,
+
+                        LastMessage = last.Text,
+
+                        LastMessageTime = last.SentAt
+                    };
+                })
+
+                .ToList();
+
+            return Ok(result);
+        }
     }
 }

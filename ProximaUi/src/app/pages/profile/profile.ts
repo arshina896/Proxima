@@ -39,10 +39,10 @@ export class Profile implements OnInit {
           // this.imagePreview =
           //   'https://localhost:7040/' + res.profileImage;
           this.imagePreview =
-'https://localhost:7040/' +
-res.profileImage +
-'?t=' +
-new Date().getTime();
+            'https://localhost:7040/' +
+            res.profileImage +
+            '?t=' +
+            new Date().getTime();
         } else {
           this.imagePreview = '';
         }
@@ -81,28 +81,28 @@ new Date().getTime();
   //   reader.readAsDataURL(file);
   //   this.cdr.detectChanges();
   // }
-onFileSelected(event: Event) {
+  onFileSelected(event: Event) {
 
-  const input = event.target as HTMLInputElement;
+    const input = event.target as HTMLInputElement;
 
-  if (!input.files || input.files.length === 0)
-    return;
+    if (!input.files || input.files.length === 0)
+      return;
 
-  this.selectedFile = input.files[0];
+    this.selectedFile = input.files[0];
 
-  const reader = new FileReader();
+    const reader = new FileReader();
 
-  reader.onload = () => {
+    reader.onload = () => {
 
-    this.imagePreview = reader.result as string;
+      this.imagePreview = reader.result as string;
 
-    this.cdr.detectChanges();
+      this.cdr.detectChanges();
 
-  };
+    };
 
-  reader.readAsDataURL(this.selectedFile);
+    reader.readAsDataURL(this.selectedFile);
 
-}
+  }
   saveProfile() {
 
     const formData = new FormData();
@@ -122,10 +122,15 @@ onFileSelected(event: Event) {
       this.profile.gender
     );
 
-    formData.append(
-      "DateOfBirth",
-      this.profile.dateOfBirth
-    );
+ if (this.profile.dateOfBirth != null &&
+    this.profile.dateOfBirth != "") {
+
+  formData.append(
+    "DateOfBirth",
+    this.profile.dateOfBirth
+  );
+
+}
 
     formData.append(
       "Address",
@@ -160,7 +165,9 @@ onFileSelected(event: Event) {
       );
 
     }
-
+for (let pair of formData.entries()) {
+  console.log(pair[0], pair[1]);
+}
     this.api.updateProfile(formData)
 
       .subscribe({
@@ -170,16 +177,20 @@ onFileSelected(event: Event) {
           alert("Profile Updated Successfully ✅");
 
           this.loadProfile();
-    this.cdr.detectChanges();
+          this.cdr.detectChanges();
         },
 
-        error: err => {
+        error: (err) => {
 
           console.log(err);
+
+          console.log("STATUS =", err.status);
+
+          console.log("ERROR =", err.error);
 
         }
 
       });
- 
+
   }
 }

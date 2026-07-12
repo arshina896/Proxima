@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ServiceProviderService } from '../../services/service-provider-service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ProviderServices } from '../provider-services/provider-services';
 import { ProviderBookings } from '../provider-bookings/provider-bookings';
@@ -9,7 +9,8 @@ import { Profile } from '../../pages/profile/profile';
 import { Chat } from '../../components/chat/chat';
 @Component({
   selector: 'app-provider-dashboard',
-  imports: [CommonModule, ProviderServices, ProviderBookings,
+   standalone: true,
+  imports: [CommonModule, ProviderServices, ProviderBookings, RouterModule,
     ProviderReviews,
     Profile,Chat
   ],
@@ -173,4 +174,16 @@ closeChat() {
   this.showChat = false;
 
 }
+
+sidebarOpen = false;
+
+toggleSidebar() {
+  this.sidebarOpen = !this.sidebarOpen;
+
+}
+
+closeSidebar() {
+  this.sidebarOpen = false;
+}
+
 }

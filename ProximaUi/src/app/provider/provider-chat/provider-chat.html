@@ -1,16 +1,32 @@
-<div class="container mt-4">
+<div class="chat-page">
 
-    <h3>Provider Chat</h3>
+    <!-- Header -->
+  <div class="chat-topbar">
 
-    <p><b>Booking :</b> {{booking.id}}</p>
+    <button class="back-btn" (click)="goBack()">
+        <i class="bi bi-arrow-left"></i>
+    </button>
 
-    <p><b>Customer :</b> {{booking.customerName}}</p>
+    <img
+        [src]="booking.profileImage ?
+        'https://localhost:7040/' + booking.profileImage :
+        'assets/default-user.png'"
+        class="profile-image">
 
-    <p><b>Service :</b> {{booking.serviceName}}</p>
+    <div class="user-info">
 
-    <app-chat
-        [bookingId]="booking.id"
-        [receiverId]="booking.userId">
-    </app-chat>
+        <h5>{{booking.name}}</h5>
+
+    </div>
+
+</div>
+
+    <!-- Chat Component -->
+    <div class="chat-body">
+
+        <app-chat [bookingId]="booking.bookingId" [receiverId]="booking.userId">
+        </app-chat>
+
+    </div>
 
 </div>

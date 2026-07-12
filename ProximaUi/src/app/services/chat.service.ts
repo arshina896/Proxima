@@ -141,5 +141,23 @@ export class ChatService {
     );
 
   }
+getChatList() {
 
+  return this.http.get(
+
+    environments.apiUrl + "/chat/list"
+
+  );
+
+}
+
+getProviderChatList() {
+
+  return this.http.get(
+
+    environments.apiUrl + "/chat/provider-list"
+
+  );
+
+}
 }

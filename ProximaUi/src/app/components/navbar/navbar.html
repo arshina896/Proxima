@@ -6,7 +6,7 @@
 
         <div class="left-section">
 
-         
+
             <img src="/assets/logo/F__3_-removebg-preview.png" class="logo">
 
             <div class="brand-name">
@@ -90,11 +90,18 @@
                 My Bookings
 
             </button>
+            <button routerLink="/customer-chat-list" class="chat-btn">
+
+                <i class="bi bi-chat-dots-fill"></i>
+
+                Chats
+
+            </button>
             <div class="profile-wrapper"> <img *ngIf="profileImage" [src]="profileImage" class="profile-avatar"
                     routerLink="/profile"> <i *ngIf="!profileImage" class="bi bi-person-circle profile-icon"
                     routerLink="/profile"></i>
             </div>
-            
+
             <button (click)="logout()" class="logout-btn">
 
                 Logout
