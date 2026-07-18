@@ -96,37 +96,7 @@ export class Auth {
   }
 
 },
-      // next: (res: any) => {
-
-      //   localStorage.setItem("token", res.token);
-
-      //   const token = res.token;
-
-      //   const payload = JSON.parse(
-      //     atob(token.split('.')[1])
-      //   );
-
-      //   const role =
-      //     payload.role ||
-      //     payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-
-      //   if (role === "Admin") {
-
-      //     this.router.navigate(['/admin']);
-
-      //   }
-      //   else if (role === "ServiceProvider") {
-
-      //     this.router.navigate(['/provider']);
-
-      //   }
-      //   else {
-
-      //     this.router.navigate(['/home']);
-
-      //   }
-
-      // },
+     
 
       error: (err) => {
 
@@ -143,69 +113,75 @@ export class Auth {
   // ------------------------
   // REGISTER
   // ------------------------
-  register() {
+//   register() {
 
-    if (this.password != this.confirmPassword) {
+//     if (this.password != this.confirmPassword) {
 
-      alert("Passwords do not match");
+//       alert("Passwords do not match");
 
-      return;
+//       return;
+
+//     }
+
+//     const data = {
+
+//       fullName: this.fullname,
+
+//       email: this.email,
+
+//       password: this.password,
+
+//       confirmPassword: this.confirmPassword
+
+//     };
+
+  
+
+//   }
+
+register() {
+
+  if (this.password != this.confirmPassword) {
+
+    alert("Passwords do not match");
+    return;
+
+  }
+
+  const data = {
+
+    fullName: this.fullname,
+    email: this.email,
+    password: this.password,
+    confirmPassword: this.confirmPassword
+
+  };
+
+  console.log(data);
+
+  this.api.register(data).subscribe({
+
+    next: (res: any) => {
+
+      console.log(res);
+
+      alert("Registration Successful");
+
+      this.toggleForm();
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+      alert(err.error);
 
     }
 
-    const data = {
+  });
 
-      fullName: this.fullname,
+}
 
-      email: this.email,
 
-      password: this.password,
-
-      confirmPassword: this.confirmPassword
-
-    };
-
-    // this.api.register(data).subscribe({
-
-    //   next: () => {
-
-    //     alert("Registration Successful");
-
-    //     // Auto Login
-    //     const loginData = {
-
-    //       email: this.email,
-
-    //       password: this.password
-
-    //     };
-
-    //     this.api.login(loginData).subscribe({
-
-    //       next: (loginRes: any) => {
-
-    //         localStorage.setItem(
-    //           "token",
-    //           loginRes.token
-    //         );
-
-    //         this.router.navigate(['/home']);
-
-    //       }
-
-    //     });
-
-    //   },
-
-    //   error: (err) => {
-
-    //     console.log(err);
-
-    //     alert("Registration Failed");
-
-    //   }
-
-    // });
-
-  }
 }

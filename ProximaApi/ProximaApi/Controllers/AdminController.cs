@@ -122,8 +122,17 @@ namespace ProximaApi.Controllers
             return Ok(new
             {
                 totalUsers = await _context.Users.CountAsync(),
-                totalProviders = await _context.ServiceProviders.CountAsync(),
+
+                totalProviders = await _context.ServiceProviders
+                    .CountAsync(p => p.IsApproved),
+
+                pendingProviders = await _context.ServiceProviders
+                    .CountAsync(p => !p.IsApproved),
+
                 totalServices = await _context.Services.CountAsync(),
+
+                totalBookings = await _context.Bookings.CountAsync(),
+
                 totalCategories = await _context.ServicesCategories.CountAsync()
             });
         }

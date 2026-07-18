@@ -1,0 +1,131 @@
+<div class="admin-layout">
+
+  <!-- ===========================
+       SIDEBAR
+  ============================ -->
+
+  <aside class="sidebar" [class.open]="sidebarOpen">
+
+    <button class="close-sidebar" (click)="closeSidebar()">
+      <i class="bi bi-x-lg"></i>
+    </button>
+
+    <div class="logo-area">
+      <img src="/assets/logo/F__2_-removebg-preview.png" alt="Logo" class="logo">
+
+      <h2>PROXIMA</h2>
+
+      <span>Admin Panel</span>
+    </div>
+
+    <ul class="menu">
+
+      <li (click)="scrollTo('dashboard'); closeSidebar()">
+        <i class="bi bi-speedometer2"></i>
+        <span>Dashboard</span>
+      </li>
+
+      <li (click)="scrollTo('users'); closeSidebar()">
+        <i class="bi bi-people-fill"></i>
+        <span>Users</span>
+      </li>
+
+      <li (click)="scrollTo('providers'); closeSidebar()">
+        <i class="bi bi-person-workspace"></i>
+        <span>Providers</span>
+      </li>
+
+      <li (click)="scrollTo('services'); closeSidebar()">
+        <i class="bi bi-briefcase-fill"></i>
+        <span>Services</span>
+      </li>
+
+      <li (click)="scrollTo('bookings'); closeSidebar()">
+        <i class="bi bi-calendar-check-fill"></i>
+        <span>Bookings</span>
+      </li>
+
+      <li (click)="scrollTo('categories'); closeSidebar()">
+        <i class="bi bi-grid-fill"></i>
+        <span>Categories</span>
+      </li>
+
+      <li class="logout" (click)="logout(); closeSidebar()">
+        <i class="bi bi-box-arrow-right"></i>
+        <span>Logout</span>
+      </li>
+
+    </ul>
+
+  </aside>
+
+  <!-- Overlay -->
+
+  <div
+    class="sidebar-overlay"
+    *ngIf="sidebarOpen"
+    (click)="closeSidebar()">
+  </div>
+
+  <!-- ===========================
+        MAIN CONTENT
+  ============================ -->
+
+  <main class="main-content">
+
+    <!-- Topbar -->
+
+    <div class="topbar">
+
+      <button class="menu-toggle" (click)="toggleSidebar()">
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="topbar-left">
+        <h2>Welcome Admin 👋</h2>
+        <p>Manage your entire platform efficiently.</p>
+      </div>
+
+      <div class="topbar-right">
+
+        <button class="notification-btn">
+          <i class="bi bi-bell-fill"></i>
+        </button>
+
+        <button class="profile-btn">
+          <i class="bi bi-person-circle"></i>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Components -->
+
+    <section id="dashboard">
+      <app-admin-dashboard></app-admin-dashboard>
+    </section>
+
+    <section id="users">
+      <app-admin-users></app-admin-users>
+    </section>
+
+    <section id="providers">
+      <app-admin-providers></app-admin-providers>
+    </section>
+
+    <section id="services">
+      <app-admin-services></app-admin-services>
+    </section>
+
+    <section id="bookings">
+      <app-admin-bookings></app-admin-bookings>
+    </section>
+
+    <section id="categories">
+      <app-admin-categories></app-admin-categories>
+    </section>
+
+  </main>
+
+</div>

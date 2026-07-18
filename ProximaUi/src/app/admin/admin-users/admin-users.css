@@ -1,0 +1,100 @@
+/* ===========================
+   USERS CARD
+=========================== */
+
+.users-card{
+    margin-top:30px;
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 .5rem 1rem rgba(0,0,0,.08);
+}
+
+/* ===========================
+   CARD HEADER
+=========================== */
+
+.card-header{
+    padding:20px 25px;
+}
+
+.card-header h4{
+    font-weight:700;
+    color:#485935;
+}
+
+/* ===========================
+   SEARCH
+=========================== */
+
+.form-control{
+    border-radius:10px;
+    height:45px;
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+.table{
+    margin-bottom:0;
+}
+
+.table th{
+    white-space:nowrap;
+    font-weight:600;
+    vertical-align:middle;
+}
+
+.table td{
+    white-space:nowrap;
+    vertical-align:middle;
+}
+
+/* ===========================
+   BADGE
+=========================== */
+
+.badge{
+    padding:8px 12px;
+    font-size:13px;
+    font-weight:500;
+    border-radius:8px;
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+
+.btn{
+    border-radius:8px;
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width:768px){
+
+    .users-card{
+        margin-top:20px;
+    }
+
+    .card-header{
+        padding:18px;
+    }
+
+    .card-header .row{
+        row-gap:15px;
+    }
+
+    .form-control{
+        width:100%;
+    }
+
+    .table th,
+    .table td{
+        font-size:14px;
+    }
+
+}

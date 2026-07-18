@@ -1,0 +1,91 @@
+<div class="card mt-3 shadow-sm border-0">
+
+    <div class="card-header bg-white">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+            <h4 class="mb-0">
+
+                <i class="bi bi-person-workspace me-2 text-success"></i>
+
+                Pending Providers
+
+            </h4>
+
+            <input
+                class="form-control w-auto"
+                type="text"
+                placeholder="Search..."
+                [(ngModel)]="search"
+                (input)="searchProvider()">
+
+        </div>
+
+    </div>
+
+    <div class="card-body ">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead class="table-success">
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th class="text-center">Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr *ngFor="let provider of filteredProviders">
+
+                        <td>{{provider.id}}</td>
+
+                        <td>{{provider.fullName}}</td>
+
+                        <td>{{provider.email}}</td>
+
+                        <td class="text-center">
+
+                            <button
+                                class="btn btn-success btn-sm"
+                                (click)="approve(provider.id)">
+
+                                <i class="bi bi-check-circle"></i>
+                                Approve
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <tr *ngIf="filteredProviders.length==0">
+
+                        <td colspan="4" class="text-center py-4">
+
+                            No Pending Providers
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
