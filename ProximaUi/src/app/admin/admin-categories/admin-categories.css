@@ -1,0 +1,105 @@
+/* ==========================
+   CARD
+========================== */
+
+.card{
+    border:none;
+    border-radius:16px;
+    overflow:hidden;
+}
+
+/* ==========================
+   HEADER
+========================== */
+
+.card-header{
+    padding:1rem 1.25rem;
+}
+
+.card-header h4{
+    font-weight:600;
+    color:#485935;
+}
+
+/* ==========================
+   FORM
+========================== */
+
+.form-control{
+    border-radius:10px;
+}
+
+input.form-control{
+    min-height:45px;
+}
+
+/* ==========================
+   TABLE
+========================== */
+
+.table{
+    margin-bottom:0;
+}
+
+.table th{
+    white-space:nowrap;
+    font-weight:600;
+    vertical-align:middle;
+}
+
+.table td{
+    vertical-align:middle;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.btn{
+    border-radius:8px;
+}
+
+.btn-sm{
+    width:36px;
+    height:36px;
+    padding:0;
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width:768px){
+
+    .card-header .d-flex{
+        flex-direction:column;
+        align-items:stretch !important;
+    }
+
+    .card-header .form-control{
+        width:100% !important;
+    }
+
+    .table th,
+    .table td{
+        font-size:14px;
+    }
+
+    .btn-sm{
+        width:34px;
+        height:34px;
+    }
+
+}
+
+@media (max-width:576px){
+
+    .card-body{
+        padding:1rem;
+    }
+
+    .btn{
+        font-size:14px;
+    }
+
+}

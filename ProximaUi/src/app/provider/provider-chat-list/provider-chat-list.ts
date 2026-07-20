@@ -51,6 +51,9 @@ search = '';
 
   }
 
+
+ 
+
 openChat(chat: any) {
 
   console.log("Selected Chat =", chat);

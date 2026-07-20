@@ -19,7 +19,7 @@ export class MyBookings implements OnInit {
   bookings: any[] = [];
 
   constructor(
-    private api: ApiService, private cdr: ChangeDetectorRef,private router: Router
+    private api: ApiService, private cdr: ChangeDetectorRef, private router: Router
   ) { }
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class MyBookings implements OnInit {
         next: (res: any) => {
 
           console.log("BOOKINGS=", res);
-console.log("FIRST BOOKING =", res[0]);
+          console.log("FIRST BOOKING =", res[0]);
           this.bookings = [...res];
 
           this.cdr.detectChanges();
@@ -105,56 +105,56 @@ console.log("FIRST BOOKING =", res[0]);
       });
 
   }
-cancelBooking(id: number) {
+  cancelBooking(id: number) {
 
-  const ok = confirm(
-    "Are you sure you want to cancel this booking?"
-  );
+    const ok = confirm(
+      "Are you sure you want to cancel this booking?"
+    );
 
-  if (!ok) {
-    return;
-  }
-
-  this.api
-    .cancelBooking(id)
-    .subscribe({
-
-      next: (res: any) => {
-
-        alert("Booking Cancelled ✅");
-
-        this.loadBookings();
- this.cdr.detectChanges();
-      },
-
-      error: (err) => {
-
-        console.log(err);
-
-        alert(
-          err.error?.message ||
-          err.error ||
-          "Cancel failed"
-        );
-
-      }
-
-    });
-
-}
-openChat(booking: any) {
-
-  console.log("OPEN CHAT =", booking);
-
-  this.router.navigate(
-    ['/customer-chat'],
-    {
-      state: {
-        booking: booking
-      }
+    if (!ok) {
+      return;
     }
-  );
 
-}
+    this.api
+      .cancelBooking(id)
+      .subscribe({
+
+        next: (res: any) => {
+
+          alert("Booking Cancelled ✅");
+
+          this.loadBookings();
+          this.cdr.detectChanges();
+        },
+
+        error: (err) => {
+
+          console.log(err);
+
+          alert(
+            err.error?.message ||
+            err.error ||
+            "Cancel failed"
+          );
+
+        }
+
+      });
+
+  }
+  openChat(booking: any) {
+
+    console.log("OPEN CHAT =", booking);
+
+    this.router.navigate(
+      ['/customer-chat'],
+      {
+        state: {
+          booking: booking
+        }
+      }
+    );
+
+  }
 }
 

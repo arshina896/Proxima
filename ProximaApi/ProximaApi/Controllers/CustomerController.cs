@@ -84,6 +84,7 @@ namespace ProximaApi.Controllers
 
                     ProviderName =b.Service.ServiceProvider.User.FullName,
                     ProviderUserId = b.Service.ServiceProvider.UserId,
+                    ProfileImage = b.Service.ServiceProvider.User.ProfileImage,
                     Price = b.Service.Price,
                     BookingDate =b.BookingDate,
 

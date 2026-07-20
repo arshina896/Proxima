@@ -49,6 +49,10 @@
         <i class="bi bi-grid-fill"></i>
         <span>Categories</span>
       </li>
+      <li (click)="scrollTo('profile'); closeSidebar()">
+        <i class="bi bi-person-fill"></i>
+        <span>Profile</span>
+      </li>
 
       <li class="logout" (click)="logout(); closeSidebar()">
         <i class="bi bi-box-arrow-right"></i>
@@ -61,10 +65,7 @@
 
   <!-- Overlay -->
 
-  <div
-    class="sidebar-overlay"
-    *ngIf="sidebarOpen"
-    (click)="closeSidebar()">
+  <div class="sidebar-overlay" *ngIf="sidebarOpen" (click)="closeSidebar()">
   </div>
 
   <!-- ===========================
@@ -126,6 +127,9 @@
       <app-admin-categories></app-admin-categories>
     </section>
 
+    <section id="profile">
+      <app-profile></app-profile>
+    </section>
   </main>
 
 </div>

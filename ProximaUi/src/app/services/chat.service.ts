@@ -75,31 +75,58 @@ export class ChatService {
   // Join Chat
   // ============================
 
-  joinChat(bookingId: number) {
+ joinChat(bookingId: number) {
 
-    this.currentBookingId = bookingId;
-
-    return this.hubConnection.invoke(
-      "JoinChat",
-      bookingId.toString()
-    );
-
+  if (!this.hubConnection) {
+    console.log("Hub not created");
+    return Promise.resolve();
   }
+
+  if (this.hubConnection.state !== signalR.HubConnectionState.Connected) {
+    console.log("Hub not connected");
+    return Promise.resolve();
+  }
+
+  this.currentBookingId = bookingId;
+
+  return this.hubConnection.invoke(
+    "JoinChat",
+    bookingId.toString()
+  );
+
+}
 
   // ============================
   // Leave Chat
   // ============================
 
+  // leaveChat(bookingId: number) {
+
+  //   this.currentBookingId = 0;
+
+  //   return this.hubConnection.invoke(
+  //     "LeaveChat",
+  //     bookingId.toString()
+  //   );
+
+  // }
   leaveChat(bookingId: number) {
 
-    this.currentBookingId = 0;
+  this.currentBookingId = 0;
 
-    return this.hubConnection.invoke(
-      "LeaveChat",
-      bookingId.toString()
-    );
-
+  if (
+    !this.hubConnection ||
+    this.hubConnection.state !== signalR.HubConnectionState.Connected
+  ) {
+    return Promise.resolve();
   }
+
+  return this.hubConnection.invoke(
+    "LeaveChat",
+    bookingId.toString()
+  );
+
+}
 
   // ============================
   // Receive Message
@@ -134,13 +161,20 @@ export class ChatService {
   // Get Conversation
   // ============================
 
-  getMessages(bookingId: number) {
+  // getMessages(bookingId: number) {
 
-    return this.http.get(
-      environments.apiUrl + "/chat/" + bookingId
-    );
+  //   return this.http.get(
+  //     environments.apiUrl + "/chat/" + bookingId
+  //   );
 
-  }
+  // }
+  getMessages(userId: number) {
+
+  return this.http.get(
+    environments.apiUrl + "/chat/conversation/" + userId
+  );
+
+}
 getChatList() {
 
   return this.http.get(
@@ -155,7 +189,7 @@ getProviderChatList() {
 
   return this.http.get(
 
-    environments.apiUrl + "/chat/provider-list"
+    environments.providerUrl + "/provider-list"
 
   );
 

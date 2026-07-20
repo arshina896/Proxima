@@ -78,14 +78,27 @@ namespace ProximaApi.Controllers
             }
         }
 
-        [HttpGet("{bookingId}")]
-        public async Task<IActionResult> GetConversation(int bookingId)
+      
+
+        [HttpGet("conversation/{userId}")]
+        public async Task<IActionResult> GetConversation(int userId)
         {
+            int currentUserId = int.Parse(
+                User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
             var messages = await _context.Messages
 
                 .Include(x => x.Sender)
 
-                .Where(x => x.BookingId == bookingId)
+                .Where(x =>
+
+                    (x.SenderId == currentUserId && x.ReceiverId == userId)
+
+                    ||
+
+                    (x.SenderId == userId && x.ReceiverId == currentUserId)
+
+                )
 
                 .OrderBy(x => x.SentAt)
 
@@ -104,6 +117,8 @@ namespace ProximaApi.Controllers
 
             return Ok(messages);
         }
+
+
         [HttpGet("list")]
         public async Task<IActionResult> ChatList()
         {
@@ -111,36 +126,34 @@ namespace ProximaApi.Controllers
                 User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
 
             var chats = await _context.Messages
-
                 .Include(m => m.Sender)
                 .Include(m => m.Receiver)
-
                 .Where(m =>
                     m.SenderId == userId ||
                     m.ReceiverId == userId)
-
-                .OrderByDescending(m => m.SentAt)
-
                 .ToListAsync();
 
             var result = chats
 
-                .GroupBy(m => m.BookingId)
+                // Same user -> one chat only
+                .GroupBy(m =>
+                    m.SenderId == userId
+                        ? m.ReceiverId
+                        : m.SenderId)
 
                 .Select(g =>
                 {
-                    var last = g.First();
+                    var last = g
+                        .OrderByDescending(x => x.SentAt)
+                        .First();
 
                     var otherUser =
                         last.SenderId == userId
+                            ? last.Receiver
+                            : last.Sender;
 
-                        ? last.Receiver
-                        : last.Sender;
-                  
                     return new
                     {
-                        BookingId = last.BookingId,
-
                         UserId = otherUser.Id,
 
                         Name = otherUser.FullName,
@@ -149,9 +162,13 @@ namespace ProximaApi.Controllers
 
                         LastMessage = last.Text,
 
-                        LastMessageTime = last.SentAt
+                        LastMessageTime = last.SentAt,
+
+                        BookingId = last.BookingId
                     };
                 })
+
+                .OrderByDescending(x => x.LastMessageTime)
 
                 .ToList();
 

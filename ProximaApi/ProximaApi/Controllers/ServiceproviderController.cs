@@ -277,6 +277,7 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
                     UserId = s.UserId,
                     s.BookingDate,
                     Status = s.Status.ToString(),
+                    ProfileImage = s.User.ProfileImage,
                     CustomerName = s.User.FullName,
                     s.Service.ServiceName,
 
@@ -393,6 +394,7 @@ string.IsNullOrWhiteSpace(dto.ServiceName)
          ServiceName = b.Service.ServiceName,
          CustomerName = b.User.FullName,
          b.BookingDate,
+         ProfileImage = b.User.ProfileImage,
          Status = b.Status.ToString()
      })
      .ToListAsync();

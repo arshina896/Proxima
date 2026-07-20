@@ -8,6 +8,7 @@ namespace ProximaApi.Hubs
     {
         public async Task JoinChat(string bookingId)
         {
+            Console.WriteLine($"JOIN ROOM : {bookingId}");
             await Groups.AddToGroupAsync(
                 Context.ConnectionId,
                 bookingId

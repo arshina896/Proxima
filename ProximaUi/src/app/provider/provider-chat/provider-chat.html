@@ -1,32 +1,32 @@
 <div class="chat-page">
 
     <!-- Header -->
-  <div class="chat-topbar">
+    <div class="chat-topbar">
 
-    <button class="back-btn" (click)="goBack()">
-        <i class="bi bi-arrow-left"></i>
-    </button>
+        <button class="back-btn" (click)="goBack()">
+            <i class="bi bi-arrow-left"></i>
+        </button>
 
-    <img
-        [src]="booking.profileImage ?
+        <img [src]="booking.profileImage ?
         'https://localhost:7040/' + booking.profileImage :
-        'assets/default-user.png'"
-        class="profile-image">
+        'assets/default-user.png'" class="profile-image">
 
-    <div class="user-info">
+        <div class="user-info">
 
-        <h5>{{booking.name}}</h5>
+           <h5>{{booking.name}}</h5>
+
+        </div>
 
     </div>
-
-</div>
 
     <!-- Chat Component -->
-    <div class="chat-body">
+   <div class="chat-body">
 
-        <app-chat [bookingId]="booking.bookingId" [receiverId]="booking.userId">
-        </app-chat>
+<app-chat
+    [bookingId]="booking.bookingId"
+    [receiverId]="booking.userId">
+</app-chat>
 
-    </div>
+</div>
 
 </div>

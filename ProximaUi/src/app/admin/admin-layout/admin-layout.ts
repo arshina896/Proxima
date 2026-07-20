@@ -8,11 +8,12 @@ import { AdminBookings } from '../admin-bookings/admin-bookings';
 import { AdminCategories } from '../admin-categories/admin-categories';
 import { AdminServices } from '../admin-services/admin-services';
 import { Router, RouterModule } from '@angular/router';
+import { Profile } from '../../pages/profile/profile';
 
 @Component({
   selector: 'app-admin-layout',
   standalone: true,
-  imports: [CommonModule,  RouterModule, AdminDashboard, AdminUsers, AdminProviders,AdminServices, AdminBookings, AdminCategories],
+  imports: [CommonModule,  RouterModule, AdminDashboard,Profile, AdminUsers, AdminProviders,AdminServices, AdminBookings, AdminCategories],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.css',
 })

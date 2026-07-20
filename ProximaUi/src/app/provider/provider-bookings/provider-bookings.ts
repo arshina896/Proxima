@@ -82,18 +82,36 @@ export class ProviderBookings implements OnInit {
     return item.id;
 
   }
- openChat(booking: any) {
+//  openChat(booking: any) {
 
-  console.log("OPEN CHAT =", booking);
+//   console.log("OPEN CHAT =", booking);
 
-  this.router.navigate(
-    ['/provider-chat'],
-    {
-      state: {
-        booking: booking
+//   this.router.navigate(
+//     ['/provider-chat'],
+//     {
+//       state: {
+//         booking: booking
+//       }
+//     }
+//   );
+
+// }
+
+
+
+openChat(booking:any){
+
+  this.router.navigate(['/provider-chat'],{
+    state:{
+      booking:{
+        bookingId: booking.id,
+        userId: booking.userId,
+        customerName: booking.customerName,
+        profileImage: booking.profileImage
       }
     }
-  );
+  });
 
 }
+
 }

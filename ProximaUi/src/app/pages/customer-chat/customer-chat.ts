@@ -15,18 +15,24 @@ import { Chat } from '../../components/chat/chat';
 export class CustomerChat {
   booking: any;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {
+//   constructor(private router: Router, private cdr: ChangeDetectorRef) {
 
-    this.booking = history.state.booking;
+//     this.booking = history.state.booking;
+// console.log("Customer Booking =", this.booking);
+//     console.log("CUSTOMER CHAT =", this.booking);
 
-    console.log("CUSTOMER CHAT =", this.booking);
+//     if (!this.booking) {
 
-    if (!this.booking) {
+//       this.router.navigate(['/my-bookings']);
 
-      this.router.navigate(['/my-bookings']);
+//     }
 
-    }
+//   }
+constructor(private router: Router) {
 
-  }
+  this.booking = history.state.booking;
+
+  console.log(this.booking);
+}
 
 }
