@@ -12,17 +12,23 @@ import { ApiService } from '../../services/api-service';
   styleUrl: './auth.css',
 })
 export class Auth {
-  // Toggle
+
   isRegister = false;
 
-  // Register
+
   fullname = '';
   confirmPassword = '';
 
-  // Common
+
   email = '';
   password = '';
+showForgot = false;
 
+forgotEmail = '';
+
+forgotPasswordValue = '';
+
+forgotConfirmPassword = '';
   constructor(
     private api: ApiService,
     private router: Router
@@ -113,31 +119,7 @@ export class Auth {
   // ------------------------
   // REGISTER
   // ------------------------
-//   register() {
 
-//     if (this.password != this.confirmPassword) {
-
-//       alert("Passwords do not match");
-
-//       return;
-
-//     }
-
-//     const data = {
-
-//       fullName: this.fullname,
-
-//       email: this.email,
-
-//       password: this.password,
-
-//       confirmPassword: this.confirmPassword
-
-//     };
-
-  
-
-//   }
 
 register() {
 
@@ -182,6 +164,45 @@ register() {
   });
 
 }
+forgotPassword() {
 
+  if (!this.forgotEmail || !this.forgotPasswordValue || !this.forgotConfirmPassword) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  if (this.forgotPasswordValue !== this.forgotConfirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  const data = {
+    email: this.forgotEmail,
+    newPassword: this.forgotPasswordValue
+  };
+
+  this.api.forgotPassword(data).subscribe({
+
+    next: (res: any) => {
+
+      alert(res.message);
+
+      this.showForgot = false;
+
+      this.forgotEmail = '';
+      this.forgotPasswordValue = '';
+      this.forgotConfirmPassword = '';
+
+    },
+
+    error: (err) => {
+
+      alert(err.error.message || err.error);
+
+    }
+
+  });
+
+}
 
 }

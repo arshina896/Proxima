@@ -11,7 +11,8 @@ using ProximaApi.Data;
 using ProximaApi.DTOs;
 using ProximaApi.Helpers;
 using ProximaApi.Models;
-
+using ProximaApi.DTOs;
+using Microsoft.AspNetCore.Authorization;
 namespace ProximaApi.Controllers
 {
     [Route("api/[controller]")]
@@ -106,7 +107,24 @@ namespace ProximaApi.Controllers
             });
         }
 
+        [AllowAnonymous]
+        [HttpPost("forgot-password")]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto dto)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Email.ToLower() == dto.Email.ToLower());
 
+            if (user == null)
+                return BadRequest(new { message = "Email not found" });
+
+            user.PasswordHash = PasswordHelper.HashPassword(dto.NewPassword);
+
+            user.UpdatedAt = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Password updated successfully" });
+        }
     }
 }
 

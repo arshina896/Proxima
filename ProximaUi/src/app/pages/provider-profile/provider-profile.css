@@ -1,26 +1,44 @@
-/* ===========================
-   Page
-=========================== */
+/* ==========================================
+   PAGE
+========================================== */
 
-body{
-    background:#f5f7fb;
+.provider-page{
+
+    padding-top:120px;
+
+    padding-bottom:70px;
+
 }
 
-/* ===========================
-   Provider Header
-=========================== */
+/* ==========================================
+   HEADER
+========================================== */
 
 .provider-header{
 
-    background:#fff;
+    background:#ffffff;
 
-    border-radius:20px;
+    border-radius:25px;
 
     padding:40px;
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow:0 15px 40px rgba(72,89,53,.12);
+
+    border:1px solid rgba(72,89,53,.08);
 
     margin-bottom:40px;
+
+}
+
+/* ==========================================
+   PROFILE IMAGE
+========================================== */
+
+.profile-wrapper{
+
+    display:flex;
+
+    justify-content:center;
 
 }
 
@@ -30,13 +48,21 @@ body{
 
     height:220px;
 
-    border-radius:50%;
-
     object-fit:cover;
 
-    border:6px solid #0d6efd;
+    border-radius:50%;
 
-    box-shadow:0 10px 25px rgba(13,110,253,.25);
+    border:6px solid #93A267;
+
+    box-shadow:0 12px 30px rgba(72,89,53,.18);
+
+    transition:.35s;
+
+}
+
+.provider-image:hover{
+
+    transform:scale(1.05);
 
 }
 
@@ -44,17 +70,45 @@ body{
 
     font-size:220px;
 
-    color:#ced4da;
+    color:#93A267;
 
 }
 
+/* ==========================================
+   INFO
+========================================== */
+
 .provider-info h2{
 
-    font-size:40px;
+    font-size:42px;
 
     font-weight:700;
 
-    color:#212529;
+    color:#1F2937;
+
+    margin:15px 0;
+
+}
+
+.verified{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:#EEF5EA;
+
+    color:#485935;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+    font-size:14px;
 
 }
 
@@ -62,125 +116,204 @@ body{
 
     font-size:20px;
 
+    color:#F59E0B;
+
     font-weight:600;
 
-    color:#ff9800;
+    margin-bottom:20px;
 
 }
 
 .rating span{
 
-    color:#6c757d;
+    color:#6B7280;
 
     font-size:15px;
 
 }
 
-.verify-badge{
+.contact-grid{
 
-    display:inline-block;
+    display:grid;
 
-    background:#eaf3ff;
+    grid-template-columns:repeat(2,1fr);
 
-    color:#0d6efd;
+    gap:15px;
 
-    padding:8px 20px;
+    margin-top:25px;
 
-    border-radius:30px;
+}
+
+.contact-grid div{
+
+    background:#F8F9F5;
+
+    padding:14px 18px;
+
+    border-radius:15px;
+
+    color:#4B5563;
+
+    font-size:15px;
+
+}
+
+.contact-grid i{
+
+    color:#485935;
+
+    margin-right:8px;
+
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.action-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:30px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.message-btn{
+
+    border:2px solid #485935;
+
+    background:white;
+
+    color:#485935;
+
+    padding:14px 30px;
+
+    border-radius:50px;
 
     font-weight:600;
 
-}
-
-.provider-info p{
-
-    font-size:17px;
-
-    color:#555;
-
-    margin-bottom:12px;
+    transition:.3s;
 
 }
 
-.provider-info i{
+.message-btn:hover{
 
-    color:#0d6efd;
+    background:#485935;
 
-}
-
-/* ===========================
-   Buttons
-=========================== */
-
-.btn-primary{
-
-    border-radius:30px;
-
-    padding:12px 28px;
-
-    font-weight:600;
+    color:white;
 
 }
 
-.btn-outline-primary{
+/* ==========================================
+   ABOUT
+========================================== */
 
-    border-radius:30px;
+.about-card{
 
-    padding:12px 28px;
+    background:white;
 
-    font-weight:600;
+    border-radius:22px;
 
-}
+    padding:35px;
 
-/* ===========================
-   About Card
-=========================== */
+    margin-bottom:50px;
 
-.card{
-
-    border:none;
-
-    border-radius:20px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    box-shadow:0 12px 30px rgba(72,89,53,.10);
 
 }
 
-.card h3{
+.about-card h3{
+
+    font-size:30px;
 
     font-weight:700;
 
-}
+    color:#1F2937;
 
-.card p{
-
-    color:#666;
-
-    line-height:1.8;
+    margin-bottom:18px;
 
 }
 
-/* ===========================
-   Services
-=========================== */
+.about-card p{
 
-.services-section{
+    color:#6B7280;
 
-    margin-top:50px;
+    line-height:1.9;
+
+    font-size:16px;
 
 }
+
+/* ==========================================
+   SERVICES
+========================================== */
+
+.services-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    margin-bottom:30px;
+
+}
+
+.services-header h3{
+
+    font-size:34px;
+
+    font-weight:700;
+
+    color:#1F2937;
+
+}
+
+.services-header p{
+
+    color:#6B7280;
+
+    margin-top:8px;
+
+}
+
+.service-count{
+
+    background:#EEF5EA;
+
+    color:#485935;
+
+    padding:10px 20px;
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   SERVICE CARD
+========================================== */
 
 .service-card{
 
-    background:#fff;
+    background:white;
 
-    border-radius:20px;
+    border-radius:22px;
 
     overflow:hidden;
 
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    box-shadow:0 12px 28px rgba(72,89,53,.10);
 
-    transition:.3s;
+    transition:.35s;
 
     height:100%;
 
@@ -190,7 +323,7 @@ body{
 
     transform:translateY(-8px);
 
-    box-shadow:0 18px 35px rgba(0,0,0,.15);
+    box-shadow:0 20px 40px rgba(72,89,53,.18);
 
 }
 
@@ -208,7 +341,7 @@ body{
 
     height:220px;
 
-    background:#eef4ff;
+    background:#EEF5EA;
 
     display:flex;
 
@@ -222,171 +355,261 @@ body{
 
     font-size:70px;
 
-    color:#0d6efd;
+    color:#485935;
 
 }
 
 .service-body{
 
-    padding:20px;
+    padding:25px;
 
     text-align:center;
 
 }
 
-.service-body h5{
+.service-body h4{
+
+    font-size:24px;
 
     font-weight:700;
 
-    margin-bottom:10px;
+    color:#1F2937;
+
+    margin-bottom:12px;
 
 }
 
-.description{
+.service-body p{
 
-    color:#666;
+    color:#6B7280;
 
-    min-height:60px;
+    min-height:70px;
+
+    line-height:1.7;
 
 }
 
-.price{
+.service-body h2{
 
-    color:#0d6efd;
+    color:#485935;
 
-    font-size:30px;
+    font-size:32px;
 
     font-weight:700;
 
-    margin:18px 0;
+    margin:20px 0;
 
 }
 
-.service-body button{
+.book-service-btn{
 
-    border-radius:10px;
+    width:100%;
+
+    border:none;
+
+    background:#485935;
+
+    color:white;
+
+    height:50px;
+
+    border-radius:50px;
 
     font-weight:600;
 
-}
-
-/* ===========================
-   Responsive
-=========================== */
-
-@media (max-width:992px){
-
-    .provider-header{
-
-        text-align:center;
-
-        padding:30px;
-
-    }
-
-    .provider-info{
-
-        margin-top:25px;
-
-    }
-
-    .provider-image{
-
-        width:180px;
-
-        height:180px;
-
-    }
-
-    .provider-icon{
-
-        font-size:180px;
-
-    }
-
-    .provider-info h2{
-
-        font-size:32px;
-
-    }
+    transition:.3s;
 
 }
 
-@media (max-width:768px){
+.book-service-btn:hover{
 
-    .provider-header{
-
-        padding:20px;
-
-    }
-
-    .provider-image{
-
-        width:150px;
-
-        height:150px;
-
-    }
-
-    .provider-icon{
-
-        font-size:150px;
-
-    }
-
-    .provider-info h2{
-
-        font-size:28px;
-
-    }
-
-    .rating{
-
-        font-size:18px;
-
-    }
-
-    .provider-info p{
-
-        font-size:15px;
-
-    }
-
-    .service-image{
-
-        height:200px;
-
-    }
+    background:#5b6f42;
 
 }
 
-@media (max-width:576px){
+/* ==========================================
+   TABLET
+========================================== */
 
-    .provider-image{
+@media(max-width:992px){
 
-        width:130px;
+.provider-header{
 
-        height:130px;
+text-align:center;
 
-    }
+padding:30px;
 
-    .provider-icon{
+}
 
-        font-size:130px;
+.provider-image{
 
-    }
+width:180px;
 
-    .provider-info h2{
+height:180px;
 
-        font-size:24px;
+}
 
-    }
+.provider-icon{
 
-    .btn-primary,
-    .btn-outline-primary{
+font-size:180px;
 
-        width:100%;
+}
 
-    }
+.provider-info h2{
+
+font-size:34px;
+
+}
+
+.contact-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.action-buttons{
+
+justify-content:center;
+
+}
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+.provider-page{
+
+padding-top:100px;
+
+}
+
+.provider-header{
+
+padding:22px;
+
+}
+
+.provider-image{
+
+width:150px;
+
+height:150px;
+
+}
+
+.provider-icon{
+
+font-size:150px;
+
+}
+
+.provider-info h2{
+
+font-size:28px;
+
+}
+
+.rating{
+
+font-size:18px;
+
+}
+
+.about-card{
+
+padding:25px;
+
+}
+
+.services-header{
+
+text-align:center;
+
+justify-content:center;
+
+gap:15px;
+
+}
+
+.services-header h3{
+
+font-size:28px;
+
+}
+
+.service-image{
+
+height:200px;
+
+}
+
+.action-buttons{
+
+flex-direction:column;
+
+}
+
+.book-btn,
+.message-btn{
+
+width:100%;
+
+}
+
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media(max-width:480px){
+
+.provider-image{
+
+width:130px;
+
+height:130px;
+
+}
+
+.provider-icon{
+
+font-size:130px;
+
+}
+
+.provider-info h2{
+
+font-size:24px;
+
+}
+
+.about-card h3{
+
+font-size:24px;
+
+}
+
+.services-header h3{
+
+font-size:24px;
+
+}
+
+.service-body h4{
+
+font-size:20px;
+
+}
+
+.service-body h2{
+
+font-size:28px;
+
+}
 
 }

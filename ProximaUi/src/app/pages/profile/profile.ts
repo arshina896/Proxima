@@ -16,13 +16,13 @@ export class Profile implements OnInit {
   selectedFile: File | null = null;
 
   imagePreview: string = '';
-
+role = localStorage.getItem("role");
   constructor(private api: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
 
     this.loadProfile();
-
+console.log(this.role);
   }
 
   loadProfile() {
@@ -193,4 +193,25 @@ for (let pair of formData.entries()) {
       });
 
   }
+applyProvider() {
+
+  this.api.applyProvider().subscribe({
+
+    next: (res: any) => {
+
+      alert("Application submitted successfully ✅");
+
+    },
+
+    error: (err) => {
+
+      alert(err.error);
+
+    }
+
+  });
+
+}
+
+
 }

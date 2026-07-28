@@ -1,640 +1,203 @@
-/* .section {
-
-    min-height: 100vh;
-
-    background:
-        linear-gradient(180deg,
-            #fafbfc,
-            #f1f5f9);
-
-    overflow: hidden;
-
-    padding-bottom: 60px;
-
-}
-
-
-.hero-text {
-
-    text-align: center;
-
-    padding-top: 90px;
-
-    max-width: 760px;
-
-    margin: auto;
-
-    margin-bottom: 20px;
-
-}
-
-.hero-text span {
-
-    display: block;
-
-    color: #ff6b2c;
-
-    font-size: 16px;
-
-    font-weight: 700;
-
-    letter-spacing: 1px;
-
-    margin-bottom: 16px;
-
-}
-
-.hero-text h1 {
-
-    font-size: 72px;
-
-    font-weight: 800;
-
-    line-height: 1.05;
-
-    color: #101828;
-
-    margin: 0;
-
-}
-
-.hero-text p {
-
-    margin-top: 22px;
-
-    font-size: 18px;
-
-    line-height: 1.8;
-
-    color: #667085;
-
-    max-width: 650px;
-
-    margin-inline: auto;
-
-}
-
-.hero-text button {
-
-    margin-top: 34px;
-
-    padding: 18px 38px;
-
-    border: none;
-
-    border-radius: 999px;
-
-    background:
-        linear-gradient(90deg,
-            #ff6b2c,
-            #ff8b55);
-
-    color: white;
-
-    font-size: 17px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 20px 50px rgba(255, 107, 44, .25);
-
-    transition: .3s;
-
-}
-
-.hero-text button:hover {
-
-    transform:
-        translateY(-4px);
-
-}
-
-
-.coverflow-container {
-
-    height: 650px;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    perspective: 1800px;
-
-    margin-top: 20px;
-
-}
-
-.coverflow {
-
-    position: relative;
-
-    width: 1200px;
-
-    height: 600px;
-
-}
-
-.coverflow-item {
-
-    position: absolute;
-
-    left: 50%;
-
-    top: 45%;
-
-    width: 240px;
-
-    height: 350px;
-
-    transition: .7s;
-
-    cursor: pointer;
-
-}
-
-.active {
-
-    width: 380px;
-
-    height: 500px;
-
-}
-
-.cover {
-
-    width: 100%;
-
-    height: 100%;
-
-    overflow: hidden;
-
-    border-radius: 30px;
-
-    background: white;
-
-    box-shadow:
-        0 40px 100px rgba(0, 0, 0, .16);
-
-}
-
-.cover img {
-
-    width: 100%;
-
-    height: 100%;
-
-    object-fit: cover;
-
-}
-
-.reflection {
-
-    position: absolute;
-
-    top: 100%;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 50%;
-
-    background-size: cover;
-
-    background-position: center;
-
-    transform: scaleY(-1);
-
-    opacity: .12;
-
-    filter: blur(10px);
-
-}
-
-
-
-@media(max-width:768px) {
-
-    .hero-text {
-
-        padding-top: 60px;
-
-    }
-
-    .hero-text h1 {
-
-        font-size: 40px;
-
-    }
-
-    .hero-text p {
-
-        font-size: 15px;
-
-        padding: 0 20px;
-
-    }
-
-    .active {
-
-        width: 240px;
-
-        height: 330px;
-
-    }
-
-}
-.card-details{
-
-text-align:center;
-
-margin-top:40px;
-
-}
-
-.card-details h2{
-
-font-size:32px;
-
-}
-
-.card-details p{
-
-font-size:20px;
-
-color:#ff6b2c;
-
-}
-
-.card-details button{
-
-padding:15px 40px;
-
-border:none;
-
-border-radius:40px;
-
-background:#ff6b2c;
-
-color:white;
-
-cursor:pointer;
-
-} */
-
-
-
 /* ==========================================
    HERO SECTION
 ========================================== */
 
 .section{
-
     min-height:100vh;
-
-    background:linear-gradient(
-        180deg,
-        #F8F9F5,
-        #EEF5EA
-    );
-
+    background:linear-gradient(180deg,#F8F9F5,#EEF5EA);
     overflow:hidden;
-
-    padding-bottom:70px;
-
+    padding:20px 0 60px;
 }
 
-
-/* ===========================
-   HERO TEXT
-=========================== */
-
-.hero-text{
-
-    text-align:center;
-
-    padding-top:90px;
-
-    max-width:760px;
-
-    margin:auto;
-
-    margin-bottom:30px;
-
-}
-
-.hero-text span{
-
-    display:block;
-
-    color:#93A267;
-
-    font-size:16px;
-
-    font-weight:700;
-
-    letter-spacing:1px;
-
-    margin-bottom:16px;
-
-    text-transform:uppercase;
-
-}
-
-.hero-text h1{
-
-    font-size:72px;
-
-    font-weight:800;
-
-    line-height:1.05;
-
-    color:#1F2937;
-
-    margin:0;
-
-}
-
-.hero-text p{
-
-    margin-top:24px;
-
-    font-size:18px;
-
-    line-height:1.8;
-
-    color:#6B7280;
-
-    max-width:650px;
-
-    margin-inline:auto;
-
-}
-
-
-/* ===========================
-   BUTTON
-=========================== */
-.hero-text button{
-
-    margin-top:35px;
-
-    padding:18px 40px;
-
-    border:none;
-
-    border-radius:999px;
-
-    background:#485935;
-
-    color:#fff;
-
-    font-size:17px;
-
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    box-shadow:0 18px 40px rgba(72,89,53,.25);
-
-}
-
-.hero-text button:hover{
-
-    background:#39482B;
-
-    transform:translateY(-4px);
-
-}
-
-/* ===========================
+/* ==========================================
    COVERFLOW
-=========================== */
+========================================== */
 
 .coverflow-container{
-
-    height:650px;
-
+    height:600px;
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
     perspective:1800px;
-
-    margin-top:20px;
-
 }
 
 .coverflow{
-
     position:relative;
-
-    width:1200px;
-
-    height:600px;
-
+    width:1100px;
+    height:520px;
 }
 
 .coverflow-item{
-
     position:absolute;
-
     left:50%;
-
-    top:45%;
-
-    width:240px;
-
-    height:350px;
-
-    transition:.7s;
-
+    top:50%;
+    width:220px;
+    height:330px;
+    transform-origin:center;
+    transition:.6s ease;
     cursor:pointer;
-
-}
-
-.active{
-
-    width:380px;
-
-    height:500px;
-
 }
 
 
-/* ===========================
+.coverflow-item.active{
+    width:320px;
+    height:430px;
+    z-index:20;
+}
+
+/* ==========================================
    CARD
-=========================== */
+========================================== */
 
 .cover{
-
     width:100%;
-
     height:100%;
-
     overflow:hidden;
-
-    border-radius:28px;
-
-    background:#ffffff;
-
-    box-shadow:0 30px 70px rgba(72,89,53,.18);
-
+    border-radius:25px;
+    background:#fff;
+    box-shadow:0 25px 60px rgba(0,0,0,.18);
 }
 
 .cover img{
-
     width:100%;
-
     height:100%;
-
     object-fit:cover;
-
+    transition:.4s;
 }
 
+.coverflow-item:hover img{
+    transform:scale(1.04);
+}
 
-/* ===========================
+/* ==========================================
    REFLECTION
-=========================== */
+========================================== */
 
 .reflection{
-
     position:absolute;
-
     top:100%;
-
     left:0;
-
     width:100%;
-
-    height:50%;
-
+    height:45%;
     background-size:cover;
-
     background-position:center;
-
     transform:scaleY(-1);
-
-    opacity:.12;
-
+    opacity:.08;
     filter:blur(10px);
-
 }
 
-
-/* ===========================
+/* ==========================================
    DETAILS
-=========================== */
+========================================== */
 
 .card-details{
-
+    margin-top:15px;
     text-align:center;
-
-    margin-top:40px;
-
 }
 
 .card-details h2{
-
+    margin:0;
     font-size:34px;
-
     font-weight:700;
-
-    color:#1F2937;
-
+    color:#26331F;
 }
 
 .card-details p{
-
-    font-size:20px;
-
-    color:#485935;
-
-    margin-top:10px;
-
+    margin-top:8px;
+    margin-bottom:18px;
+    font-size:24px;
+    font-weight:600;
+    color:#4C6B3C;
 }
 
 .card-details button{
-
-    margin-top:25px;
-
-    padding:15px 42px;
-
+    padding:14px 38px;
     border:none;
-
-    border-radius:50px;
-
-    background:linear-gradient(
-        135deg,
-        #485935,
-        #93A267
-    );
-
+    border-radius:40px;
+    background:#4C6B3C;
     color:#fff;
-
+    font-size:16px;
     font-weight:600;
-
     cursor:pointer;
-
     transition:.3s;
-
-    box-shadow:0 15px 35px rgba(72,89,53,.22);
-
 }
 
 .card-details button:hover{
-
-    transform:translateY(-4px);
-
+    background:#39482B;
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(72,89,53,.25);
 }
 
-
-/* ===========================
+/* ==========================================
    RESPONSIVE
-=========================== */
+========================================== */
+
+@media(max-width:992px){
+
+.coverflow{
+    width:850px;
+}
+
+.coverflow-item{
+    width:180px;
+    height:270px;
+}
+
+.coverflow-item.active{
+    width:280px;
+    height:390px;
+}
+
+.card-details h2{
+    font-size:28px;
+}
+
+}
 
 @media(max-width:768px){
 
-.hero-text{
-
-padding-top:60px;
-
-}
-
-.hero-text h1{
-
-font-size:42px;
-
-}
-
-.hero-text p{
-
-font-size:16px;
-
-padding:0 20px;
-
-}
-
-.active{
-
-width:240px;
-
-height:330px;
-
+.section{
+    padding-top:15px;
 }
 
 .coverflow-container{
+    height:380px;
+}
 
-height:500px;
+.coverflow{
+    width:100%;
+    height:340px;
+}
 
+.coverflow-item{
+    width:120px;
+    height:180px;
+}
+
+.coverflow-item.active{
+    width:190px;
+    height:270px;
+}
+
+.reflection{
+    display:none;
+}
+
+.card-details{
+    margin-top:20px;
+    padding:0 20px;
+}
+
+.card-details h2{
+    font-size:24px;
+}
+
+.card-details p{
+    font-size:18px;
+}
+
+.card-details button{
+    width:220px;
 }
 
 }

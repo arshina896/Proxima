@@ -14,7 +14,9 @@ export class AdminService {
   approveProvider(id: number) {
     return this.http.post(environments.adminUrl + '/approve/' + id, {});
   }
-
+rejectProvider(id: number) {
+  return this.http.put(environments.adminUrl + "/reject/" + id,{});
+}
   createCategory(data: any) {
     return this.http.post(environments.adminUrl + '/category', data);
   }

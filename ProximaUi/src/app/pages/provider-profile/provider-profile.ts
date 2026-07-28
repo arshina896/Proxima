@@ -40,6 +40,10 @@ export class ProviderProfile implements OnInit {
       });
 
   }
+
+
+
+
   bookService(id: number) {
 
   this.router.navigate(['/service', id]);

@@ -77,6 +77,21 @@ namespace ProximaApi.Controllers
             await _context.SaveChangesAsync();
             return Ok("Service provider approved successfully");
         }
+        [HttpPut("reject/{id}")]
+        public async Task<IActionResult> RejectProvider(int id)
+        {
+            var provider = await _context.ServiceProviders
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (provider == null)
+                return NotFound("Provider not found");
+
+            _context.ServiceProviders.Remove(provider);
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Provider rejected");
+        }
         [HttpDelete("category/{id}")]
         public async Task <IActionResult> DeleteCategory(int id)
         {
@@ -100,22 +115,7 @@ namespace ProximaApi.Controllers
             await _context.SaveChangesAsync();
             return Ok(category);
         }
-        //[HttpGet("stats")]
-        //public async Task<IActionResult> GetStats()
-        //{
-        //    var totalUsers = await _context.Users.CountAsync();
-        //    var totalProviders = await _context.ServiceProviders.CountAsync();
-        //    var totalCategories = await _context.ServicesCategories.CountAsync();
-        //    var totalServices = await _context.Services.CountAsync();
-
-        //    return Ok(new
-        //    {
-        //        totalUsers,
-        //        totalProviders,
-        //        totalCategories,
-        //        totalServices
-        //    });
-        //}
+        
         [HttpGet("stats")]
         public async Task<IActionResult> GetStats()
         {

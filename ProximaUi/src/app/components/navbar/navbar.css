@@ -1,364 +1,81 @@
-/* .custom-navbar {
-
-    height: 80px;
-
-    background: #0f172a;
-
-    padding: 0 40px;
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 999;
-
-    box-shadow:
-        0 2px 20px rgba(0, 0, 0, .2);
-
-}
-
-
-.left-section {
-
-    display: flex;
-
-    align-items: center;
-
-}
-
-.logo {
-
-    width: 78px;
-
-    height: 68px;
-
-    object-fit: contain;
-
-}
-
-.brand-name {
-
-    color: white;
-
-    font-size: 28px;
-
-    font-weight: 700;
-
-    margin-left: 10px;
-
-}
-
-
-.center-section {
-
-    position: absolute;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-}
-
-.search-box {
-
-    width: 450px;
-
-    padding: 12px 18px;
-
-    border: none;
-
-    border-radius: 30px;
-
-    background: #1e293b;
-
-    color: white;
-
-}
-
-.search-box:focus {
-
-    outline: none;
-
-}
-
-
-.right-section {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 16px;
-
-}
-
-
-.notification-btn {
-
-    background: none;
-
-    border: none;
-
-    font-size: 28px;
-
-    position: relative;
-
-}
-
-.notification-count {
-
-    position: absolute;
-
-    top: -4px;
-
-    right: -6px;
-
-    background: #ff3040;
-
-    color: white;
-
-    width: 18px;
-
-    height: 18px;
-
-    border-radius: 50%;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-}
-
-
-.booking-btn {
-
-    border: none;
-
-    background: #2563eb;
-
-    color: white;
-
-    padding: 10px 16px;
-
-    border-radius: 10px;
-
-}
-
-.logout-btn {
-
-    border: none;
-
-    background: #ef4444;
-
-    color: white;
-
-    padding: 10px 16px;
-
-    border-radius: 10px;
-
-}
-
-.booking-btn:hover,
-.logout-btn:hover {
-
-    transform: translateY(-2px);
-
-    transition: .3s;
-
-}
-
-
-@media(max-width:900px) {
-
-    .search-box {
-
-        width: 220px;
-
-    }
-
-    .brand-name {
-
-        display: none;
-
-    }
-
-}
-
-.profile-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
-}
-
-.profile-icon {
-    font-size: 42px;
-    color: #555;
-    cursor: pointer;
-}
-
-.profile-icon:hover {
-    color: #0d6efd;
-} */
-/* ===========================
-   PROXIMA NAVBAR
-=========================== */
-/* ===========================
-   PROXIMA GLASS NAVBAR
-=========================== */
+/* ==========================================
+   NAVBAR
+========================================== */
 
 .custom-navbar{
-
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-
-    height: 80px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 40px;
-
-    background: rgba(255,255,255,.08);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-
-    border-bottom: 1px solid rgba(255,255,255,.15);
-
     z-index: 1000;
 
-    transition: .35s;
+    background: #48593519;
+   
+
 }
 
-/* ===========================
-   LEFT
-=========================== */
-
-.left-section{
-
+.container-fluid{
     display:flex;
     align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:12px 35px;
+}
+
+/* ================= LEFT ================= */
+
+.left-section{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
 
 .logo{
-
-    width:70px;
-    height:70px;
+    width:60px;
+    height:60px;
     object-fit:contain;
 }
 
 .brand-name{
-
-    margin-left:10px;
-
     font-size:30px;
     font-weight:700;
-
     color:#485935;
 }
 
-/* ===========================
-   CENTER
-=========================== */
 
-.center-section{
 
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-}
 
-.search-box{
-
-    width:420px;
-
-    padding:12px 20px;
-
-    border:none;
-    outline:none;
-
-    border-radius:50px;
-
-    background:rgba(255,255,255,.55);
-
-    color:#485935;
-
-    backdrop-filter:blur(10px);
-
-    transition:.3s;
-}
-
-.search-box::placeholder{
-
-    color:#666;
-}
-
-.search-box:focus{
-
-    background:white;
-
-    box-shadow:
-    0 0 0 4px rgba(72,89,53,.15);
-
-}
-
-/* ===========================
-   RIGHT
-=========================== */
+/* ================= RIGHT ================= */
 
 .right-section{
-
     display:flex;
     align-items:center;
-    gap:15px;
+    gap:12px;
 }
 
 /* Notification */
 
 .notification-btn{
-
-    position:relative;
-
-    width:46px;
-    height:46px;
+    width:45px;
+    height:45px;
 
     border:none;
-
     border-radius:50%;
-
-    background:rgba(255,255,255,.55);
-
-    color:#485935;
-
-    font-size:22px;
-
-    cursor:pointer;
-
-    transition:.3s;
-}
-
-.notification-btn:hover{
 
     background:#485935;
 
-    color:white;
+    cursor:pointer;
+
+    position:relative;
+
+    font-size:22px;
+
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
 .notification-count{
-
     position:absolute;
-
-    top:-5px;
+    top:-4px;
     right:-4px;
 
     width:20px;
@@ -366,34 +83,26 @@
 
     border-radius:50%;
 
-    background:#d94d4d;
-
+    background:#ef4444;
     color:white;
 
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
 
     font-size:11px;
-
-    font-weight:700;
 }
 
-/* ===========================
-   BUTTONS
-=========================== */
+/* Buttons */
 
 .booking-btn{
-
     border:none;
+    padding:11px 22px;
+
+    border-radius:40px;
 
     background:#485935;
-
     color:white;
-
-    padding:11px 20px;
-
-    border-radius:50px;
 
     font-weight:600;
 
@@ -401,46 +110,60 @@
 }
 
 .booking-btn:hover{
-
-    background:#5b6f42;
-
-    transform:translateY(-2px);
+    background:#5c7342;
 }
 
-.logout-btn{
-
+.chat-btn{
     border:none;
 
-    background:white;
+    padding:11px 22px;
 
-    color:#485935;
+    border-radius:40px;
+ background:#485935;
 
-    padding:11px 20px;
+    color:white;
 
-    border-radius:50px;
+    display:flex;
+    align-items:center;
+    gap:8px;
 
     font-weight:600;
 
     transition:.3s;
 }
 
-.logout-btn:hover{
-
-    background:#485935;
-
-    color:white;
-
-    transform:translateY(-2px);
+.chat-btn:hover{
+       background:#5c7342;
 }
 
-/* ===========================
-   PROFILE
-=========================== */
+.logout-btn{
+    border:none;
+
+    padding:11px 20px;
+
+    border-radius:40px;
+
+    background:#fff;
+
+    color:#485935;
+
+    font-weight:600;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+}
+
+.logout-btn:hover{
+    background:#485935;
+    color:white;
+}
+
+/* Profile */
 
 .profile-avatar{
-
-    width:45px;
-    height:45px;
+    width:44px;
+    height:44px;
 
     border-radius:50%;
 
@@ -452,78 +175,170 @@
 }
 
 .profile-icon{
-
     font-size:42px;
+    color:#485935;
+    cursor:pointer;
+}
+
+/* ================= MENU ================= */
+
+.menu-btn{
+
+    display:none;
+
+    border:none;
+
+    background:none;
+
+    font-size:32px;
 
     color:#485935;
 
     cursor:pointer;
-
-    transition:.3s;
 }
 
-.profile-icon:hover{
-
-    transform:scale(1.08);
-}
-
-/* ===========================
-   MOBILE
-=========================== */
+/* ==========================================
+   TABLET
+========================================== */
 
 @media(max-width:992px){
 
-    .center-section{
+.container-fluid{
 
-        display:none;
-    }
-
-    .brand-name{
-
-        display:none;
-    }
-
-    .custom-navbar{
-
-        padding:0 20px;
-    }
+    flex-wrap:wrap;
 
 }
-/* chat */
-.chat-btn{
 
-    background:#0d6efd;
 
-    color:#fff;
 
-    border:none;
+.brand-name{
 
-    padding:8px 18px;
+    font-size:24px;
 
-    border-radius:30px;
+}
 
-    font-weight:600;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+.container-fluid{
+
+    padding:12px 18px;
+
+}
+
+.logo{
+
+    width:52px;
+    height:52px;
+
+}
+
+.brand-name{
+
+    font-size:22px;
+
+}
+
+
+
+/* Hamburger */
+
+.menu-btn{
+
+    display:block;
+
+}
+
+/* Hide menu */
+
+.right-section{
+
+    display:none;
+
+    width:100%;
+
+    margin-top:15px;
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+    gap:12px;
+
+}
+
+/* Show menu */
+
+.right-section.show{
 
     display:flex;
 
-    align-items:center;
+}
 
-    gap:8px;
+/* Buttons */
 
-    transition:.3s;
+.booking-btn,
+.chat-btn,
+.logout-btn{
+
+    width:100%;
+
+    justify-content:center;
 
 }
 
-.chat-btn:hover{
+/* Notification */
 
-    background:#0b5ed7;
+.notification-wrapper{
 
-    transform:translateY(-2px);
+    display:flex;
+
+    justify-content:center;
 
 }
 
-.chat-btn i{
+/* Profile */
+
+.profile-wrapper{
+
+    display:flex;
+
+    justify-content:center;
+
+}
+
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media(max-width:480px){
+
+.container-fluid{
+
+    padding:10px 12px;
+
+}
+
+.logo{
+
+    width:46px;
+    height:46px;
+
+}
+
+.brand-name{
 
     font-size:18px;
+
+}
+
+
 
 }

@@ -1,146 +1,112 @@
-/* .provider-card{
+/* ==========================================
+   PROVIDER SECTION
+========================================== */
 
-    background:#fff;
+.provider-section{
 
-    border-radius:20px;
+    padding:70px 0;
 
-    overflow:hidden;
+}
 
-    box-shadow:0 8px 20px rgba(0,0,0,.08);
+/* ==========================================
+   SECTION HEADER
+========================================== */
 
-    transition:.3s;
+.section-header{
+
+    margin-bottom:50px;
+
+}
+
+.section-tag{
+
+    display:inline-block;
+
+    padding:8px 18px;
+
+    border-radius:30px;
+
+    background:#eef5ea;
+
+    color:#485935;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+    margin-bottom:18px;
+
+}
+
+.section-title{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    color:#1f2937;
+
+    margin-bottom:15px;
+
+}
+
+.section-subtitle{
+
+    max-width:650px;
+
+    margin:auto;
+
+    color:#6b7280;
+
+    font-size:17px;
+
+    line-height:1.8;
+
+}
+
+/* ==========================================
+   CARD
+========================================== */
+
+.provider-card{
+
+    background:#ffffff;
+
+    border-radius:24px;
+
+    padding:32px 22px;
+
+    text-align:center;
+
+    border:1px solid rgba(72,89,53,.08);
+
+    box-shadow:0 12px 30px rgba(72,89,53,.10);
+
+    transition:all .35s ease;
 
     height:100%;
+
 }
 
 .provider-card:hover{
 
     transform:translateY(-8px);
 
-    box-shadow:0 18px 35px rgba(0,0,0,.15);
-}
-
-.provider-img{
-
-    width:110px;
-
-    height:110px;
-
-    border-radius:50%;
-
-    object-fit:cover;
-
-    border:4px solid #0d6efd;
-
-    margin-top:25px;
-}
-
-.provider-icon{
-
-    font-size:110px;
-
-    color:#cfd4da;
-
-    margin-top:20px;
-}
-
-.provider-body{
-
-    padding:20px;
-
-    text-align:center;
-}
-
-.provider-body h5{
-
-    font-weight:700;
-
-    margin-top:10px;
-}
-
-.provider-body p{
-
-    color:#666;
-}
-
-.rating{
-
-    color:#ff9800;
-
-    font-weight:600;
-
-    margin-top:10px;
-}
-
-.rating span{
-
-    color:#777;
-
-    font-size:13px;
-}
-
-.service-count{
-
-    background:#eef4ff;
-
-    color:#0d6efd;
-
-    border-radius:25px;
-
-    display:inline-block;
-
-    padding:8px 18px;
-
-    font-weight:600;
-
-    margin-top:12px;
-}
-
-.provider-card button{
-
-    border-radius:10px;
-
-    font-weight:600;
-}
-
-@media(max-width:768px){
-
-.provider-img{
-
-width:90px;
-
-height:90px;
-}
-
-.provider-icon{
-
-font-size:90px;
-}
-
-} */
- .provider-card{
-
-    background:#fff;
-
-    border-radius:25px;
-
-    padding:30px 20px;
-
-    text-align:center;
-
-    transition:.35s;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
-
-    height:100%;
+    box-shadow:0 20px 45px rgba(72,89,53,.18);
 
 }
 
-.provider-card:hover{
+/* ==========================================
+   IMAGE
+========================================== */
 
-    transform:translateY(-10px);
+.provider-image-wrapper{
 
-    box-shadow:0 20px 45px rgba(0,0,0,.18);
+    margin-bottom:22px;
 
 }
 
@@ -154,9 +120,9 @@ font-size:90px;
 
     border-radius:50%;
 
-    border:5px solid #2563eb;
+    border:5px solid #93A267;
 
-    transition:.4s;
+    transition:.35s;
 
 }
 
@@ -164,29 +130,35 @@ font-size:90px;
 
     transform:scale(1.08);
 
+    border-color:#485935;
+
 }
 
 .provider-icon{
 
     font-size:120px;
 
-    color:#d1d5db;
+    color:#93A267;
 
 }
 
+/* ==========================================
+   BODY
+========================================== */
+
 .provider-body{
 
-    margin-top:20px;
+    margin-top:10px;
 
 }
 
 .provider-name{
 
-    font-size:28px;
+    font-size:26px;
 
     font-weight:700;
 
-    color:#1f2937;
+    color:#1F2937;
 
     margin-bottom:8px;
 
@@ -196,13 +168,17 @@ font-size:90px;
 
     display:block;
 
-    color:#6b7280;
+    color:#6B7280;
 
     font-size:15px;
 
     margin-bottom:25px;
 
 }
+
+/* ==========================================
+   BUTTON
+========================================== */
 
 .profile-btn{
 
@@ -214,27 +190,87 @@ font-size:90px;
 
     border-radius:50px;
 
-    background:#2563eb;
+    background:#485935;
 
-    color:white;
+    color:#fff;
 
-    font-size:17px;
+    font-size:16px;
 
     font-weight:600;
 
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
     transition:.3s;
+
+    box-shadow:0 12px 24px rgba(72,89,53,.18);
 
 }
 
 .profile-btn:hover{
 
-    background:#1d4ed8;
+    background:#5b6f42;
 
     transform:translateY(-2px);
 
 }
 
+/* ==========================================
+   TABLET
+========================================== */
+
+@media(max-width:992px){
+
+.section-title{
+
+font-size:36px;
+
+}
+
+.provider-name{
+
+font-size:24px;
+
+}
+
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
 @media(max-width:768px){
+
+.provider-section{
+
+padding:50px 0;
+
+}
+
+.section-title{
+
+font-size:30px;
+
+}
+
+.section-subtitle{
+
+font-size:15px;
+
+padding:0 15px;
+
+}
+
+.provider-card{
+
+padding:25px 18px;
+
+}
 
 .provider-img{
 
@@ -252,7 +288,49 @@ font-size:95px;
 
 .provider-name{
 
-font-size:22px;
+font-size:21px;
+
+}
+
+.profile-btn{
+
+height:48px;
+
+font-size:15px;
+
+}
+
+}
+
+/* ==========================================
+   SMALL MOBILE
+========================================== */
+
+@media(max-width:480px){
+
+.section-title{
+
+font-size:26px;
+
+}
+
+.section-tag{
+
+font-size:12px;
+
+padding:6px 14px;
+
+}
+
+.provider-card{
+
+padding:22px 16px;
+
+}
+
+.profile-btn{
+
+font-size:14px;
 
 }
 

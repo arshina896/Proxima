@@ -10,6 +10,7 @@ import { Navbar } from '../../components/navbar/navbar';
 import { Hero } from '../../components/hero/hero';
 import { ProviderList } from '../../components/provider-list/provider-list';
 import { CategoryList } from '../../components/category-list/category-list';
+import { Footer } from '../../components/footer/footer';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ import { CategoryList } from '../../components/category-list/category-list';
     Navbar,
     Hero,
     ProviderList,
-    CategoryList
+    CategoryList,
+    Footer
   ],
   templateUrl: './home.html',
   styleUrl: './home.css'

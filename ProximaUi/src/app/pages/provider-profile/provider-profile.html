@@ -1,4 +1,4 @@
-<div class="container py-5" *ngIf="provider">
+<div class="container py-5 provider-page" *ngIf="provider">
 
     <!-- ========================= -->
     <!-- Provider Header -->
@@ -10,33 +10,45 @@
 
             <!-- Profile Image -->
 
-            <div class="col-lg-3 col-md-4 col-12 text-center">
+            <div class="col-lg-3 col-md-4 text-center">
 
-                <img *ngIf="provider.profileImage" [src]="'https://localhost:7040/' + provider.profileImage"
-                    class="provider-image img-fluid">
+                <div class="profile-wrapper">
 
-                <i *ngIf="!provider.profileImage" class="bi bi-person-circle provider-icon">
-                </i>
+                    <img *ngIf="provider.profileImage" [src]="'https://localhost:7040/' + provider.profileImage"
+                        class="provider-image">
+
+                    <i *ngIf="!provider.profileImage" class="bi bi-person-circle provider-icon">
+                    </i>
+
+                </div>
 
             </div>
 
-            <!-- Provider Details -->
+            <!-- Provider Info -->
 
-            <div class="col-lg-9 col-md-8 col-12">
+            <div class="col-lg-9 col-md-8">
 
                 <div class="provider-info">
 
-                    <h2 class="mb-2">
+                    <span class="verified">
+
+                        <i class="bi bi-patch-check-fill"></i>
+
+                        Verified Professional
+
+                    </span>
+
+                    <h2>
 
                         {{provider.fullName}}
 
                     </h2>
 
-                    <div class="rating mb-3">
+                    <div class="rating">
 
                         ⭐ {{provider.rating}}
 
-                        <span class="ms-2">
+                        <span>
 
                             ({{provider.totalReviews}} Reviews)
 
@@ -44,65 +56,35 @@
 
                     </div>
 
-                    <div class="verify-badge mb-4">
+                    <div class="contact-grid">
 
-                        <i class="bi bi-patch-check-fill me-2"></i>
+                        <div>
 
-                        Verified Professional
+                            <i class="bi bi-geo-alt-fill"></i>
 
-                    </div>
+                            {{provider.city}}, {{provider.state}}
 
-                    <div class="row">
+                        </div>
 
-                        <div class="col-lg-6">
+                        <div>
 
-                            <p>
+                            <i class="bi bi-envelope-fill"></i>
 
-                                <i class="bi bi-geo-alt-fill me-2"></i>
+                            {{provider.email}}
 
-                                {{provider.city}}, {{provider.state}}
+                        </div>
 
-                            </p>
+                        <div>
 
-                            <p>
+                            <i class="bi bi-telephone-fill"></i>
 
-                                <i class="bi bi-envelope-fill me-2"></i>
-
-                                {{provider.email}}
-
-                            </p>
-
-                            <p>
-
-                                <i class="bi bi-telephone-fill me-2"></i>
-
-                                {{provider.phoneNumber}}
-
-                            </p>
+                            {{provider.phoneNumber}}
 
                         </div>
 
                     </div>
 
-                    <div class="mt-4 d-flex flex-wrap gap-3">
-
-                        <button class="btn btn-primary px-4 py-2">
-
-                            <i class="bi bi-calendar-check me-2"></i>
-
-                            Book Service
-
-                        </button>
-
-                        <button class="btn btn-outline-primary px-4 py-2">
-
-                            <i class="bi bi-chat-dots me-2"></i>
-
-                            Message
-
-                        </button>
-
-                    </div>
+                 
 
                 </div>
 
@@ -113,26 +95,22 @@
     </div>
 
     <!-- ========================= -->
-    <!-- About Provider -->
+    <!-- About -->
     <!-- ========================= -->
 
-    <div class="card shadow-sm border-0 rounded-4 mt-5">
+    <div class="about-card">
 
-        <div class="card-body p-4">
+        <h3>
 
-            <h3 class="fw-bold mb-3">
+            About Provider
 
-                About Provider
+        </h3>
 
-            </h3>
+        <p>
 
-            <p class="text-muted">
+            {{provider.about || 'No description available.'}}
 
-                {{provider.about || 'No description available'}}
-
-            </p>
-
-        </div>
+        </p>
 
     </div>
 
@@ -140,17 +118,27 @@
     <!-- Services -->
     <!-- ========================= -->
 
-    <div class="services-section mt-5">
+    <div class="services-section">
 
-        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+        <div class="services-header">
 
-            <h3 class="fw-bold mb-2">
+            <div>
 
-                Services Offered
+                <h3>
 
-            </h3>
+                    Services Offered
 
-            <span class="badge bg-primary fs-6">
+                </h3>
+
+                <p>
+
+                    Professional services provided by this expert
+
+                </p>
+
+            </div>
+
+            <span class="service-count">
 
                 {{provider.services.length}} Services
 
@@ -158,11 +146,11 @@
 
         </div>
 
-        <div class="row">
+        <div class="row g-4">
 
-            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 mb-4" *ngFor="let service of provider.services">
+            <div class="col-xl-4 col-lg-4 col-md-6" *ngFor="let service of provider.services">
 
-                <div class="service-card h-100">
+                <div class="service-card">
 
                     <img *ngIf="service.imageUrl" [src]="'https://localhost:7040/' + service.imageUrl"
                         class="service-image">
@@ -175,25 +163,25 @@
 
                     <div class="service-body">
 
-                        <h5>
+                        <h4>
 
                             {{service.serviceName}}
 
-                        </h5>
+                        </h4>
 
-                        <p class="description">
+                        <p>
 
                             {{service.description}}
 
                         </p>
 
-                        <h4 class="price">
+                        <h2>
 
                             ₹{{service.price}}
 
-                        </h4>
+                        </h2>
 
-                        <button class="btn btn-primary w-100" (click)="bookService(service.id)">
+                        <button class="book-service-btn" (click)="bookService(service.id)">
 
                             Book Now
 

@@ -79,5 +79,27 @@ export class AdminProviders implements OnInit {
     });
 
   }
+reject(id: number) {
 
+  if (!confirm("Reject this provider?")) return;
+
+  this.adminService.rejectProvider(id).subscribe({
+
+    next: () => {
+
+      alert("Provider Rejected");
+
+      this.loadProviders();
+
+    },
+
+    error: (err) => {
+
+      console.log(err);
+
+    }
+
+  });
+
+}
 }

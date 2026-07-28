@@ -8,12 +8,9 @@
 
     <p><b>Provider :</b> {{booking.providerName}}</p>
 
-  <app-chat
-   [bookingId]="booking.bookingId"
-[receiverId]="booking.userId">
+<app-chat
+    [bookingId]="booking.id"
+    [receiverId]="booking.providerUserId">
 </app-chat>
-<!-- <app-chat
-    [bookingId]="booking.bookingId"
-    [receiverId]="booking.userId">
-</app-chat> -->
+
 </div>

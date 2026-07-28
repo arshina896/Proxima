@@ -1,143 +1,59 @@
-<!-- <section class="container my-5">
+<section class="container my-5 provider-section">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- Section Heading -->
+    <div class="section-header text-center mb-5">
 
-        <div>
+        <span class="section-tag">
+            OUR PROFESSIONALS
+        </span>
 
-            <h3 class="fw-bold">
-                Explore Service Providers
-            </h3>
+        <h2 class="section-title">
+            Explore Service Providers
+        </h2>
 
-            <p class="text-muted mb-0">
-                Trusted professionals ready to help
-            </p>
-
-        </div>
+        <p class="section-subtitle">
+            Trusted professionals ready to help you with quality home services.
+        </p>
 
     </div>
 
+    <!-- Provider Cards -->
     <div class="row g-4">
 
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6" *ngFor="let provider of providers">
 
             <div class="provider-card">
 
-                <div class="text-center">
+                <!-- Image -->
+                <div class="provider-image-wrapper">
 
-                    <img *ngIf="provider.profileImage" [src]="'https://localhost:7040/' + provider.profileImage"
-                        class="provider-img">
+                    <img
+                        *ngIf="provider.profileImage"
+                        [src]="'https://localhost:7040/' + provider.profileImage"
+                        class="provider-img"
+                        alt="Provider">
 
-                    <i *ngIf="!provider.profileImage" class="bi bi-person-circle provider-icon">
+                    <i
+                        *ngIf="!provider.profileImage"
+                        class="bi bi-person-circle provider-icon">
                     </i>
 
                 </div>
 
-                <div class="provider-body">
-
-                    <h5>
-
-                        {{provider.fullName}}
-
-                    </h5>
-
-                    <p>
-
-                        <i class="bi bi-geo-alt-fill text-danger"></i>
-
-                        {{provider.city}},
-                        {{provider.state}}
-
-                    </p>
-
-                    <div class="rating">
-
-                        ⭐ {{provider.rating | number:'1.1-1'}}
-
-                        <span>
-
-                            ({{provider.totalReviews}} Reviews)
-
-                        </span>
-
-                    </div>
-
-                    <div class="service-count">
-
-                        {{provider.totalServices}}
-
-                        Services
-
-                    </div>
-
-                    <button class="btn btn-primary w-100 mt-3" [routerLink]="['/provider',provider.id]">
-
-                        View Profile
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section> -->
-<section class="container my-5">
-
-    <div class="d-flex justify-content-between align-items-center mb-4">
-
-        <div>
-
-            <h3 class="fw-bold">
-                Explore Service Providers
-            </h3>
-
-            <p class="text-muted mb-0">
-                Trusted professionals ready to help
-            </p>
-
-        </div>
-
-    </div>
-
-    <div class="row g-4">
-
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6"
-             *ngFor="let provider of providers">
-
-            <div class="provider-card">
-
-                <div class="text-center">
-
-                    <img *ngIf="provider.profileImage"
-                         [src]="'https://localhost:7040/' + provider.profileImage"
-                         class="provider-img">
-
-                    <i *ngIf="!provider.profileImage"
-                       class="bi bi-person-circle provider-icon">
-                    </i>
-
-                </div>
-
+                <!-- Details -->
                 <div class="provider-body">
 
                     <h4 class="provider-name">
-
                         {{provider.fullName}}
-
                     </h4>
 
-                    <small class="provider-role">
-
+                    <p class="provider-role">
                         Home Service Provider
-
-                    </small>
+                    </p>
 
                     <button
                         class="profile-btn"
-                        [routerLink]="['/provider',provider.id]">
+                        [routerLink]="['/provider', provider.id]">
 
                         View Profile
 

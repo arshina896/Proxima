@@ -79,7 +79,15 @@ export class ApiService {
       environments.apiUrl + '/customer/category/' + categoryId
     );
   }
-
+  applyProvider() {
+    return this.http.post(environments.apiUrl + "/customer/apply",{});
+  }
+  forgotPassword(data:any){
+  return this.http.post(
+    environments.apiUrl + '/user/forgot-password',
+    data
+  );
+}
 }
 
 // //   "email": "arshina@gmail.com",

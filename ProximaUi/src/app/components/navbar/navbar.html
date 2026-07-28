@@ -2,44 +2,58 @@
 
     <div class="container-fluid">
 
-        <!-- LOGO -->
-
+        <!-- LEFT -->
         <div class="left-section">
 
-
-            <img src="/assets/logo/F__3_-removebg-preview.png" class="logo">
+            <img
+                src="/assets/logo/F__3_-removebg-preview.png"
+                class="logo"
+                alt="Logo">
 
             <div class="brand-name">
-
                 PROXIMA
-
             </div>
 
         </div>
 
-        <!-- SEARCH -->
+     
 
-        <div class="center-section">
+        <!-- MOBILE MENU BUTTON -->
+        <button
+            class="menu-btn"
+            (click)="toggleMenu()">
 
-            <input class="search-box" type="text" placeholder="Search services...">
+            <i class="bi bi-list"></i>
 
-        </div>
+        </button>
 
-        <!-- RIGHT -->
+        <!-- RIGHT MENU -->
+        <div
+            class="right-section"
+            [class.show]="menuOpen">
+   <!-- SEARCH -->
+        <!-- <div class="center-section">
 
-        <div class="right-section">
+            <input
+                class="search-box"
+                type="text"
+                placeholder="Search services...">
 
-            <!-- NOTIFICATION -->
-
+        </div> -->
+            <!-- Notification -->
             <div class="dropdown notification-wrapper">
 
-                <button class="notification-btn" data-bs-toggle="dropdown">
+                <button
+                    class="notification-btn"
+                    data-bs-toggle="dropdown">
 
                     🔔
 
-                    <span class="notification-count" *ngIf="notifications.length">
+                    <span
+                        class="notification-count"
+                        *ngIf="notifications.length">
 
-                        {{notifications.length}}
+                        {{ notifications.length }}
 
                     </span>
 
@@ -48,9 +62,7 @@
                 <ul class="dropdown-menu dropdown-menu-end">
 
                     <li class="dropdown-header">
-
                         Notifications
-
                     </li>
 
                     <li *ngIf="notifications.length==0">
@@ -67,13 +79,13 @@
 
                         <div class="dropdown-item">
 
-                            {{n.message}}
+                            {{ n.message }}
 
                             <br>
 
                             <small>
 
-                                {{n.createdAt | date:'short'}}
+                                {{ n.createdAt | date:'short' }}
 
                             </small>
 
@@ -85,24 +97,51 @@
 
             </div>
 
-            <button routerLink="/my-bookings" class="booking-btn">
+            <!-- My Bookings -->
+
+            <button
+                routerLink="/my-bookings"
+                class="booking-btn">
 
                 My Bookings
 
             </button>
-            <button routerLink="/customer-chat-list" class="chat-btn">
+
+            <!-- Chat -->
+
+            <button
+                routerLink="/customer-chat-list"
+                class="chat-btn">
 
                 <i class="bi bi-chat-dots-fill"></i>
 
                 Chats
 
             </button>
-            <div class="profile-wrapper"> <img *ngIf="profileImage" [src]="profileImage" class="profile-avatar"
-                    routerLink="/profile"> <i *ngIf="!profileImage" class="bi bi-person-circle profile-icon"
-                    routerLink="/profile"></i>
+
+            <!-- Profile -->
+
+            <div class="profile-wrapper">
+
+                <img
+                    *ngIf="profileImage"
+                    [src]="profileImage"
+                    class="profile-avatar"
+                    routerLink="/profile">
+
+                <i
+                    *ngIf="!profileImage"
+                    class="bi bi-person-circle profile-icon"
+                    routerLink="/profile">
+                </i>
+
             </div>
 
-            <button (click)="logout()" class="logout-btn">
+            <!-- Logout -->
+
+            <button
+                (click)="logout()"
+                class="logout-btn">
 
                 Logout
 

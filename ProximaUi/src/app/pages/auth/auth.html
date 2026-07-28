@@ -8,13 +8,11 @@
   <!-- Login/Register Card -->
   <div class="auth-card">
 
-    <!-- Close -->
-    <div class="close-btn">
-      ✕
-    </div>
+  
 
     <!-- LOGIN -->
-    <div *ngIf="!isRegister">
+    <!-- <div *ngIf="!isRegister"> -->
+      <div *ngIf="!isRegister && !showForgot">
 
       <h2>Login</h2>
 
@@ -52,9 +50,9 @@
 
         </label>
 
-        <a href="#">
-          Forgot Password?
-        </a>
+        <a (click)="showForgot=true">
+    Forgot Password?
+</a>
 
       </div>
 
@@ -81,7 +79,8 @@
     </div>
 
     <!-- REGISTER -->
-    <div *ngIf="isRegister">
+    <!-- <div *ngIf="isRegister"> -->
+      <div *ngIf="isRegister && !showForgot">
 
       <h2>Create Account</h2>
 
@@ -155,6 +154,67 @@
 
     </div>
 
+ <!-- FORGOT PASSWORD -->
+
+<div *ngIf="showForgot">
+
+  <h2>Reset Password</h2>
+
+  <div class="input-box">
+
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="forgotEmail">
+
+    <i class="bi bi-envelope-fill"></i>
+
+  </div>
+
+  <div class="input-box">
+
+    <input
+      type="password"
+      placeholder="New Password"
+      [(ngModel)]="forgotPasswordValue">
+
+    <i class="bi bi-lock-fill"></i>
+
+  </div>
+
+  <div class="input-box">
+
+    <input
+      type="password"
+      placeholder="Confirm Password"
+      [(ngModel)]="forgotConfirmPassword">
+
+    <i class="bi bi-shield-lock-fill"></i>
+
+  </div>
+
+  <button
+    class="auth-btn"
+    (click)="forgotPassword()">
+
+    Update Password
+
+  </button>
+
+  <p>
+
+    Back to
+
+    <span (click)="showForgot=false">
+
+      Login
+
+    </span>
+
+  </p>
+
+</div>
+ 
   </div>
 
 </div>

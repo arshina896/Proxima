@@ -53,38 +53,8 @@
 
     z-index:10;
 }
+/* linear-gradient(rgba(72,89,53,.72),rgba(72,89,53,.72)) */
 
-.logo{
-
-    font-size:34px;
-    color:white;
-    font-weight:bold;
-    letter-spacing:2px;
-
-}
-
-.navbar ul{
-
-    display:flex;
-    gap:35px;
-    list-style:none;
-
-}
-
-.navbar a{
-
-    color:white;
-    text-decoration:none;
-    font-weight:500;
-    transition:.3s;
-
-}
-
-.navbar a:hover{
-
-    color:#66cfff;
-
-}
 
 /* ===========================
  CARD
@@ -98,7 +68,7 @@
 
     border-radius:22px;
 
-    background:rgba(255,255,255,.12);
+    background:linear-gradient(rgba(100, 114, 83, 0.296),rgba(85, 105, 63, 0.532));
 
     border:1px solid rgba(255,255,255,.25);
 
@@ -132,31 +102,6 @@
         transform:translateY(0) scale(1);
 
     }
-
-}
-
-/* ===========================
- CLOSE
-=========================== */
-
-.close-btn{
-
-    position:absolute;
-
-    right:18px;
-    top:15px;
-
-    font-size:22px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.close-btn:hover{
-
-    transform:rotate(180deg);
 
 }
 
@@ -280,9 +225,9 @@
 
     border-radius:8px;
 
-    background:white;
+    background:#354029;
 
-    color:#222;
+    color:#fffdfd;
 
     font-size:17px;
 
@@ -296,7 +241,7 @@
 
 .auth-btn:hover{
 
-    background:#00a8ff;
+    background:#5c7342;
 
     color:white;
 
@@ -338,18 +283,7 @@
 
 @media(max-width:768px){
 
-    .navbar{
-
-        padding:20px;
-
-    }
-
-    .navbar ul{
-
-        display:none;
-
-    }
-
+  
     .auth-card{
 
         width:92%;
@@ -358,10 +292,5 @@
 
     }
 
-    .logo{
-
-        font-size:28px;
-
-    }
-
+   
 }

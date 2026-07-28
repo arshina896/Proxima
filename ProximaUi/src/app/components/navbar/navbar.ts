@@ -67,5 +67,9 @@ export class Navbar {
     });
 
   }
+menuOpen = false;
 
+toggleMenu() {
+  this.menuOpen = !this.menuOpen;
+}
 }
